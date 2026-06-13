@@ -1,0 +1,2466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VAISHALI S — Haute Couture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+  :root{
+    --ivory:#FDFBF7;
+    --ivory-sub:#FAF9F6;
+    --stone:#EAE6DF;
+    --charcoal:#1C1C1C;
+    --muted-black:#0A0A0A;
+    --grey:#757575;
+    --serif:"Cormorant Garamond",serif;
+    --sans:"Inter",sans-serif;
+    --ease-luxury:cubic-bezier(0.25,1,0.5,1);
+  }
+
+  html{scroll-behavior:smooth;font-size:16px}
+  body{
+    background:var(--ivory);
+    color:var(--charcoal);
+    font-family:var(--sans);
+    font-weight:300;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ── NAV ─────────────────────────────────────────────────── */
+  nav{
+    position:fixed;
+    top:0;left:0;right:0;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:28px 64px;
+    transition:background 0.6s var(--ease-luxury),
+               padding 0.4s var(--ease-luxury),
+               backdrop-filter 0.4s;
+  }
+  nav.scrolled{
+    background:rgba(253,251,247,0.92);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    padding:18px 64px;
+    border-bottom:0.5px solid rgba(28,28,28,0.08);
+  }
+  .nav-left,.nav-right{
+    display:flex;
+    align-items:center;
+    gap:36px;
+    font-family:var(--sans);
+    font-size:0.68rem;
+    font-weight:500;
+    letter-spacing:0.2em;
+    text-transform:uppercase;
+    color:var(--charcoal);
+  }
+  .nav-center{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    font-family:var(--serif);
+    font-size:1.1rem;
+    font-weight:400;
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    color:var(--charcoal);
+  }
+  .nav-link{cursor:pointer;opacity:0.7;transition:opacity 0.3s;text-decoration:none;color:inherit}
+  .nav-link:hover{opacity:1}
+
+  /* ── OVERLAY NAV ─────────────────────────────────────────── */
+  .nav-overlay{
+    position:fixed;inset:0;
+    background:var(--ivory);
+    z-index:200;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity 0.6s var(--ease-luxury);
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    padding:80px 64px 64px;
+    gap:40px;
+  }
+  .nav-overlay.open{opacity:1;pointer-events:all}
+  .overlay-close{
+    position:absolute;top:28px;right:64px;
+    font-family:var(--sans);font-size:0.68rem;
+    font-weight:500;letter-spacing:0.2em;
+    text-transform:uppercase;cursor:pointer;opacity:0.6;
+    transition:opacity 0.3s;background:none;border:none;color:var(--charcoal);
+  }
+  .overlay-close:hover{opacity:1}
+  .overlay-col1{display:flex;flex-direction:column;justify-content:center;gap:8px}
+  .overlay-navlink{
+    font-family:var(--serif);
+    font-size:2.8rem;
+    font-weight:300;
+    line-height:1.2;
+    cursor:pointer;
+    opacity:0.35;
+    transition:opacity 0.4s var(--ease-luxury);
+    text-decoration:none;
+    color:var(--charcoal);
+    display:block;
+  }
+  .overlay-navlink:hover{opacity:1}
+  .overlay-col2{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .overlay-img{
+    width:100%;
+    height:420px;
+    object-fit:cover;
+    opacity:0;
+    transition:opacity 0.5s var(--ease-luxury);
+    background:var(--stone);
+  }
+  .overlay-col3{
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-end;
+    padding-bottom:20px;
+  }
+  .overlay-note{
+    font-family:var(--sans);
+    font-size:0.7rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--grey);
+    line-height:1.8;
+    writing-mode:vertical-rl;
+    transform:rotate(180deg);
+    align-self:flex-end;
+  }
+
+  /* ── HERO ────────────────────────────────────────────────── */
+  .hero{
+    position:relative;
+    height:100vh;
+    min-height:700px;
+    overflow:hidden;
+    background:var(--muted-black);
+  }
+  .hero-img{
+    position:absolute;inset:0;
+    width:100%;height:100%;
+    object-fit:cover;
+    opacity:0;
+    transform:scale(1.04);
+    animation:heroReveal 2.2s var(--ease-luxury) 0.3s forwards;
+  }
+  .hero-img-placeholder{
+    position:absolute;inset:0;
+    background:linear-gradient(160deg,#1a1410 0%,#2d2520 50%,#1a1410 100%);
+  }
+  @keyframes heroReveal{
+    to{opacity:0.82;transform:scale(1)}
+  }
+  .hero-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(to bottom,
+      rgba(10,10,10,0.12) 0%,
+      rgba(10,10,10,0.05) 40%,
+      rgba(10,10,10,0.55) 100%);
+  }
+  .hero-content{
+    position:absolute;
+    bottom:10%;left:10%;
+    color:#fff;
+    opacity:0;
+    transform:translateY(20px);
+    animation:fadeUp 1.4s var(--ease-luxury) 1.2s forwards;
+  }
+  @keyframes fadeUp{
+    to{opacity:1;transform:translateY(0)}
+  }
+  .hero-meta{
+    font-family:var(--sans);
+    font-size:0.65rem;
+    font-weight:500;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.55);
+    margin-bottom:20px;
+  }
+  .hero-title{
+    font-family:var(--serif);
+    font-size:clamp(3.5rem,7vw,6.5rem);
+    font-weight:300;
+    line-height:1.0;
+    letter-spacing:-0.01em;
+    color:#fff;
+    margin-bottom:32px;
+  }
+  .hero-cta{
+    display:inline-block;
+    font-family:var(--sans);
+    font-size:0.68rem;
+    font-weight:500;
+    letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.85);
+    text-decoration:none;
+    border-bottom:0.5px solid rgba(255,255,255,0.35);
+    padding-bottom:3px;
+    transition:color 0.3s,border-color 0.3s;
+  }
+  .hero-cta:hover{color:#fff;border-color:#fff}
+  .hero-scroll{
+    position:absolute;
+    bottom:40px;right:64px;
+    font-family:var(--sans);font-size:0.6rem;
+    font-weight:500;letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.4);
+    writing-mode:vertical-rl;
+    transform:rotate(180deg);
+    display:flex;align-items:center;gap:12px;
+  }
+  .hero-scroll::after{
+    content:'';
+    display:block;width:0.5px;height:48px;
+    background:rgba(255,255,255,0.3);
+  }
+
+  /* ── SECTIONS ────────────────────────────────────────────── */
+  section{padding:120px 0}
+  .section-inner{padding:0 96px}
+
+  /* reveal animation */
+  .reveal{
+    opacity:0;
+    transform:translateY(28px);
+    transition:opacity 0.9s var(--ease-luxury),
+               transform 0.9s var(--ease-luxury);
+  }
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  .reveal-delay-1{transition-delay:0.1s}
+  .reveal-delay-2{transition-delay:0.2s}
+  .reveal-delay-3{transition-delay:0.35s}
+
+  /* ── EDITORIAL STRIP ─────────────────────────────────────── */
+  .editorial-strip{
+    padding:0;
+    background:var(--ivory-sub);
+    border-top:0.5px solid var(--stone);
+    border-bottom:0.5px solid var(--stone);
+  }
+  .strip-track{
+    display:flex;
+    height:80vh;
+    min-height:500px;
+    overflow-x:auto;
+    scrollbar-width:none;
+    -ms-overflow-style:none;
+    scroll-snap-type:x mandatory;
+    cursor:grab;
+  }
+  .strip-track::-webkit-scrollbar{display:none}
+  .strip-track.grabbing{cursor:grabbing}
+  .strip-item{
+    flex:0 0 auto;
+    scroll-snap-align:start;
+    position:relative;
+    overflow:hidden;
+  }
+  .strip-item:nth-child(1){width:52vw}
+  .strip-item:nth-child(2){width:32vw}
+  .strip-item:nth-child(3){width:38vw}
+  .strip-item:nth-child(4){width:28vw}
+  .strip-item:nth-child(5){width:44vw}
+  .strip-img{
+    width:100%;height:100%;
+    object-fit:cover;
+    transition:transform 1.2s var(--ease-luxury);
+    background:var(--stone);
+  }
+  .strip-item:hover .strip-img{transform:scale(1.03)}
+  .strip-caption{
+    position:absolute;bottom:28px;left:28px;
+    font-family:var(--sans);font-size:0.6rem;
+    font-weight:500;letter-spacing:0.22em;
+    text-transform:uppercase;color:rgba(255,255,255,0.6);
+  }
+
+  /* ── THE HOUSE ───────────────────────────────────────────── */
+  .house-grid{
+    display:grid;
+    grid-template-columns:5fr 7fr;
+    gap:80px;
+    align-items:center;
+  }
+  .house-meta{
+    font-family:var(--sans);
+    font-size:0.65rem;
+    font-weight:500;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+    color:var(--grey);
+    margin-bottom:32px;
+  }
+  .house-title{
+    font-family:var(--serif);
+    font-size:clamp(2.2rem,3.5vw,3.4rem);
+    font-weight:300;
+    line-height:1.15;
+    letter-spacing:0.01em;
+    color:var(--charcoal);
+    margin-bottom:40px;
+  }
+  .house-body{
+    font-family:var(--sans);
+    font-size:0.875rem;
+    font-weight:300;
+    line-height:1.85;
+    letter-spacing:0.02em;
+    color:var(--charcoal);
+    opacity:0.75;
+    max-width:480px;
+    margin-bottom:48px;
+  }
+  .text-link{
+    display:inline-flex;align-items:center;gap:12px;
+    font-family:var(--sans);font-size:0.68rem;
+    font-weight:500;letter-spacing:0.2em;
+    text-transform:uppercase;color:var(--charcoal);
+    text-decoration:none;
+    transition:gap 0.3s var(--ease-luxury);
+  }
+  .text-link:hover{gap:20px}
+  .text-link::after{
+    content:'';display:block;
+    width:32px;height:0.5px;
+    background:var(--charcoal);
+    transition:width 0.4s var(--ease-luxury);
+  }
+  .text-link:hover::after{width:52px}
+
+  .house-img-wrap{
+    position:relative;
+    height:680px;
+  }
+  .house-img{
+    width:100%;height:100%;
+    object-fit:cover;
+    background:var(--stone);
+  }
+  .house-img-label{
+    position:absolute;
+    bottom:-20px;right:-20px;
+    width:200px;height:200px;
+    background:var(--stone);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+  }
+  .house-img-label-num{
+    font-family:var(--serif);
+    font-size:2.8rem;
+    font-weight:300;
+    color:var(--charcoal);
+  }
+  .house-img-label-text{
+    font-family:var(--sans);
+    font-size:0.6rem;
+    font-weight:500;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:var(--grey);
+    text-align:center;
+  }
+
+  /* ── CRAFTSMANSHIP ───────────────────────────────────────── */
+  .craft{background:var(--charcoal)}
+  .craft .section-inner{padding:0 96px}
+  .craft-header{
+    display:flex;
+    align-items:flex-end;
+    justify-content:space-between;
+    margin-bottom:64px;
+  }
+  .craft-title{
+    font-family:var(--serif);
+    font-size:clamp(2.8rem,5vw,5rem);
+    font-weight:300;
+    line-height:1.05;
+    letter-spacing:-0.01em;
+    color:var(--ivory);
+  }
+  .craft-title em{
+    font-style:italic;
+    opacity:0.5;
+  }
+  .craft-body{
+    font-family:var(--sans);
+    font-size:0.8rem;
+    font-weight:300;
+    line-height:1.85;
+    letter-spacing:0.03em;
+    color:rgba(253,251,247,0.5);
+    max-width:340px;
+    text-align:right;
+  }
+  .craft-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-template-rows:auto auto;
+    gap:2px;
+  }
+  .craft-cell{
+    position:relative;
+    overflow:hidden;
+    background:var(--stone);
+  }
+  .craft-cell:nth-child(1){grid-column:1/3;height:460px}
+  .craft-cell:nth-child(2){grid-column:3/4;height:460px}
+  .craft-cell:nth-child(3){grid-column:1/2;height:280px}
+  .craft-cell:nth-child(4){grid-column:2/4;height:280px}
+  .craft-img{
+    width:100%;height:100%;
+    object-fit:cover;
+    transition:transform 1.4s var(--ease-luxury);
+    opacity:0.85;
+  }
+  .craft-cell:hover .craft-img{transform:scale(1.04)}
+  .craft-label{
+    position:absolute;bottom:24px;left:24px;
+    font-family:var(--sans);font-size:0.6rem;
+    font-weight:500;letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:rgba(253,251,247,0.5);
+  }
+  .craft-stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:2px;
+    margin-top:2px;
+  }
+  .craft-stat{
+    padding:40px 32px;
+    background:#1a1a1a;
+    border-top:0.5px solid rgba(253,251,247,0.08);
+  }
+  .craft-stat-num{
+    font-family:var(--serif);
+    font-size:2.6rem;
+    font-weight:300;
+    color:var(--ivory);
+    line-height:1;
+    margin-bottom:12px;
+  }
+  .craft-stat-label{
+    font-family:var(--sans);
+    font-size:0.6rem;
+    font-weight:500;
+    letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:rgba(253,251,247,0.35);
+  }
+
+  /* ── COLLECTIONS ─────────────────────────────────────────── */
+  .collections-header{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom:64px;
+  }
+  .collections-title{
+    font-family:var(--serif);
+    font-size:clamp(2rem,3vw,3rem);
+    font-weight:300;
+    color:var(--charcoal);
+    letter-spacing:0.02em;
+  }
+  .collections-grid{
+    display:grid;
+    grid-template-columns:7fr 5fr;
+    grid-template-rows:auto auto;
+    gap:3px;
+  }
+  .coll-item{
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+    background:var(--stone);
+  }
+  .coll-item:nth-child(1){grid-row:1/3;height:740px}
+  .coll-item:nth-child(2){height:365px}
+  .coll-item:nth-child(3){height:375px}
+  .coll-img{
+    width:100%;height:100%;
+    object-fit:cover;
+    transition:transform 1.4s var(--ease-luxury);
+  }
+  .coll-item:hover .coll-img{transform:scale(1.04)}
+  .coll-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(10,10,10,0.65) 0%,transparent 50%);
+    opacity:0;
+    transition:opacity 0.6s var(--ease-luxury);
+  }
+  .coll-item:hover .coll-overlay{opacity:1}
+  .coll-info{
+    position:absolute;bottom:0;left:0;right:0;
+    padding:36px 32px;
+    transform:translateY(8px);
+    transition:transform 0.5s var(--ease-luxury);
+  }
+  .coll-item:hover .coll-info{transform:translateY(0)}
+  .coll-meta{
+    font-family:var(--sans);font-size:0.6rem;
+    font-weight:500;letter-spacing:0.25em;
+    text-transform:uppercase;color:rgba(255,255,255,0.5);
+    margin-bottom:8px;opacity:0;
+    transition:opacity 0.4s var(--ease-luxury) 0.1s;
+  }
+  .coll-item:hover .coll-meta{opacity:1}
+  .coll-name{
+    font-family:var(--serif);
+    font-size:1.9rem;
+    font-weight:300;
+    color:#fff;
+    line-height:1.1;
+  }
+
+  /* ── SIGNATURE EXHIBITION ────────────────────────────────── */
+  .exhibit-wrap{
+    background:var(--ivory-sub);
+    border-top:0.5px solid var(--stone);
+    border-bottom:0.5px solid var(--stone);
+  }
+  .exhibit-header{
+    padding:80px 96px 60px;
+    display:flex;align-items:baseline;
+    justify-content:space-between;
+  }
+  .exhibit-title{
+    font-family:var(--serif);
+    font-size:clamp(2rem,3vw,2.8rem);
+    font-weight:300;
+    color:var(--charcoal);
+  }
+  .exhibit-row{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:0;
+    border-top:0.5px solid var(--stone);
+  }
+  .exhibit-card{
+    padding:48px 40px;
+    border-right:0.5px solid var(--stone);
+    cursor:pointer;
+    transition:background 0.4s var(--ease-luxury);
+    position:relative;overflow:hidden;
+  }
+  .exhibit-card:last-child{border-right:none}
+  .exhibit-card::before{
+    content:'';
+    position:absolute;bottom:0;left:0;right:0;height:0;
+    background:var(--charcoal);
+    transition:height 0.5s var(--ease-luxury);
+  }
+  .exhibit-card:hover::before{height:3px}
+  .exhibit-card-num{
+    font-family:var(--serif);
+    font-size:0.85rem;
+    font-weight:300;
+    color:var(--grey);
+    margin-bottom:32px;
+  }
+  .exhibit-card-img{
+    width:100%;
+    aspect-ratio:3/4;
+    object-fit:cover;
+    background:var(--stone);
+    margin-bottom:28px;
+    transition:transform 1s var(--ease-luxury);
+  }
+  .exhibit-card:hover .exhibit-card-img{transform:scale(1.02)}
+  .exhibit-card-season{
+    font-family:var(--sans);font-size:0.6rem;
+    font-weight:500;letter-spacing:0.22em;
+    text-transform:uppercase;color:var(--grey);
+    margin-bottom:8px;
+  }
+  .exhibit-card-name{
+    font-family:var(--serif);
+    font-size:1.5rem;
+    font-weight:400;
+    color:var(--charcoal);
+    line-height:1.2;
+    margin-bottom:20px;
+  }
+  .exhibit-card-desc{
+    font-family:var(--sans);
+    font-size:0.78rem;
+    font-weight:300;
+    line-height:1.7;
+    color:var(--grey);
+  }
+
+  /* ── RECOGNITION TIMELINE ────────────────────────────────── */
+  .timeline-wrap{padding:120px 96px}
+  .timeline-header{
+    display:flex;align-items:flex-end;
+    justify-content:space-between;
+    margin-bottom:80px;
+    border-bottom:0.5px solid var(--stone);
+    padding-bottom:40px;
+  }
+  .timeline-title{
+    font-family:var(--serif);
+    font-size:clamp(1.8rem,2.8vw,2.8rem);
+    font-weight:300;
+    color:var(--charcoal);
+  }
+  .timeline-sub{
+    font-family:var(--sans);font-size:0.75rem;
+    font-weight:300;line-height:1.7;
+    color:var(--grey);max-width:320px;
+    text-align:right;
+  }
+  .timeline-items{display:flex;flex-direction:column;gap:0}
+  .timeline-item{
+    display:grid;
+    grid-template-columns:160px 1fr;
+    align-items:baseline;
+    padding:28px 0;
+    border-bottom:0.5px solid var(--stone);
+    gap:48px;
+  }
+  .timeline-year{
+    font-family:var(--serif);
+    font-size:1.15rem;
+    font-weight:300;
+    color:var(--grey);
+  }
+  .timeline-event{
+    font-family:var(--sans);
+    font-size:0.82rem;
+    font-weight:300;
+    letter-spacing:0.02em;
+    color:var(--charcoal);
+  }
+  .timeline-event strong{
+    font-weight:500;
+    font-family:var(--serif);
+    font-size:0.95rem;
+    display:block;
+    margin-bottom:4px;
+    color:var(--charcoal);
+  }
+
+  /* ── CELEBRITY ARCHIVE ───────────────────────────────────── */
+  .celebrity-wrap{
+    padding:0;
+    overflow:hidden;
+  }
+  .celebrity-header{
+    padding:100px 96px 60px;
+  }
+  .celebrity-title{
+    font-family:var(--serif);
+    font-size:clamp(2rem,3.5vw,3.5rem);
+    font-weight:300;
+    font-style:italic;
+    color:var(--charcoal);
+  }
+  .celebrity-grid{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:3px;
+  }
+  .celeb-item{
+    position:relative;
+    overflow:hidden;
+    background:var(--stone);
+  }
+  .celeb-item:nth-child(1){grid-row:1/3}
+  .celeb-item:nth-child(4){grid-row:1/3}
+  .celeb-img{
+    width:100%;
+    aspect-ratio:2/3;
+    object-fit:cover;
+    display:block;
+    transition:transform 1.2s var(--ease-luxury);
+  }
+  .celeb-item:nth-child(1) .celeb-img,
+  .celeb-item:nth-child(4) .celeb-img{
+    height:100%;aspect-ratio:unset;
+  }
+  .celeb-item:hover .celeb-img{transform:scale(1.04)}
+  .celeb-info{
+    position:absolute;bottom:0;left:0;right:0;
+    padding:24px 20px;
+    background:linear-gradient(to top,rgba(10,10,10,0.7),transparent);
+    opacity:0;
+    transform:translateY(4px);
+    transition:opacity 0.4s,transform 0.4s var(--ease-luxury);
+  }
+  .celeb-item:hover .celeb-info{opacity:1;transform:translateY(0)}
+  .celeb-name{
+    font-family:var(--serif);
+    font-size:1rem;
+    font-weight:400;
+    color:#fff;
+  }
+  .celeb-event{
+    font-family:var(--sans);
+    font-size:0.6rem;
+    font-weight:400;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.5);
+  }
+
+  /* ── FLAGSHIP DESTINATIONS ───────────────────────────────── */
+  .flagship-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:3px;
+  }
+  .flagship-item{
+    position:relative;
+    height:600px;
+    overflow:hidden;
+    background:var(--stone);
+  }
+  .flagship-img{
+    width:100%;height:100%;
+    object-fit:cover;
+    transition:transform 1.4s var(--ease-luxury);
+  }
+  .flagship-item:hover .flagship-img{transform:scale(1.03)}
+  .flagship-overlay{
+    position:absolute;inset:0;
+    background:linear-gradient(to top,rgba(10,10,10,0.7) 0%,transparent 55%);
+  }
+  .flagship-content{
+    position:absolute;bottom:48px;left:52px;right:52px;
+    color:#fff;
+  }
+  .flagship-city{
+    font-family:var(--sans);font-size:0.6rem;
+    font-weight:500;letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.5);
+    margin-bottom:10px;
+  }
+  .flagship-name{
+    font-family:var(--serif);
+    font-size:2.2rem;
+    font-weight:300;
+    line-height:1.1;
+    margin-bottom:24px;
+  }
+  .flagship-address{
+    font-family:var(--sans);
+    font-size:0.75rem;
+    font-weight:300;
+    line-height:1.7;
+    color:rgba(255,255,255,0.55);
+    margin-bottom:32px;
+  }
+  .flagship-cta{
+    display:inline-block;
+    font-family:var(--sans);font-size:0.65rem;
+    font-weight:500;letter-spacing:0.22em;
+    text-transform:uppercase;color:rgba(255,255,255,0.7);
+    text-decoration:none;
+    border-bottom:0.5px solid rgba(255,255,255,0.3);
+    padding-bottom:2px;
+    transition:color 0.3s,border-color 0.3s;
+  }
+  .flagship-cta:hover{color:#fff;border-color:#fff}
+
+  /* ── RUNWAY THEATER ──────────────────────────────────────── */
+  .runway{
+    background:var(--muted-black);
+    padding:0;
+    position:relative;
+    height:85vh;
+    min-height:600px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+  }
+  .runway-bg{
+    position:absolute;inset:0;
+    background:radial-gradient(ellipse at center,#1a1612 0%,#0a0a0a 70%);
+  }
+  .runway-content{
+    position:relative;z-index:2;
+    text-align:center;
+    color:#fff;
+  }
+  .runway-meta{
+    font-family:var(--sans);font-size:0.6rem;
+    font-weight:500;letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.3);
+    margin-bottom:32px;
+  }
+  .runway-title{
+    font-family:var(--serif);
+    font-size:clamp(3rem,6vw,5.5rem);
+    font-weight:300;
+    line-height:1.05;
+    color:var(--ivory);
+    margin-bottom:40px;
+    letter-spacing:0.02em;
+  }
+  .runway-title em{
+    font-style:italic;
+    color:rgba(253,251,247,0.4);
+  }
+  .runway-play{
+    display:inline-flex;align-items:center;gap:16px;
+    font-family:var(--sans);font-size:0.65rem;
+    font-weight:500;letter-spacing:0.22em;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.5);
+    cursor:pointer;
+    border:0.5px solid rgba(255,255,255,0.15);
+    padding:18px 40px;
+    transition:border-color 0.4s,color 0.4s;
+    background:none;
+  }
+  .runway-play:hover{
+    border-color:rgba(255,255,255,0.4);
+    color:rgba(255,255,255,0.85);
+  }
+  .runway-play-icon{
+    width:14px;height:14px;
+    border:0.5px solid currentColor;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .runway-play-icon::after{
+    content:'';
+    border-left:5px solid currentColor;
+    border-top:3px solid transparent;
+    border-bottom:3px solid transparent;
+    margin-left:2px;
+  }
+
+  /* ── JOURNAL ─────────────────────────────────────────────── */
+  .journal-wrap{background:var(--ivory-sub)}
+  .journal-header{
+    padding:80px 96px 56px;
+    display:flex;align-items:baseline;
+    justify-content:space-between;
+    border-bottom:0.5px solid var(--stone);
+  }
+  .journal-title{
+    font-family:var(--serif);
+    font-size:clamp(1.8rem,2.5vw,2.4rem);
+    font-weight:300;color:var(--charcoal);
+  }
+  .journal-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:0;
+    border-bottom:0.5px solid var(--stone);
+  }
+  .journal-item{
+    padding:48px 40px;
+    border-right:0.5px solid var(--stone);
+    cursor:pointer;
+    transition:background 0.3s;
+  }
+  .journal-item:last-child{border-right:none}
+  .journal-item:hover{background:rgba(234,230,223,0.3)}
+  .journal-tag{
+    font-family:var(--sans);font-size:0.58rem;
+    font-weight:500;letter-spacing:0.28em;
+    text-transform:uppercase;color:var(--grey);
+    margin-bottom:24px;
+  }
+  .journal-item-title{
+    font-family:var(--serif);
+    font-size:1.25rem;
+    font-weight:400;
+    line-height:1.3;
+    color:var(--charcoal);
+    margin-bottom:16px;
+  }
+  .journal-item-date{
+    font-family:var(--sans);font-size:0.68rem;
+    font-weight:300;
+    color:var(--grey);
+    margin-top:auto;
+  }
+
+  /* ── WORLD OF VAISHALI S ─────────────────────────────────── */
+  .world{
+    padding:140px 96px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .world::before{
+    content:'VAISHALI S';
+    position:absolute;
+    top:50%;left:50%;
+    transform:translate(-50%,-50%);
+    font-family:var(--serif);
+    font-size:20vw;
+    font-weight:300;
+    color:var(--stone);
+    white-space:nowrap;
+    pointer-events:none;
+    opacity:0.4;
+    letter-spacing:0.05em;
+  }
+  .world-inner{position:relative;z-index:1}
+  .world-meta{
+    font-family:var(--sans);font-size:0.6rem;
+    font-weight:500;letter-spacing:0.3em;
+    text-transform:uppercase;color:var(--grey);
+    margin-bottom:36px;
+  }
+  .world-title{
+    font-family:var(--serif);
+    font-size:clamp(2.5rem,4.5vw,4.5rem);
+    font-weight:300;
+    line-height:1.1;
+    color:var(--charcoal);
+    margin-bottom:24px;
+  }
+  .world-title em{font-style:italic;opacity:0.45}
+  .world-body{
+    font-family:var(--sans);
+    font-size:0.85rem;font-weight:300;
+    line-height:1.8;color:var(--grey);
+    max-width:480px;margin:0 auto 52px;
+  }
+  .world-form{
+    display:flex;
+    align-items:center;
+    gap:0;
+    max-width:440px;
+    margin:0 auto;
+    border-bottom:0.5px solid rgba(28,28,28,0.25);
+  }
+  .world-input{
+    flex:1;
+    font-family:var(--sans);
+    font-size:0.8rem;
+    font-weight:300;
+    letter-spacing:0.05em;
+    background:transparent;
+    border:none;
+    outline:none;
+    color:var(--charcoal);
+    padding:16px 0;
+  }
+  .world-input::placeholder{
+    color:rgba(28,28,28,0.3);
+    font-style:italic;
+  }
+  .world-submit{
+    font-family:var(--sans);font-size:0.6rem;
+    font-weight:500;letter-spacing:0.22em;
+    text-transform:uppercase;color:var(--charcoal);
+    background:none;border:none;cursor:pointer;
+    padding:16px 0 16px 24px;
+    opacity:0.5;
+    transition:opacity 0.3s;
+  }
+  .world-submit:hover{opacity:1}
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  footer{
+    background:var(--charcoal);
+    padding:80px 96px 48px;
+  }
+  .footer-top{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr 1fr;
+    gap:60px;
+    padding-bottom:60px;
+    border-bottom:0.5px solid rgba(253,251,247,0.08);
+    margin-bottom:48px;
+  }
+  .footer-brand{
+    font-family:var(--serif);
+    font-size:1.35rem;
+    font-weight:300;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    color:var(--ivory);
+    margin-bottom:24px;
+  }
+  .footer-tagline{
+    font-family:var(--sans);
+    font-size:0.75rem;
+    font-weight:300;
+    line-height:1.8;
+    color:rgba(253,251,247,0.35);
+    max-width:260px;
+  }
+  .footer-col-title{
+    font-family:var(--sans);font-size:0.6rem;
+    font-weight:500;letter-spacing:0.25em;
+    text-transform:uppercase;
+    color:rgba(253,251,247,0.3);
+    margin-bottom:24px;
+  }
+  .footer-links{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .footer-links a{
+    font-family:var(--sans);font-size:0.8rem;
+    font-weight:300;line-height:1.5;
+    color:rgba(253,251,247,0.5);
+    text-decoration:none;
+    transition:color 0.3s;
+  }
+  .footer-links a:hover{color:rgba(253,251,247,0.9)}
+  .footer-bottom{
+    display:flex;align-items:center;
+    justify-content:space-between;
+  }
+  .footer-copy{
+    font-family:var(--sans);font-size:0.68rem;
+    font-weight:300;letter-spacing:0.05em;
+    color:rgba(253,251,247,0.2);
+  }
+  .footer-socials{
+    display:flex;gap:28px;
+  }
+  .footer-socials a{
+    font-family:var(--sans);font-size:0.6rem;
+    font-weight:500;letter-spacing:0.18em;
+    text-transform:uppercase;
+    color:rgba(253,251,247,0.25);
+    text-decoration:none;
+    transition:color 0.3s;
+  }
+  .footer-socials a:hover{color:rgba(253,251,247,0.7)}
+
+  /* ── IMAGE STUBS ─────────────────────────────────────────── */
+  /* Silhouette placeholder for images not loaded */
+  .img-stub{
+    background:var(--stone);
+    display:flex;align-items:center;
+    justify-content:center;
+    width:100%;height:100%;
+    position:relative;overflow:hidden;
+  }
+  .img-stub::after{
+    content:none;
+    display:none;
+  }
+  @keyframes shimmer{
+    0%{transform:translateX(-100%)}
+    100%{transform:translateX(100%)}
+  }
+
+  /* Ensure images that load fill their containers */
+  img{display:block}
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+  @media(max-width:1100px){
+    .section-inner,.craft .section-inner,.timeline-wrap,.world,
+    .exhibit-header,.journal-header,.celebrity-header,
+    footer{padding-left:48px;padding-right:48px}
+    nav,.nav-overlay{padding-left:48px;padding-right:48px}
+    nav.scrolled{padding-left:48px;padding-right:48px}
+    .overlay-close{right:48px}
+    .hero-content{left:48px}
+    .hero-scroll{right:48px}
+    .flagship-content{left:36px;right:36px}
+  }
+  @media(max-width:900px){
+    .house-grid{grid-template-columns:1fr;gap:56px}
+    .house-img-wrap{height:500px}
+    .craft-grid{grid-template-columns:1fr 1fr}
+    .craft-cell:nth-child(1){grid-column:1/3;height:320px}
+    .craft-cell:nth-child(2){grid-column:1/2;height:280px}
+    .craft-cell:nth-child(3){grid-column:2/3;height:280px}
+    .craft-cell:nth-child(4){grid-column:1/3;height:240px}
+    .craft-stats{grid-template-columns:1fr 1fr}
+    .collections-grid{grid-template-columns:1fr;grid-template-rows:auto}
+    .coll-item:nth-child(1){grid-row:auto;height:480px}
+    .coll-item:nth-child(2),.coll-item:nth-child(3){height:340px}
+    .exhibit-row{grid-template-columns:1fr}
+    .exhibit-card{border-right:none;border-bottom:0.5px solid var(--stone)}
+    .exhibit-card:last-child{border-bottom:none}
+    .timeline-item{grid-template-columns:100px 1fr;gap:24px}
+    .celebrity-grid{grid-template-columns:repeat(3,1fr)}
+    .celeb-item:nth-child(1),.celeb-item:nth-child(4){grid-row:auto}
+    .flagship-grid{grid-template-columns:1fr}
+    .flagship-item{height:480px}
+    .journal-grid{grid-template-columns:1fr}
+    .journal-item{border-right:none;border-bottom:0.5px solid var(--stone)}
+    .footer-top{grid-template-columns:1fr 1fr;gap:40px}
+    nav .nav-left,.nav-right{gap:20px}
+  }
+  /* ADDED MOTION LAYER - curtain reveal and pop animations */
+  .curtain-reveal{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    display:grid;
+    place-items:center;
+    pointer-events:none;
+    overflow:hidden;
+    background:#090705;
+    animation:curtainShellAway 2.65s var(--ease-luxury) forwards;
+  }
+  .curtain-panel{
+    position:absolute;
+    top:0;
+    bottom:0;
+    width:50.4%;
+    background:
+      linear-gradient(90deg,rgba(255,255,255,0.08),transparent 18%,rgba(0,0,0,0.24) 58%,rgba(255,255,255,0.04)),
+      repeating-linear-gradient(90deg,#120d09 0,#201710 9px,#0b0806 18px);
+    box-shadow:inset 0 0 90px rgba(0,0,0,0.72);
+  }
+  .curtain-panel::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg,rgba(244,211,143,0.18),transparent 26%,transparent 72%,rgba(244,211,143,0.1));
+    opacity:0.75;
+  }
+  .curtain-panel-left{
+    left:0;
+    border-right:1px solid rgba(244,211,143,0.36);
+    animation:curtainLeftOpen 1.65s var(--ease-luxury) 0.62s forwards;
+  }
+  .curtain-panel-right{
+    right:0;
+    border-left:1px solid rgba(244,211,143,0.36);
+    animation:curtainRightOpen 1.65s var(--ease-luxury) 0.62s forwards;
+  }
+  .curtain-mark{
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+    color:var(--ivory);
+    text-transform:uppercase;
+    letter-spacing:0.35em;
+    animation:curtainMarkFloat 1.95s var(--ease-luxury) forwards;
+  }
+  .curtain-mark span{
+    font-family:var(--serif);
+    font-size:clamp(1.6rem,4vw,4.2rem);
+    font-weight:300;
+  }
+  .curtain-mark small{
+    font-family:var(--sans);
+    font-size:0.62rem;
+    font-weight:500;
+    letter-spacing:0.32em;
+    color:rgba(253,251,247,0.62);
+  }
+  .curtain-mark::before,
+  .curtain-mark::after{
+    content:'';
+    width:min(180px,42vw);
+    height:1px;
+    background:linear-gradient(90deg,transparent,rgba(244,211,143,0.7),transparent);
+  }
+  .home-prelude{
+    position:fixed;
+    inset:0;
+    z-index:9998;
+    display:grid;
+    place-items:center;
+    pointer-events:none;
+    background:
+      radial-gradient(circle at 50% 45%,rgba(244,211,143,0.13),transparent 34%),
+      linear-gradient(180deg,rgba(9,7,5,0.88),rgba(9,7,5,0.48) 56%,rgba(9,7,5,0));
+    animation:preludeVeilExit 1.1s var(--ease-luxury) 4.18s forwards;
+  }
+  .home-prelude-card{
+    position:relative;
+    width:min(560px,calc(100vw - 48px));
+    padding:54px 48px 46px;
+    text-align:center;
+    color:var(--ivory);
+    border:1px solid rgba(244,211,143,0.32);
+    background:rgba(10,8,6,0.28);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    box-shadow:0 28px 100px rgba(0,0,0,0.42);
+    opacity:0;
+    transform:translateY(24px) scale(0.9);
+    animation:preludeCardPop 3.05s var(--ease-luxury) 1.58s forwards;
+  }
+  .home-prelude-card::before,
+  .home-prelude-card::after{
+    content:'';
+    position:absolute;
+    left:50%;
+    width:1px;
+    height:34px;
+    background:linear-gradient(180deg,transparent,rgba(244,211,143,0.82),transparent);
+  }
+  .home-prelude-card::before{top:-46px}
+  .home-prelude-card::after{bottom:-46px}
+  .home-prelude-kicker{
+    font-family:var(--sans);
+    font-size:0.62rem;
+    font-weight:500;
+    letter-spacing:0.34em;
+    text-transform:uppercase;
+    color:rgba(253,251,247,0.62);
+    margin-bottom:18px;
+  }
+  .home-prelude-title{
+    font-family:var(--serif);
+    font-size:clamp(2.8rem,6vw,5.7rem);
+    font-weight:300;
+    line-height:0.95;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin-bottom:18px;
+  }
+  .home-prelude-line{
+    width:96px;
+    height:1px;
+    margin:0 auto 22px;
+    background:linear-gradient(90deg,transparent,rgba(244,211,143,0.9),transparent);
+    transform:scaleX(0);
+    animation:preludeLineDraw 1.1s var(--ease-luxury) 2.05s forwards;
+  }
+  .home-prelude-copy{
+    font-family:var(--sans);
+    font-size:0.78rem;
+    font-weight:300;
+    line-height:1.8;
+    letter-spacing:0.08em;
+    color:rgba(253,251,247,0.68);
+  }
+
+  @keyframes preludeCardPop{
+    0%{opacity:0;transform:translateY(24px) scale(0.9);filter:blur(14px)}
+    22%{opacity:1;transform:translateY(-8px) scale(1.035);filter:blur(0)}
+    34%,78%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+    100%{opacity:0;transform:translateY(-18px) scale(0.97);filter:blur(8px)}
+  }
+  @keyframes preludeLineDraw{
+    to{transform:scaleX(1)}
+  }
+  @keyframes preludeVeilExit{
+    to{opacity:0;visibility:hidden}
+  }
+
+  @keyframes curtainLeftOpen{
+    0%{transform:translateX(0) skewX(0deg)}
+    68%{transform:translateX(-82%) skewX(-5deg)}
+    100%{transform:translateX(-104%) skewX(0deg)}
+  }
+  @keyframes curtainRightOpen{
+    0%{transform:translateX(0) skewX(0deg)}
+    68%{transform:translateX(82%) skewX(5deg)}
+    100%{transform:translateX(104%) skewX(0deg)}
+  }
+  @keyframes curtainMarkFloat{
+    0%{opacity:0;transform:translateY(18px) scale(0.97);filter:blur(8px)}
+    24%{opacity:1;filter:blur(0)}
+    62%{opacity:1;transform:translateY(0) scale(1)}
+    100%{opacity:0;transform:translateY(-14px) scale(0.985);filter:blur(5px)}
+  }
+  @keyframes curtainShellAway{
+    0%,84%{opacity:1;visibility:visible}
+    100%{opacity:0;visibility:hidden}
+  }
+
+  nav{
+    animation:navFloatIn 1.1s var(--ease-luxury) 1.7s both;
+  }
+  .hero-content > *{
+    opacity:0;
+    animation:heroCopyPop 0.9s var(--ease-luxury) both;
+  }
+  .hero-meta{animation-delay:1.72s}
+  .hero-title{animation-delay:1.88s}
+  .hero-cta{animation-delay:2.06s}
+  .hero::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    z-index:3;
+    pointer-events:none;
+    background:linear-gradient(115deg,transparent 0%,transparent 38%,rgba(253,251,247,0.16) 48%,transparent 58%,transparent 100%);
+    transform:translateX(-120%);
+    animation:heroLightSweep 1.6s var(--ease-luxury) 1.45s both;
+  }
+  body.prelude-active{overflow:hidden}
+  body.prelude-active nav{animation-delay:3.55s}
+  body.prelude-active .hero-meta{animation-delay:4.25s}
+  body.prelude-active .hero-title{animation-delay:4.42s}
+  body.prelude-active .hero-cta{animation-delay:4.62s}
+  body.prelude-active .hero::after{animation-delay:4.05s}
+
+  /* ADDED HERO CAMPAIGN REEL */
+  .hero-reel{
+    isolation:isolate;
+  }
+  .hero-reel > img.hero-img,
+  .hero-reel .hero-content{
+    display:none;
+  }
+  .hero-reel-media{
+    position:absolute;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+  }
+  .hero-reel .hero-reel-img{
+    opacity:0;
+    transform:scale(1.09);
+    animation:heroReelImage 18s linear infinite;
+  }
+  .hero-reel-img-1{
+    object-position:50% 42%;
+    animation-delay:5.4s!important;
+  }
+  .hero-reel-img-2{
+    object-position:50% 39%;
+    animation-delay:11.4s!important;
+  }
+  .hero-reel-img-3{
+    object-position:44% 41%;
+    animation-delay:17.4s!important;
+  }
+  .hero-reel-copy{
+    position:absolute;
+    inset:0;
+    z-index:4;
+    pointer-events:none;
+  }
+  .hero-frame-copy{
+    position:absolute;
+    left:10%;
+    bottom:10%;
+    color:#fff;
+    opacity:0;
+    transform:translateY(28px) scale(0.98);
+    filter:blur(8px);
+    animation:heroReelCopy 18s var(--ease-luxury) infinite;
+    pointer-events:auto;
+  }
+  .hero-frame-copy-1{animation-delay:5.58s}
+  .hero-frame-copy-2{animation-delay:11.58s}
+  .hero-frame-copy-3{animation-delay:17.58s}
+  .hero-frame-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px 28px;
+  }
+  .hero-frame-actions .hero-cta{
+    border:0.5px solid rgba(255,255,255,0.5);
+    padding:14px 24px;
+  }
+  .hero-reel .hero-overlay{
+    z-index:2;
+    background:
+      linear-gradient(to bottom,rgba(10,10,10,0.18) 0%,rgba(10,10,10,0.05) 42%,rgba(10,10,10,0.62) 100%),
+      linear-gradient(90deg,rgba(10,10,10,0.45),transparent 48%,rgba(10,10,10,0.18));
+  }
+  .hero-reel::after{
+    content:none;
+    display:none;
+    animation:none;
+  }
+  body.prelude-active .hero-reel-img,
+  body.prelude-active .hero-frame-copy{
+    animation-play-state:running;
+  }
+  @keyframes heroReelImage{
+    0%{opacity:0;transform:scale(1.1) translate3d(0,12px,0)}
+    5%{opacity:0.86}
+    28%{opacity:0.86}
+    34%{opacity:0;transform:scale(1.025) translate3d(-12px,-4px,0)}
+    100%{opacity:0;transform:scale(1.025) translate3d(-12px,-4px,0)}
+  }
+  @keyframes heroReelCopy{
+    0%{opacity:0;transform:translateY(28px) scale(0.98);filter:blur(8px)}
+    5%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+    24%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+    31%{opacity:0;transform:translateY(-18px) scale(0.99);filter:blur(5px)}
+    100%{opacity:0;transform:translateY(-18px) scale(0.99);filter:blur(5px)}
+  }
+  @keyframes navFloatIn{
+    from{opacity:0;transform:translateY(-16px)}
+    to{opacity:1;transform:translateY(0)}
+  }
+  @keyframes heroCopyPop{
+    0%{opacity:0;transform:translateY(28px) scale(0.98);filter:blur(8px)}
+    70%{opacity:1;transform:translateY(-4px) scale(1.01);filter:blur(0)}
+    100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+  }
+  @keyframes heroLightSweep{
+    from{transform:translateX(-120%)}
+    to{transform:translateX(120%)}
+  }
+
+  .motion-pop{
+    opacity:0;
+    transform:translateY(36px) scale(0.94);
+    filter:blur(9px);
+    will-change:transform,opacity,filter;
+  }
+  .motion-pop.motion-in{
+    animation:couturePopIn 0.86s var(--ease-luxury) var(--pop-delay,0ms) both;
+  }
+  .exhibit-card.product-pop{
+    transform-origin:center bottom;
+  }
+  .exhibit-card.product-pop.motion-in{
+    animation:productCardPop 0.96s var(--ease-luxury) var(--pop-delay,0ms) both;
+  }
+  .exhibit-card.product-pop .img-stub,
+  .exhibit-card.product-pop .exhibit-card-num,
+  .exhibit-card.product-pop .exhibit-card-season,
+  .exhibit-card.product-pop .exhibit-card-name,
+  .exhibit-card.product-pop .exhibit-card-desc{
+    opacity:0;
+    transform:translateY(16px) scale(0.98);
+  }
+  .exhibit-card.product-pop.motion-in .img-stub{
+    animation:productImagePop 0.88s var(--ease-luxury) calc(var(--pop-delay,0ms) + 120ms) both;
+  }
+  .exhibit-card.product-pop.motion-in .exhibit-card-num{
+    animation:productTextPop 0.58s var(--ease-luxury) calc(var(--pop-delay,0ms) + 220ms) both;
+  }
+  .exhibit-card.product-pop.motion-in .exhibit-card-season{
+    animation:productTextPop 0.58s var(--ease-luxury) calc(var(--pop-delay,0ms) + 300ms) both;
+  }
+  .exhibit-card.product-pop.motion-in .exhibit-card-name{
+    animation:productTextPop 0.68s var(--ease-luxury) calc(var(--pop-delay,0ms) + 380ms) both;
+  }
+  .exhibit-card.product-pop.motion-in .exhibit-card-desc{
+    animation:productTextPop 0.68s var(--ease-luxury) calc(var(--pop-delay,0ms) + 470ms) both;
+  }
+  @keyframes couturePopIn{
+    0%{opacity:0;transform:translateY(36px) scale(0.94);filter:blur(9px)}
+    72%{opacity:1;transform:translateY(-7px) scale(1.018);filter:blur(0)}
+    100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+  }
+  @keyframes productCardPop{
+    0%{opacity:0;transform:translateY(52px) scale(0.88);filter:blur(12px)}
+    64%{opacity:1;transform:translateY(-10px) scale(1.025);filter:blur(0)}
+    100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+  }
+  @keyframes productImagePop{
+    0%{opacity:0;transform:translateY(20px) scale(0.92);filter:blur(8px)}
+    72%{opacity:1;transform:translateY(-4px) scale(1.015);filter:blur(0)}
+    100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+  }
+  @keyframes productTextPop{
+    0%{opacity:0;transform:translateY(16px) scale(0.98);filter:blur(5px)}
+    100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+  }
+
+  .strip-item,
+  .craft-cell,
+  .coll-item,
+  .exhibit-card,
+  .timeline-item,
+  .celeb-item,
+  .flagship-item,
+  .journal-item,
+  .world-form{
+    will-change:transform;
+  }
+  .strip-item:hover,
+  .craft-cell:hover,
+  .coll-item:hover,
+  .exhibit-card:hover,
+  .celeb-item:hover,
+  .flagship-item:hover,
+  .journal-item:hover{
+    transform:translateY(-8px) scale(1.01);
+  }
+  .timeline-item:hover{
+    transform:translateX(10px);
+  }
+  .world-form:focus-within{
+    transform:translateY(-3px);
+  }
+  .runway-bg::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at 50% 44%,rgba(244,211,143,0.15),transparent 34%);
+    opacity:0.72;
+    animation:runwayPulse 3.4s ease-in-out infinite;
+  }
+  .runway-play{
+    animation:runwayButtonBreath 2.7s ease-in-out infinite;
+  }
+  @keyframes runwayPulse{
+    0%,100%{transform:scale(1);opacity:0.46}
+    50%{transform:scale(1.06);opacity:0.78}
+  }
+  @keyframes runwayButtonBreath{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-4px)}
+  }
+
+  /* ADDED: editorial strip breathing room and color balance */
+  .editorial-strip{
+    padding:clamp(52px,7vw,88px) clamp(22px,4vw,64px) clamp(64px,8vw,104px);
+    background:
+      linear-gradient(180deg,rgba(253,251,247,0.98),rgba(242,237,229,1) 52%,rgba(236,229,219,1));
+    border-top:none;
+    border-bottom:1px solid rgba(28,28,28,0.08);
+  }
+  .strip-track{
+    gap:clamp(14px,1.8vw,28px);
+    height:clamp(430px,64vh,690px);
+    min-height:430px;
+    padding:0 clamp(10px,1.4vw,22px) 12px;
+    scroll-padding-left:clamp(10px,1.4vw,22px);
+  }
+  .strip-item{
+    border-radius:4px;
+    background:#d7cec2;
+    box-shadow:0 22px 50px rgba(28,28,28,0.12);
+  }
+  .strip-item:nth-child(1){width:clamp(360px,42vw,720px)}
+  .strip-item:nth-child(2){width:clamp(280px,30vw,480px)}
+  .strip-item:nth-child(3){width:clamp(320px,34vw,560px)}
+  .strip-item:nth-child(4){width:clamp(300px,31vw,500px)}
+  .strip-item:nth-child(5){width:clamp(360px,40vw,680px)}
+  .strip-item .img-stub{
+    background:#d7cec2;
+  }
+  .strip-item img{
+    filter:saturate(0.88) contrast(0.94) brightness(0.91) sepia(0.05);
+    transition:
+      transform 1.2s var(--ease-luxury),
+      filter 0.7s var(--ease-luxury);
+  }
+  .strip-item:nth-child(1) img{
+    filter:saturate(0.78) contrast(0.92) brightness(0.88) sepia(0.08);
+  }
+  .strip-item:nth-child(2) img{
+    filter:saturate(0.86) contrast(0.94) brightness(0.9) sepia(0.06);
+  }
+  .strip-item:nth-child(3) img{
+    filter:saturate(0.84) contrast(0.95) brightness(0.93) sepia(0.08);
+  }
+  .strip-item:nth-child(4) img{
+    filter:saturate(0.82) contrast(0.91) brightness(0.88) sepia(0.05);
+  }
+  .strip-item:nth-child(5) img{
+    filter:saturate(0.82) contrast(0.94) brightness(0.94) sepia(0.08);
+  }
+  .strip-item::before{
+    content:'';
+    position:absolute;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    background:
+      linear-gradient(180deg,rgba(12,12,12,0.04),rgba(12,12,12,0.18)),
+      radial-gradient(circle at 50% 52%,rgba(253,251,247,0.08),transparent 54%);
+  }
+  .strip-item:hover img{
+    filter:saturate(0.96) contrast(0.98) brightness(0.96) sepia(0.03);
+    transform:scale(1.025);
+  }
+  .strip-caption{
+    z-index:2;
+    color:rgba(253,251,247,0.78);
+    text-shadow:0 2px 18px rgba(0,0,0,0.36);
+  }
+  @media(max-width:900px){
+    .editorial-strip{
+      padding:36px 16px 52px;
+    }
+    .strip-track{
+      gap:12px;
+      height:68vh;
+      min-height:390px;
+      padding:0 4px 10px;
+      scroll-padding-left:4px;
+    }
+    .strip-item:nth-child(n){
+      width:min(78vw,420px);
+    }
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    .curtain-reveal{display:none}
+    .home-prelude{display:none}
+    nav,
+    .hero-content > *,
+    .hero::after,
+    .hero-reel-img,
+    .hero-frame-copy,
+    .motion-pop.motion-in,
+    .runway-bg::after,
+    .runway-play{
+      animation:none!important;
+    }
+    .hero-reel-img-1{
+      opacity:0.86;
+      transform:none;
+    }
+    .hero-frame-copy-1{
+      opacity:1;
+      transform:none;
+      filter:none;
+    }
+    .motion-pop{
+      opacity:1;
+      transform:none;
+      filter:none;
+    }
+    .exhibit-card.product-pop .img-stub,
+    .exhibit-card.product-pop .exhibit-card-num,
+    .exhibit-card.product-pop .exhibit-card-season,
+    .exhibit-card.product-pop .exhibit-card-name,
+    .exhibit-card.product-pop .exhibit-card-desc{
+      opacity:1;
+      transform:none;
+      filter:none;
+    }
+  }
+</style>
+</head>
+<body>
+<script>
+  if('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  document.body.classList.add('prelude-active');
+  window.addEventListener('load', () => window.scrollTo(0, 0), { once:true });
+</script>
+<div class="curtain-reveal" id="curtainReveal" aria-hidden="true">
+  <div class="curtain-panel curtain-panel-left"></div>
+  <div class="curtain-panel curtain-panel-right"></div>
+  <div class="curtain-mark">
+    <span>Vaishali S</span>
+    <small>Haute Couture</small>
+  </div>
+</div>
+<div class="home-prelude" id="homePrelude" aria-hidden="true">
+  <div class="home-prelude-card">
+    <p class="home-prelude-kicker">Mumbai to Paris</p>
+    <div class="home-prelude-title">Vaishali S</div>
+    <div class="home-prelude-line"></div>
+    <p class="home-prelude-copy">A couture house of handwoven sculpture, movement, and craft.</p>
+  </div>
+</div>
+
+<!-- NAV OVERLAY -->
+<div class="nav-overlay" id="navOverlay">
+  <button class="overlay-close" onclick="toggleNav()">Close</button>
+  <div class="overlay-col1">
+    <a class="overlay-navlink" href="#" onmouseenter="setNavImg('kintsugi')">Collections</a>
+    <a class="overlay-navlink" href="#" onmouseenter="setNavImg('couture')">Couture</a>
+    <a class="overlay-navlink" href="#" onmouseenter="setNavImg('craft')">Craftsmanship</a>
+    <a class="overlay-navlink" href="#" onmouseenter="setNavImg('house')">The House</a>
+    <a class="overlay-navlink" href="#" onmouseenter="setNavImg('journal')">Journal</a>
+    <a class="overlay-navlink" href="#" onmouseenter="setNavImg('ateliers')">Ateliers</a>
+  </div>
+  <div class="overlay-col2">
+    <img id="navOverlayImg" class="overlay-img" src="" alt="" aria-hidden="true">
+  </div>
+  <div class="overlay-col3">
+    <p class="overlay-note">Now Presenting — KINTSUGI — Paris Haute Couture 2025</p>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-left">
+    <span class="nav-link" onclick="toggleNav()">Menu</span>
+    <a class="nav-link" href="https://www.vaishali-s.com/collections/all" style="text-decoration:none">Collections</a>
+  </div>
+  <div class="nav-center">Vaishali S</div>
+  <div class="nav-right">
+    <a class="nav-link" href="https://www.vaishali-s.com/pages/contact-us" style="text-decoration:none">Inquire</a>
+    <a class="nav-link" href="https://www.vaishali-s.com/pages/mumbai-store" style="text-decoration:none">Atelier</a>
+  </div>
+</nav>
+
+<!-- TIER 01: CINEMATIC OPENING -->
+<section class="hero hero-reel">
+  <div class="hero-img-placeholder"></div>
+  <div class="hero-reel-media" aria-hidden="true">
+    <img class="hero-img hero-reel-img hero-reel-img-1"
+      src="https://www.vaishali-s.com/cdn/shop/files/Vaishali_X_Isvari06626_8433fe63-f9ea-4a62-8566-c8d099826a73.jpg?v=1768214276&width=2400"
+      alt="">
+    <img class="hero-img hero-reel-img hero-reel-img-2"
+      src="https://www.vaishali-s.com/cdn/shop/files/DSC_4066_1.jpg?v=1730959242&width=2400"
+      alt="">
+    <img class="hero-img hero-reel-img hero-reel-img-3"
+      src="https://www.vaishali-s.com/cdn/shop/files/VS_L2_i2copy2.jpg?v=1753797090&width=2400"
+      alt="">
+  </div>
+  <img class="hero-img"
+    src="https://www.vaishali-s.com/cdn/shop/files/banner_51627b88-aa1d-44ba-8635-0ae46a15d234.jpg?v=1753967239&width=2400"
+    alt="VAISHALI S — Kintsugi Couture Campaign"
+    onload="this.style.opacity='0.82'">
+  <div class="hero-overlay"></div>
+  <div class="hero-reel-copy">
+    <div class="hero-frame-copy hero-frame-copy-1">
+      <p class="hero-meta">2025 Bridal — Naad Couture Showcase</p>
+      <h1 class="hero-title">Naad<br>Bridal</h1>
+      <a href="https://www.vaishali-s.com/collections/2025-bridal-couture-showcase-naad" class="hero-cta">Discover Naad Bridal</a>
+    </div>
+    <div class="hero-frame-copy hero-frame-copy-2">
+      <p class="hero-meta">For the Bride-to-Be</p>
+      <h1 class="hero-title">Ivory<br>Movement</h1>
+      <div class="hero-frame-actions">
+        <a href="https://www.vaishali-s.com/collections/jaipur-bridal-collection-2024" class="hero-cta">Vibrant Bride</a>
+        <a href="https://www.vaishali-s.com/collections/ivory-bride" class="hero-cta">Ivory Bride</a>
+      </div>
+    </div>
+    <div class="hero-frame-copy hero-frame-copy-3">
+      <p class="hero-meta">2025 F/W Kintsugi Couture Collection</p>
+      <h1 class="hero-title">Kintsugi<br>Collection</h1>
+      <a href="https://www.vaishali-s.com/collections/kintsugi-f-w-25" class="hero-cta">Enter the Kintsugi World</a>
+    </div>
+  </div>
+  <div class="hero-content">
+    <p class="hero-meta">Paris Haute Couture — 2025</p>
+    <h1 class="hero-title">Kintsugi<br>Collection</h1>
+    <a href="https://www.vaishali-s.com/collections/kintsugi-f-w-25" class="hero-cta">Enter the Collection</a>
+  </div>
+  <p class="hero-scroll">Scroll</p>
+</section>
+
+<!-- TIER 02: EDITORIAL IMAGE JOURNEY -->
+<div class="editorial-strip">
+  <div class="strip-track" id="stripTrack">
+    <div class="strip-item">
+      <div class="img-stub" style="height:100%">
+        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+          src="https://www.vaishali-s.com/cdn/shop/files/VS_L2_i2copy2.jpg?v=1753797090&width=1432"
+          alt="Kintsugi Campaign" loading="lazy"
+          onerror="this.style.display='none'">
+      </div>
+      <span class="strip-caption">Kintsugi — F/W 2025</span>
+    </div>
+    <div class="strip-item">
+      <div class="img-stub" style="height:100%">
+        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+          src="https://www.vaishali-s.com/cdn/shop/files/SAT09.jpg?v=1721300228&width=1080"
+          alt="Satori Collection" loading="lazy"
+          onerror="this.style.display='none'">
+      </div>
+      <span class="strip-caption">Satori — F/W 2024</span>
+    </div>
+    <div class="strip-item">
+      <div class="img-stub" style="height:100%">
+        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+          src="https://www.vaishali-s.com/cdn/shop/files/IMG_7953_1.jpg?v=1742817036&width=1080"
+          alt="Signature Craftsmanship" loading="lazy"
+          onerror="this.style.display='none'">
+      </div>
+      <span class="strip-caption">Craftsmanship Detail</span>
+    </div>
+    <div class="strip-item">
+      <div class="img-stub" style="height:100%">
+        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+          src="https://www.vaishali-s.com/cdn/shop/files/SAT65.jpg?v=1721307756&width=1080"
+          alt="Rib Mini Gold" loading="lazy"
+          onerror="this.style.display='none'">
+      </div>
+      <span class="strip-caption">Runway Editorial</span>
+    </div>
+    <div class="strip-item">
+      <div class="img-stub" style="height:100%">
+        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+          src="https://www.vaishali-s.com/cdn/shop/files/DSC_4066_1.jpg?v=1730959242&width=2400"
+          alt="Bridal Couture" loading="lazy"
+          onerror="this.style.display='none'">
+      </div>
+      <span class="strip-caption">Bridal Couture</span>
+    </div>
+  </div>
+</div>
+
+<!-- TIER 03: THE HOUSE OF VAISHALI -->
+<section>
+  <div class="section-inner">
+    <div class="house-grid">
+      <div>
+        <p class="house-meta reveal">Est. — The House</p>
+        <h2 class="house-title reveal reveal-delay-1">
+          Where ancient<br>
+          textile heritage<br>
+          meets global<br>
+          haute couture.
+        </h2>
+        <p class="house-body reveal reveal-delay-2">
+          Vaishali Shadangule built her house on the loom. Every collection begins not 
+          on a sketch pad but in conversation with weavers — the inheritors of India's 
+          most ancient textile traditions. The result is couture that belongs simultaneously 
+          to the ateliers of Paris and the handloom workshops of rural India.
+        </p>
+        <p class="house-body reveal reveal-delay-2" style="margin-bottom:0">
+          The first Indian woman to present at Paris Haute Couture Week. 
+          The first Indian designer to open a flagship in Paris. 
+          Each milestone a quiet declaration: this is a global luxury house.
+        </p>
+        <br>
+        <a href="https://www.vaishali-s.com/pages/about-us" class="text-link reveal reveal-delay-3">
+          The Philosophy
+        </a>
+      </div>
+      <div class="house-img-wrap reveal reveal-delay-1">
+        <div class="img-stub" style="height:100%">
+          <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+            src="https://www.vaishali-s.com/cdn/shop/files/VaishaliScouture-23-8.jpg?v=1740223257&width=1800"
+            alt="The House of Vaishali S — Paris" loading="lazy"
+            onerror="this.style.display='none'">
+        </div>
+        <div class="house-img-label">
+          <span class="house-img-label-num">10+</span>
+          <span class="house-img-label-text">Paris Couture<br>Presentations</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIER 04: CRAFTSMANSHIP MANIFESTO -->
+<section class="craft">
+  <div class="craft .section-inner" style="padding:120px 96px">
+    <div class="craft-header reveal">
+      <h2 class="craft-title">
+        The art of<br>
+        the <em>handwoven.</em>
+      </h2>
+      <p class="craft-body">
+        Each Vaishali S garment begins at the loom. Artisans weave 
+        to specifications developed over months — geometry, tension, 
+        and weight calibrated for couture structure. No two pieces are alike.
+      </p>
+    </div>
+    <div class="craft-grid reveal">
+      <div class="craft-cell">
+        <div class="img-stub">
+          <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+            src="https://www.vaishali-s.com/cdn/shop/files/IMG_8543.jpg?v=1724929953&width=1080"
+            alt="Artisan weaving" loading="lazy"
+            onerror="this.style.display='none'">
+        </div>
+        <span class="craft-label">Handwoven Cord Textile</span>
+      </div>
+      <div class="craft-cell">
+        <div class="img-stub">
+          <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+            src="https://www.vaishali-s.com/cdn/shop/files/IMG_4201.jpg?v=1721305390&width=1080"
+            alt="Textile detail" loading="lazy"
+            onerror="this.style.display='none'">
+        </div>
+        <span class="craft-label">Metallic Weave Study</span>
+      </div>
+      <div class="craft-cell">
+        <div class="img-stub">
+          <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+            src="https://www.vaishali-s.com/cdn/shop/files/SAT23.jpg?v=1721305009&width=1080"
+            alt="Craft process" loading="lazy"
+            onerror="this.style.display='none'">
+        </div>
+        <span class="craft-label">Drape Construction</span>
+      </div>
+      <div class="craft-cell">
+        <div class="img-stub">
+          <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+            src="https://www.vaishali-s.com/cdn/shop/files/Vaishali-Sadangule-Naina.co-DSC_9819-Enhanced-NR.jpg?v=1721286945&width=1080"
+            alt="Couture finish" loading="lazy"
+            onerror="this.style.display='none'">
+        </div>
+        <span class="craft-label">Couture Finish</span>
+      </div>
+    </div>
+    <div class="craft-stats reveal">
+      <div class="craft-stat">
+        <div class="craft-stat-num">200+</div>
+        <div class="craft-stat-label">Artisan hours<br>per couture piece</div>
+      </div>
+      <div class="craft-stat">
+        <div class="craft-stat-num">40+</div>
+        <div class="craft-stat-label">Master weavers<br>in collaboration</div>
+      </div>
+      <div class="craft-stat">
+        <div class="craft-stat-num">12</div>
+        <div class="craft-stat-label">Paris Couture<br>presentations</div>
+      </div>
+      <div class="craft-stat">
+        <div class="craft-stat-num">2</div>
+        <div class="craft-stat-label">Global flagship<br>ateliers</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIER 05: COLLECTION UNIVERSES -->
+<section>
+  <div class="section-inner">
+    <div class="collections-header">
+      <h2 class="collections-title reveal">Collection Universes</h2>
+      <a href="https://www.vaishali-s.com/collections/all" class="text-link reveal">All Collections</a>
+    </div>
+    <div class="collections-grid reveal">
+      <div class="coll-item">
+        <div class="img-stub" style="height:100%">
+          <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+            src="https://www.vaishali-s.com/cdn/shop/files/banner_51627b88-aa1d-44ba-8635-0ae46a15d234.jpg?v=1753967239&width=2400"
+            alt="Couture" loading="lazy"
+            onerror="this.style.display='none'">
+        </div>
+        <div class="coll-overlay"></div>
+        <div class="coll-info">
+          <p class="coll-meta">Paris Haute Couture</p>
+          <h3 class="coll-name">Couture</h3>
+        </div>
+      </div>
+      <div class="coll-item">
+        <div class="img-stub" style="height:100%">
+          <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+            src="https://www.vaishali-s.com/cdn/shop/files/Vaishali_X_Isvari06626_8433fe63-f9ea-4a62-8566-c8d099826a73.jpg?v=1768214276&width=2400"
+            alt="Bridal" loading="lazy"
+            onerror="this.style.display='none'">
+        </div>
+        <div class="coll-overlay"></div>
+        <div class="coll-info">
+          <p class="coll-meta">The Bridal Universe</p>
+          <h3 class="coll-name">Bridal Couture</h3>
+        </div>
+      </div>
+      <div class="coll-item">
+        <div class="img-stub" style="height:100%">
+          <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+            src="https://www.vaishali-s.com/cdn/shop/files/DSC2288_1.jpg?v=1663138530&width=1800"
+            alt="Prêt-à-Porter" loading="lazy"
+            onerror="this.style.display='none'">
+        </div>
+        <div class="coll-overlay"></div>
+        <div class="coll-info">
+          <p class="coll-meta">Ready-to-Wear</p>
+          <h3 class="coll-name">Prêt-à-Porter</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIER 06: SIGNATURE EXHIBITIONS -->
+<div class="exhibit-wrap">
+  <div class="exhibit-header">
+    <h2 class="exhibit-title reveal">Signature Exhibitions</h2>
+    <a href="https://www.vaishali-s.com/collections/all" class="text-link reveal">Archive</a>
+  </div>
+  <div class="exhibit-row reveal">
+    <div class="exhibit-card" onclick="window.location='https://www.vaishali-s.com/collections/kintsugi-f-w-25'">
+      <p class="exhibit-card-num">No. 01</p>
+      <div class="img-stub" style="width:100%;aspect-ratio:3/4;position:relative">
+        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+          src="https://www.vaishali-s.com/cdn/shop/files/VS_L2_i2copy2.jpg?v=1753797090&width=1432"
+          alt="Kintsugi Collection" loading="lazy"
+          onerror="this.style.display='none'">
+        <img class="exhibit-card-img" style="position:absolute;inset:0" src="" alt="" aria-hidden="true">
+      </div>
+      <p class="exhibit-card-season" style="margin-top:28px">F/W 2025 — Paris</p>
+      <h3 class="exhibit-card-name">Kintsugi</h3>
+      <p class="exhibit-card-desc">The Japanese art of repairing with gold — translated into couture through textiles that celebrate rupture and beauty in equal measure.</p>
+    </div>
+    <div class="exhibit-card" onclick="window.location='https://www.vaishali-s.com/collections/satori'">
+      <p class="exhibit-card-num">No. 02</p>
+      <div class="img-stub" style="width:100%;aspect-ratio:3/4;position:relative">
+        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+          src="https://www.vaishali-s.com/cdn/shop/files/SAT09.jpg?v=1721300228&width=1080"
+          alt="Satori Collection" loading="lazy"
+          onerror="this.style.display='none'">
+      </div>
+      <p class="exhibit-card-season" style="margin-top:28px">F/W 2024 — Paris</p>
+      <h3 class="exhibit-card-name">Satori</h3>
+      <p class="exhibit-card-desc">A meditation on sudden enlightenment — garments conceived in silence, woven with intention, revealed in movement.</p>
+    </div>
+    <div class="exhibit-card" onclick="window.location='https://www.vaishali-s.com/collections/i-am-nature'">
+      <p class="exhibit-card-num">No. 03</p>
+      <div class="img-stub" style="width:100%;aspect-ratio:3/4;position:relative">
+        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+          src="https://www.vaishali-s.com/cdn/shop/files/DSC_4066_1.jpg?v=1730959242&width=2400"
+          alt="I Am Nature Collection" loading="lazy"
+          onerror="this.style.display='none'">
+      </div>
+      <p class="exhibit-card-season" style="margin-top:28px">S/S 2024 — Paris</p>
+      <h3 class="exhibit-card-name">I Am Nature</h3>
+      <p class="exhibit-card-desc">An exploration of organic form through handloom construction — each piece a fragment of landscape rendered in fabric.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TIER 07: RECOGNITION TIMELINE -->
+<div class="timeline-wrap">
+  <div class="timeline-header reveal">
+    <h2 class="timeline-title">The Global Journey</h2>
+    <p class="timeline-sub">Milestones that trace the evolution of an Indian house onto the world's most prestigious stages.</p>
+  </div>
+  <div class="timeline-items">
+    <div class="timeline-item reveal">
+      <span class="timeline-year">2025</span>
+      <span class="timeline-event">
+        <strong>Kintsugi — Paris Haute Couture Week</strong>
+        First full bridal couture showcase at BBFW alongside Paris presentation
+      </span>
+    </div>
+    <div class="timeline-item reveal">
+      <span class="timeline-year">2024</span>
+      <span class="timeline-event">
+        <strong>Vaishali S Paris Flagship Opens</strong>
+        First Indian designer to open a permanent atelier at 188 Boulevard Saint-Germain
+      </span>
+    </div>
+    <div class="timeline-item reveal">
+      <span class="timeline-year">2024</span>
+      <span class="timeline-event">
+        <strong>Satori — Paris Haute Couture; I Am Nature — Paris Haute Couture</strong>
+        Twin presentations establishing Vaishali S as a fixture of the official calendar
+      </span>
+    </div>
+    <div class="timeline-item reveal">
+      <span class="timeline-year">2023</span>
+      <span class="timeline-event">
+        <strong>Abyss — Paris Haute Couture; Ancestral Threads — Milan Ready-to-Wear</strong>
+        Simultaneous European presence across couture and prêt-à-porter calendars
+      </span>
+    </div>
+    <div class="timeline-item reveal">
+      <span class="timeline-year">2021</span>
+      <span class="timeline-event">
+        <strong>First Indian woman invited to present at Paris Haute Couture Week</strong>
+        A historic milestone — Breath Collection inaugurates the house's presence in Paris
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- TIER 08: CELEBRITY ARCHIVE -->
+<div class="celebrity-wrap">
+  <div class="celebrity-header">
+    <h2 class="celebrity-title reveal">
+      Worn on the<br>world's stage.
+    </h2>
+  </div>
+  <div class="celebrity-grid reveal">
+    <div class="celeb-item">
+      <div class="img-stub" style="height:500px">
+        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+          src="https://www.vaishali-s.com/cdn/shop/products/338579601_1007654976886922_3359989117594359408_n.jpg?v=1722606528&width=1080"
+          alt="Celebrity in Vaishali S" loading="lazy"
+          onerror="this.style.display='none'">
+      </div>
+      <div class="celeb-info">
+        <div class="celeb-name">Hanna Khan</div>
+        <div class="celeb-event">Couture</div>
+      </div>
+    </div>
+    <div class="celeb-item">
+      <div class="img-stub" style="aspect-ratio:2/3">
+        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+          src="https://www.vaishali-s.com/cdn/shop/files/Snapinsta.app_349056187_1005242213976279_1797461544541384154_n_1080.jpg?v=1721303443&width=1080"
+          alt="Celebrity in Vaishali S" loading="lazy"
+          onerror="this.style.display='none'">
+      </div>
+      <div class="celeb-info">
+        <div class="celeb-name">Genelia Deshmukh</div>
+        <div class="celeb-event">Editorial</div>
+      </div>
+    </div>
+    <div class="celeb-item">
+      <div class="img-stub" style="aspect-ratio:2/3">
+        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+          src="https://www.vaishali-s.com/cdn/shop/files/DF1F47C4-0DA2-41D0-9F62-81B550CAD1EC.jpg?v=1720790178&width=1080"
+          alt="Celebrity in Vaishali S" loading="lazy"
+          onerror="this.style.display='none'">
+      </div>
+      <div class="celeb-info">
+        <div class="celeb-name">Style Icon</div>
+        <div class="celeb-event">Red Carpet</div>
+      </div>
+    </div>
+    <div class="celeb-item">
+      <div class="img-stub" style="height:500px">
+        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+          src="https://www.vaishali-s.com/cdn/shop/files/Vaishali_X_Isvari06545.jpg?v=1756547409&width=2562"
+          alt="Celebrity in Vaishali S" loading="lazy"
+          onerror="this.style.display='none'">
+      </div>
+      <div class="celeb-info">
+        <div class="celeb-name">Isvari</div>
+        <div class="celeb-event">Campaign</div>
+      </div>
+    </div>
+    <div class="celeb-item">
+      <div class="img-stub" style="aspect-ratio:2/3">
+        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+          src="https://www.vaishali-s.com/cdn/shop/files/Snapinsta.app_350727302_1959962171017717_2673830937052789318_n_1080.jpg?v=1721308299&width=1080"
+          alt="Celebrity in Vaishali S" loading="lazy"
+          onerror="this.style.display='none'">
+      </div>
+      <div class="celeb-info">
+        <div class="celeb-name">Sanjana Sanghi</div>
+        <div class="celeb-event">Red Carpet</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TIER 09: FLAGSHIP DESTINATIONS -->
+<section>
+  <div class="section-inner">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:56px">
+      <h2 class="collections-title reveal">Architectural Destinations</h2>
+    </div>
+  </div>
+  <div class="flagship-grid reveal">
+    <div class="flagship-item">
+      <div class="img-stub" style="height:100%">
+        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+          src="https://www.vaishali-s.com/cdn/shop/files/DSC2288_1.jpg?v=1663138530&width=1800"
+          alt="Mumbai Flagship" loading="lazy"
+          onerror="this.style.display='none'">
+      </div>
+      <div class="flagship-overlay"></div>
+      <div class="flagship-content">
+        <p class="flagship-city">South Mumbai, India</p>
+        <h3 class="flagship-name">The Mumbai<br>Atelier</h3>
+        <p class="flagship-address">
+          Kirti Chambers, 35 Ambalal Doshi Marg<br>
+          Kala Ghoda, Fort<br>
+          Mon – Sat, 10:30 – 19:30
+        </p>
+        <a href="https://www.vaishali-s.com/pages/mumbai-store" class="flagship-cta">Request Private Viewing</a>
+      </div>
+    </div>
+    <div class="flagship-item">
+      <div class="img-stub" style="height:100%">
+        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
+          src="https://www.vaishali-s.com/cdn/shop/files/VaishaliScouture-23-8.jpg?v=1740223257&width=1800"
+          alt="Paris Flagship" loading="lazy"
+          onerror="this.style.display='none'">
+      </div>
+      <div class="flagship-overlay"></div>
+      <div class="flagship-content">
+        <p class="flagship-city">Paris, France</p>
+        <h3 class="flagship-name">The Paris<br>Flagship</h3>
+        <p class="flagship-address">
+          188 Boulevard Saint-Germain<br>
+          Paris VII<br>
+          Mon – Sat, 11:00 – 19:00
+        </p>
+        <a href="https://www.vaishali-s.com/pages/our-paris-store" class="flagship-cta">Request Private Viewing</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIER 10: RUNWAY THEATER -->
+<div class="runway">
+  <div class="runway-bg"></div>
+  <div class="runway-content">
+    <p class="runway-meta">Runway Theater</p>
+    <h2 class="runway-title">
+      Kintsugi<br>
+      <em>Paris Haute Couture</em><br>
+      2025
+    </h2>
+    <button class="runway-play" onclick="window.open('https://www.youtube.com/channel/UCNEG_LqIyj1hyNL-gSMmGWw','_blank')">
+      <span class="runway-play-icon"></span>
+      View the Runway Film
+    </button>
+  </div>
+</div>
+
+<!-- TIER 11: THE JOURNAL -->
+<div class="journal-wrap">
+  <div class="journal-header">
+    <h2 class="journal-title reveal">The Journal</h2>
+    <a href="https://www.vaishali-s.com/blogs/news" class="text-link reveal">All Issues</a>
+  </div>
+  <div class="journal-grid reveal">
+    <div class="journal-item">
+      <p class="journal-tag">Press</p>
+      <h3 class="journal-item-title">Vaishali Shadangule's Paris Diary — as told to Grazia</h3>
+      <p class="journal-item-date">November 2024</p>
+    </div>
+    <div class="journal-item">
+      <p class="journal-tag">Editorial</p>
+      <h3 class="journal-item-title">Femina — The August Issue on Couture and Heritage</h3>
+      <p class="journal-item-date">August 2024</p>
+    </div>
+    <div class="journal-item">
+      <p class="journal-tag">Craftsmanship</p>
+      <h3 class="journal-item-title">Inspired by Padmavati — Colour, Texture, and Rajasthan</h3>
+      <p class="journal-item-date">July 2024</p>
+    </div>
+  </div>
+</div>
+
+<!-- TIER 12: ENTER THE WORLD -->
+<section class="world">
+  <div class="world-inner">
+    <p class="world-meta">Private Access</p>
+    <h2 class="world-title">
+      Enter the world<br>
+      <em>of Vaishali S</em>
+    </h2>
+    <p class="world-body">
+      Collection previews. Private presentations. Atelier invitations. 
+      An archive of textile stories. Reserved for those who seek 
+      something beyond fashion.
+    </p>
+    <div class="world-form">
+      <input class="world-input" type="email" placeholder="Your correspondence address" aria-label="Email address">
+      <button class="world-submit">Enter</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Vaishali S</div>
+      <p class="footer-tagline">
+        A luxury fashion house rooted in handwoven couture, 
+        Indian craft heritage, and the global haute couture stage. 
+        Mumbai · Paris.
+      </p>
+    </div>
+    <div>
+      <p class="footer-col-title">The House</p>
+      <ul class="footer-links">
+        <li><a href="https://www.vaishali-s.com/pages/about-us">Our Philosophy</a></li>
+        <li><a href="https://www.vaishali-s.com/pages/mumbai-store">Mumbai Atelier</a></li>
+        <li><a href="https://www.vaishali-s.com/pages/our-paris-store">Paris Flagship</a></li>
+        <li><a href="https://www.vaishali-s.com/blogs/news">Journal</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Collections</p>
+      <ul class="footer-links">
+        <li><a href="https://www.vaishali-s.com/collections/kintsugi-f-w-25">Kintsugi 2025</a></li>
+        <li><a href="https://www.vaishali-s.com/collections/satori">Satori 2024</a></li>
+        <li><a href="https://www.vaishali-s.com/collections/all-couture">All Couture</a></li>
+        <li><a href="https://www.vaishali-s.com/collections/2025-bridal-couture-showcase-naad">Bridal</a></li>
+        <li><a href="https://www.vaishali-s.com/collections/vaishali-s-art-deco">Home Maison</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Inquiries</p>
+      <ul class="footer-links">
+        <li><a href="https://www.vaishali-s.com/pages/contact-us">Private Styling</a></li>
+        <li><a href="https://wa.me/917021110182">Atelier WhatsApp</a></li>
+        <li><a href="https://www.vaishali-s.com/pages/customer-service">Client Services</a></li>
+        <li><a href="https://www.vaishali-s.com/pages/faq">Acquisitions Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 Vaishali S. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://www.instagram.com/vaishalisstudio" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.youtube.com/channel/UCNEG_LqIyj1hyNL-gSMmGWw" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/VaishaliShadangule29/" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  /* ── NAV SCROLL ─── */
+  const nav = document.getElementById('mainNav');
+  window.addEventListener('scroll',()=>{
+    nav.classList.toggle('scrolled',window.scrollY>60);
+  },{passive:true});
+
+  /* ── NAV OVERLAY ─── */
+  const overlay = document.getElementById('navOverlay');
+  const overlayImg = document.getElementById('navOverlayImg');
+  function toggleNav(){
+    overlay.classList.toggle('open');
+    document.body.style.overflow = overlay.classList.contains('open')?'hidden':'';
+  }
+  const navImages = {
+    kintsugi:'https://www.vaishali-s.com/cdn/shop/files/VS_L2_i2copy2.jpg?v=1753797090&width=800',
+    couture:'https://www.vaishali-s.com/cdn/shop/files/SAT09.jpg?v=1721300228&width=800',
+    craft:'https://www.vaishali-s.com/cdn/shop/files/IMG_8543.jpg?v=1724929953&width=800',
+    house:'https://www.vaishali-s.com/cdn/shop/files/VaishaliScouture-23-8.jpg?v=1740223257&width=800',
+    journal:'https://www.vaishali-s.com/cdn/shop/files/DSC_4066_1.jpg?v=1730959242&width=800',
+    ateliers:'https://www.vaishali-s.com/cdn/shop/files/DSC2288_1.jpg?v=1663138530&width=800',
+  };
+  function setNavImg(key){
+    const src = navImages[key];
+    if(!src) return;
+    const img = overlayImg;
+    img.style.opacity='0';
+    setTimeout(()=>{
+      img.src = src;
+      img.onload = ()=>img.style.opacity='1';
+    },150);
+  }
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')overlay.classList.remove('open'),document.body.style.overflow=''});
+
+  /* ── SCROLL REVEAL ─── */
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  },{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+  revealEls.forEach(el=>io.observe(el));
+
+  /* ── DRAG-TO-SCROLL STRIP ─── */
+  const track = document.getElementById('stripTrack');
+  let isDragging=false,startX=0,scrollLeft=0;
+  track.addEventListener('mousedown',e=>{
+    isDragging=true;
+    track.classList.add('grabbing');
+    startX=e.pageX-track.offsetLeft;
+    scrollLeft=track.scrollLeft;
+  });
+  document.addEventListener('mouseup',()=>{
+    isDragging=false;
+    track.classList.remove('grabbing');
+  });
+  track.addEventListener('mousemove',e=>{
+    if(!isDragging)return;
+    e.preventDefault();
+    const x=e.pageX-track.offsetLeft;
+    const walk=(x-startX)*1.2;
+    track.scrollLeft=scrollLeft-walk;
+  });
+  track.addEventListener('touchstart',e=>{
+    startX=e.touches[0].pageX-track.offsetLeft;
+    scrollLeft=track.scrollLeft;
+  },{passive:true});
+  track.addEventListener('touchmove',e=>{
+    const x=e.touches[0].pageX-track.offsetLeft;
+    track.scrollLeft=scrollLeft-(x-startX)*1.2;
+  },{passive:true});
+
+  /* ── NEWSLETTER FORM ─── */
+  const submitBtn = document.querySelector('.world-submit');
+  const emailInput = document.querySelector('.world-input');
+  if(submitBtn && emailInput){
+    submitBtn.addEventListener('click',()=>{
+      if(emailInput.value && emailInput.value.includes('@')){
+        submitBtn.textContent = 'Welcome';
+        submitBtn.style.opacity='1';
+        emailInput.value='';
+        emailInput.placeholder='You are now part of the world.';
+      }
+    });
+  }
+
+  /* ADDED MOTION LAYER */
+  (() => {
+    const curtain = document.getElementById('curtainReveal');
+    const prelude = document.getElementById('homePrelude');
+    window.addEventListener('load', () => {
+      setTimeout(() => curtain && curtain.remove(), 2900);
+      setTimeout(() => {
+        prelude && prelude.remove();
+        document.body.classList.remove('prelude-active');
+        startHeroReel();
+      }, 5400);
+    });
+
+    const heroImages = Array.from(document.querySelectorAll('.hero-reel-img'));
+    const heroCopies = Array.from(document.querySelectorAll('.hero-frame-copy'));
+    let heroFrame = 0;
+    let heroTimer = null;
+
+    function setHeroFrame(index){
+      if(!heroImages.length || !heroCopies.length) return;
+      heroFrame = index % heroImages.length;
+      heroImages.forEach((img, i) => {
+        const isActive = i === heroFrame;
+        img.classList.toggle('is-active', isActive);
+        img.style.setProperty('animation', 'none', 'important');
+        img.style.setProperty('transition', 'opacity 1.25s var(--ease-luxury), transform 6.2s linear', 'important');
+        img.style.setProperty('opacity', isActive ? '0.86' : '0', 'important');
+        img.style.setProperty('transform', isActive
+          ? 'scale(1.025) translate3d(-10px,-4px,0)'
+          : 'scale(1.09) translate3d(0,12px,0)', 'important');
+        img.style.setProperty('z-index', isActive ? '1' : '0', 'important');
+      });
+      heroCopies.forEach((copy, i) => {
+        const isActive = i === heroFrame;
+        copy.classList.toggle('is-active', isActive);
+        copy.style.setProperty('animation', 'none', 'important');
+        copy.style.setProperty('transition', 'opacity 0.86s var(--ease-luxury), transform 0.86s var(--ease-luxury), filter 0.86s var(--ease-luxury)', 'important');
+        copy.style.setProperty('opacity', isActive ? '1' : '0', 'important');
+        copy.style.setProperty('transform', isActive ? 'translateY(0) scale(1)' : 'translateY(28px) scale(0.98)', 'important');
+        copy.style.setProperty('filter', isActive ? 'blur(0)' : 'blur(8px)', 'important');
+      });
+    }
+
+    function startHeroReel(){
+      if(!heroImages.length || heroTimer) return;
+      setHeroFrame(0);
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      heroTimer = setInterval(() => {
+        setHeroFrame(heroFrame + 1);
+      }, 6000);
+    }
+
+    const motionTargets = document.querySelectorAll([
+      '.strip-item',
+      '.craft-cell',
+      '.coll-item',
+      '.exhibit-card',
+      '.timeline-item',
+      '.celeb-item',
+      '.flagship-item',
+      '.journal-item',
+      '.world-form'
+    ].join(','));
+
+    motionTargets.forEach((el, index) => {
+      el.classList.add('motion-pop');
+      if(el.classList.contains('exhibit-card')){
+        el.classList.add('product-pop');
+      }
+      el.style.setProperty('--pop-delay', `${Math.min(index % 6, 5) * 70}ms`);
+    });
+
+    const motionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('motion-in');
+          motionObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold:0.14, rootMargin:'0px 0px -32px 0px' });
+
+    motionTargets.forEach(el => motionObserver.observe(el));
+  })();
+</script>
+</body>
+</html>
