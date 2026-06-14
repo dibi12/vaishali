@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mumbai Flagship Atelier — VAISHALI S</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+  :root{
+    --ivory:#F4EEE3;
+    --ivory-sub:#ECE3D4;
+    --champagne:#E6DAC6;
+    --stone:#DAD0BF;
+    --charcoal:#1A1712;
+    --muted-black:#0B0907;
+    --grey:#7C7261;
+    --gold:#B8975A;
+    --gold-dim:rgba(184,151,90,0.6);
+    --gold-trace:rgba(184,151,90,0.14);
+    --serif:"Cormorant Garamond",serif;
+    --sans:"Inter",sans-serif;
+    --ease-luxury:cubic-bezier(0.25,1,0.5,1);
+  }
+
+  html{scroll-behavior:smooth;font-size:16px}
+  body{
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -5%, rgba(230,218,198,0.55), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 100% 40%, rgba(216,200,172,0.35), transparent 55%),
+      linear-gradient(180deg, var(--ivory) 0%, var(--ivory-sub) 100%);
+    background-attachment:fixed;
+    color:var(--charcoal);
+    font-family:var(--sans);
+    font-weight:300;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{display:block}
+  ::selection{background:rgba(184,151,90,0.18);color:var(--charcoal)}
+  ::-webkit-scrollbar{width:3px}
+  ::-webkit-scrollbar-track{background:var(--ivory)}
+  ::-webkit-scrollbar-thumb{background:var(--gold-dim);border-radius:2px}
+
+  /* ── GRAIN + SCROLL PROGRESS ─────────────────────────────── */
+  .grain-overlay{
+    position:fixed;inset:0;z-index:9997;pointer-events:none;opacity:0.035;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    background-size:260px 260px;
+  }
+  .scroll-progress{
+    position:fixed;top:0;left:0;width:0%;height:1.5px;
+    background:linear-gradient(90deg,var(--gold),rgba(184,151,90,0.4));
+    z-index:99997;pointer-events:none;transition:width 0.1s linear;
+  }
+
+  /* ── NAV ──────────────────────────────────────────────────── */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:24px 64px;
+    background:transparent;
+    transition:padding 0.4s var(--ease-luxury),border-color 0.5s,background 0.5s;
+  }
+  nav.scrolled{
+    padding:16px 64px;
+    border-bottom:0.5px solid rgba(26,23,18,0.08);
+    background:rgba(244,238,227,0.94);
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  }
+  .nav-left,.nav-right{display:flex;align-items:center;gap:28px;color:var(--ivory)}
+  .nav-center{position:absolute;left:50%;transform:translateX(-50%);color:var(--ivory)}
+  nav.scrolled .nav-left,nav.scrolled .nav-right,nav.scrolled .nav-center{color:var(--charcoal)}
+  .nav-link{
+    font-family:var(--sans);font-size:0.66rem;font-weight:500;
+    letter-spacing:0.2em;text-transform:uppercase;color:inherit;
+    text-decoration:none;opacity:0.82;transition:opacity 0.3s;
+    display:inline-flex;align-items:center;gap:8px;cursor:pointer;
+  }
+  .nav-link:hover{opacity:1}
+  .nav-icon-btn{
+    background:none;border:none;cursor:pointer;color:inherit;
+    display:inline-flex;align-items:center;gap:8px;padding:0;
+    font-family:var(--sans);font-size:0.66rem;font-weight:500;
+    letter-spacing:0.2em;text-transform:uppercase;opacity:0.82;transition:opacity 0.3s;
+  }
+  .nav-icon-btn:hover{opacity:1}
+  .nav-icon-btn svg{width:17px;height:17px;stroke:currentColor;stroke-width:1.3;fill:none}
+  .nav-logo-svg{height:26px;width:auto;display:block;overflow:visible}
+  .logo-word{font-family:var(--serif);font-weight:400;letter-spacing:0.32em;fill:currentColor}
+  @media(max-width:600px){.nav-logo-svg{height:20px}}
+
+  /* ── MENU PANEL ─────────────────────────────────────────── */
+  .menu-scrim{position:fixed;inset:0;background:rgba(8,8,6,0.55);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity 0.6s var(--ease-luxury);z-index:300}
+  .menu-scrim.open{opacity:1;pointer-events:auto}
+  .menu-panel{position:fixed;top:0;left:0;bottom:0;width:min(440px,92vw);background:var(--ivory);z-index:301;transform:translateX(-102%);transition:transform 0.7s var(--ease-luxury);display:flex;flex-direction:column;box-shadow:0 0 80px rgba(0,0,0,0.25)}
+  .menu-panel.open{transform:translateX(0)}
+  .menu-panel-head{display:flex;align-items:center;justify-content:space-between;padding:26px 34px;border-bottom:0.5px solid var(--stone);flex-shrink:0}
+  .menu-close{background:none;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:var(--charcoal);opacity:0.7;transition:opacity 0.3s}
+  .menu-close:hover{opacity:1}
+  .menu-close svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.4;fill:none}
+  .menu-panel-logo svg{height:18px;width:auto;overflow:visible}
+  .menu-panel-body{flex:1;overflow-y:auto;padding:18px 0 28px}
+  .menu-group{border-bottom:0.5px solid rgba(26,23,18,0.06)}
+  .menu-group-head{width:100%;display:flex;align-items:center;justify-content:space-between;padding:22px 34px;background:none;border:none;cursor:pointer;font-family:var(--serif);font-size:1.5rem;font-weight:300;letter-spacing:0.02em;color:var(--charcoal);text-align:left;transition:color 0.3s,padding-left 0.4s var(--ease-luxury)}
+  .menu-group-head:hover{color:var(--gold);padding-left:40px}
+  .menu-group-head .chev{width:10px;height:10px;stroke:var(--gold);stroke-width:1.5;fill:none;transition:transform 0.5s var(--ease-luxury);flex-shrink:0}
+  .menu-group.expanded .chev{transform:rotate(90deg)}
+  .menu-flat{display:flex;align-items:center;justify-content:space-between;padding:22px 34px;font-family:var(--serif);font-size:1.5rem;font-weight:300;letter-spacing:0.02em;color:var(--charcoal);text-decoration:none;transition:color 0.3s,padding-left 0.4s var(--ease-luxury)}
+  .menu-flat:hover{color:var(--gold);padding-left:40px}
+  .menu-sub{max-height:0;overflow:hidden;transition:max-height 0.6s var(--ease-luxury);background:var(--ivory-sub)}
+  .menu-group.expanded .menu-sub{max-height:1400px}
+  .menu-sub-inner{padding:8px 34px 26px}
+  .menu-sub-title{font-family:var(--sans);font-size:0.58rem;font-weight:600;letter-spacing:0.26em;text-transform:uppercase;color:var(--gold);margin:22px 0 12px}
+  .menu-sub-title:first-child{margin-top:8px}
+  .menu-sub a{display:block;font-family:var(--sans);font-size:0.82rem;font-weight:300;letter-spacing:0.02em;line-height:1.5;color:var(--charcoal);opacity:0.78;text-decoration:none;padding:7px 0;transition:opacity 0.3s,color 0.3s,transform 0.3s var(--ease-luxury)}
+  .menu-sub a:hover{opacity:1;color:var(--gold);transform:translateX(6px)}
+  .menu-panel-foot{flex-shrink:0;border-top:0.5px solid var(--stone);padding:24px 34px 28px;background:var(--ivory)}
+  .menu-foot-link{display:block;font-family:var(--sans);font-size:0.74rem;font-weight:300;letter-spacing:0.04em;color:var(--charcoal);opacity:0.7;text-decoration:none;padding:8px 0;transition:opacity 0.3s,color 0.3s}
+  .menu-foot-link:hover{opacity:1;color:var(--gold)}
+  .menu-foot-meta{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:18px;border-top:0.5px solid rgba(26,23,18,0.06)}
+  .menu-foot-socials{display:flex;gap:18px}
+  .menu-foot-socials a{font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color 0.3s}
+  .menu-foot-socials a:hover{color:var(--gold)}
+  .menu-foot-currency{font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.16em;color:var(--charcoal)}
+
+  /* ── REVEAL ──────────────────────────────────────────────── */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.95s var(--ease-luxury),transform 0.95s var(--ease-luxury)}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  .reveal-d1{transition-delay:0.12s}
+  .reveal-d2{transition-delay:0.24s}
+  .reveal-d3{transition-delay:0.36s}
+
+  /* ════════════════════════════════════════════════════════════
+     MUMBAI STORE PAGE
+     ════════════════════════════════════════════════════════════ */
+
+  /* HERO */
+  .store-hero{
+    position:relative;
+    height:100vh;min-height:600px;
+    overflow:hidden;
+    display:flex;align-items:flex-end;
+  }
+  .store-hero-img{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;object-position:50% 40%;
+    transform:scale(1.06);
+    transition:transform 8s var(--ease-luxury);
+  }
+  .store-hero-img.loaded{transform:scale(1)}
+  .store-hero::after{
+    content:'';position:absolute;inset:0;
+    background:
+      linear-gradient(0deg, rgba(11,9,7,0.74) 0%, rgba(11,9,7,0.2) 55%, transparent 85%),
+      linear-gradient(180deg, rgba(11,9,7,0.25) 0%, transparent 30%);
+    pointer-events:none;
+  }
+  .store-hero-inner{
+    position:relative;z-index:2;
+    padding:0 80px 72px;
+    width:100%;
+  }
+  .hero-city-line{
+    display:flex;align-items:center;gap:24px;
+    margin-bottom:20px;
+  }
+  .hero-city-tag{
+    font-family:var(--sans);font-size:0.58rem;font-weight:500;
+    letter-spacing:0.36em;text-transform:uppercase;color:var(--gold);
+  }
+  .hero-city-rule{flex:1;height:0.5px;background:linear-gradient(90deg,var(--gold-dim),transparent);max-width:120px}
+  .store-hero-title{
+    font-family:var(--serif);
+    font-size:clamp(4rem,10vw,9rem);
+    font-weight:300;line-height:0.9;letter-spacing:0.04em;
+    color:#fff;
+    margin-bottom:20px;
+  }
+  .store-hero-sub{
+    font-family:var(--sans);font-size:0.66rem;font-weight:400;
+    letter-spacing:0.32em;text-transform:uppercase;color:rgba(255,255,255,0.5);
+    margin-bottom:6px;
+  }
+  .store-hero-coords{
+    font-family:var(--serif);font-style:italic;font-size:1rem;
+    color:rgba(255,255,255,0.35);letter-spacing:0.08em;
+  }
+
+  /* BREADCRUMB */
+  .breadcrumb{
+    padding:28px 80px;
+    border-bottom:0.5px solid rgba(26,23,18,0.08);
+  }
+  .breadcrumb-inner{
+    display:flex;align-items:center;gap:12px;
+    font-family:var(--sans);font-size:0.6rem;font-weight:400;
+    letter-spacing:0.18em;text-transform:uppercase;color:var(--grey);
+  }
+  .breadcrumb-inner a{color:var(--grey);text-decoration:none;transition:color 0.3s}
+  .breadcrumb-inner a:hover{color:var(--gold)}
+  .breadcrumb-inner span{opacity:0.4}
+  .breadcrumb-inner .current{color:var(--charcoal)}
+
+  /* INFO + MAP SECTION */
+  .store-info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    min-height:600px;
+    border-bottom:0.5px solid rgba(26,23,18,0.08);
+  }
+  .store-info-panel{
+    padding:80px;
+    border-right:0.5px solid rgba(26,23,18,0.08);
+    display:flex;flex-direction:column;justify-content:center;
+  }
+  .info-eyebrow{
+    font-family:var(--sans);font-size:0.58rem;font-weight:600;
+    letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);
+    margin-bottom:32px;
+  }
+  .info-heading{
+    font-family:var(--serif);
+    font-size:clamp(2.2rem,3.2vw,3.2rem);
+    font-weight:300;line-height:1.1;
+    color:var(--charcoal);
+    margin-bottom:40px;
+  }
+  .info-block{
+    margin-bottom:36px;
+    padding-bottom:36px;
+    border-bottom:0.5px solid rgba(26,23,18,0.07);
+  }
+  .info-block:last-of-type{border-bottom:none;margin-bottom:0;padding-bottom:0}
+  .info-block-label{
+    font-family:var(--sans);font-size:0.57rem;font-weight:600;
+    letter-spacing:0.26em;text-transform:uppercase;color:var(--grey);
+    margin-bottom:14px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .info-block-label::before{
+    content:'';display:block;width:18px;height:0.5px;
+    background:var(--gold-dim);
+  }
+  .info-address{
+    font-family:var(--serif);font-size:1.1rem;font-weight:300;
+    line-height:1.7;color:var(--charcoal);
+  }
+  .info-hours{
+    font-family:var(--sans);font-size:0.82rem;font-weight:300;
+    line-height:2;color:var(--charcoal);
+  }
+  .info-hours strong{font-weight:400}
+  .info-contact{display:flex;flex-direction:column;gap:10px}
+  .info-contact a{
+    display:inline-flex;align-items:center;gap:14px;
+    font-family:var(--sans);font-size:0.82rem;font-weight:300;
+    letter-spacing:0.02em;color:var(--charcoal);
+    text-decoration:none;opacity:0.8;
+    transition:opacity 0.3s,color 0.3s;
+  }
+  .info-contact a:hover{opacity:1;color:var(--gold)}
+  .info-contact a svg{width:14px;height:14px;stroke:var(--gold-dim);stroke-width:1.4;fill:none;flex-shrink:0}
+
+  /* MAP */
+  .store-map-panel{position:relative;min-height:520px;background:var(--champagne)}
+  #storeMap{position:absolute;inset:0;width:100%;height:100%}
+
+  /* Leaflet custom styles */
+  .leaflet-container{font-family:var(--sans)}
+  .leaflet-popup-content-wrapper{
+    border-radius:2px;box-shadow:0 8px 40px rgba(11,9,7,0.18);
+    border:0.5px solid var(--stone);
+  }
+  .leaflet-popup-content{
+    font-family:var(--sans);font-size:0.78rem;font-weight:300;
+    line-height:1.7;color:var(--charcoal);padding:2px 4px;
+  }
+  .leaflet-popup-content strong{font-weight:500;letter-spacing:0.05em}
+  .map-marker-label{
+    font-family:var(--serif);font-style:italic;
+    font-size:0.95rem;color:var(--charcoal);
+    display:block;margin-bottom:4px;
+  }
+  .leaflet-control-attribution{font-size:0.55rem!important;opacity:0.45}
+
+  /* ATELIER STORY BAND */
+  .atelier-story{
+    display:grid;
+    grid-template-columns:5fr 7fr;
+    align-items:stretch;
+    border-bottom:0.5px solid rgba(26,23,18,0.08);
+  }
+  .atelier-story-img{
+    position:relative;
+    overflow:hidden;
+    min-height:480px;
+    background:var(--stone);
+  }
+  .atelier-story-img img{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;transition:transform 1.8s var(--ease-luxury);
+  }
+  .atelier-story:hover .atelier-story-img img{transform:scale(1.04)}
+  .atelier-story-text{
+    padding:clamp(56px,7vw,112px);
+    display:flex;flex-direction:column;justify-content:center;
+    background:var(--ivory);
+  }
+  .atelier-kicker{
+    font-family:var(--sans);font-size:0.58rem;font-weight:600;
+    letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);
+    margin-bottom:28px;
+  }
+  .atelier-pull{
+    font-family:var(--serif);font-style:italic;
+    font-size:clamp(1.6rem,2.6vw,2.4rem);
+    font-weight:300;line-height:1.28;
+    color:var(--charcoal);
+    margin-bottom:32px;
+  }
+  .atelier-body{
+    font-family:var(--sans);font-size:0.9rem;font-weight:300;
+    line-height:1.95;letter-spacing:0.01em;
+    color:var(--charcoal);opacity:0.75;
+    max-width:480px;
+    margin-bottom:36px;
+  }
+  .text-link{
+    display:inline-flex;align-items:center;gap:12px;
+    font-family:var(--sans);font-size:0.66rem;font-weight:500;
+    letter-spacing:0.2em;text-transform:uppercase;color:var(--charcoal);
+    text-decoration:none;transition:gap 0.3s var(--ease-luxury),color 0.3s;align-self:flex-start;
+  }
+  .text-link::after{content:'';display:block;width:32px;height:0.5px;background:var(--charcoal);transition:width 0.4s var(--ease-luxury),background 0.3s}
+  .text-link:hover{gap:20px;color:var(--gold)}
+  .text-link:hover::after{width:52px;background:var(--gold)}
+
+  /* APPOINTMENT SECTION */
+  .appt-section{
+    padding:120px 80px;
+    max-width:1000px;
+    margin:0 auto;
+  }
+  .appt-header{
+    text-align:center;
+    margin-bottom:72px;
+  }
+  .appt-kicker{
+    font-family:var(--sans);font-size:0.58rem;font-weight:600;
+    letter-spacing:0.34em;text-transform:uppercase;color:var(--gold);
+    margin-bottom:22px;
+  }
+  .appt-title{
+    font-family:var(--serif);
+    font-size:clamp(2.2rem,3.6vw,3.4rem);
+    font-weight:300;line-height:1.1;
+    color:var(--charcoal);
+    margin-bottom:20px;
+  }
+  .appt-title em{font-style:italic;color:var(--gold);opacity:0.85}
+  .appt-rule{width:1px;height:52px;background:linear-gradient(180deg,var(--gold),transparent);margin:0 auto 26px}
+  .appt-lead{
+    font-family:var(--serif);
+    font-size:1.05rem;font-weight:300;line-height:1.75;
+    color:var(--charcoal);opacity:0.72;
+    max-width:540px;margin:0 auto;
+  }
+
+  /* Form */
+  .appt-form{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;
+    border:0.5px solid rgba(26,23,18,0.1);
+    border-radius:3px;
+    overflow:hidden;
+    background:var(--ivory);
+    box-shadow:0 24px 60px rgba(26,23,18,0.07);
+  }
+  .form-field{
+    position:relative;
+    border-bottom:0.5px solid rgba(26,23,18,0.08);
+    border-right:0.5px solid rgba(26,23,18,0.08);
+  }
+  .form-field.full{grid-column:1/-1;border-right:none}
+  .form-field:nth-child(even){border-right:none}
+  .form-field label{
+    display:block;
+    font-family:var(--sans);font-size:0.56rem;font-weight:600;
+    letter-spacing:0.26em;text-transform:uppercase;color:var(--gold);
+    padding:22px 28px 0;
+    pointer-events:none;
+    transition:color 0.3s;
+  }
+  .form-field:focus-within label{color:var(--charcoal)}
+  .form-field input,
+  .form-field select,
+  .form-field textarea{
+    display:block;width:100%;
+    background:transparent;border:none;outline:none;
+    font-family:var(--sans);font-size:0.88rem;font-weight:300;
+    letter-spacing:0.02em;color:var(--charcoal);
+    padding:10px 28px 22px;
+    -webkit-appearance:none;
+    resize:none;
+  }
+  .form-field input::placeholder,
+  .form-field textarea::placeholder{color:rgba(26,23,18,0.28)}
+  .form-field select{cursor:pointer}
+  .form-field select option{background:var(--ivory)}
+  .form-field textarea{min-height:140px;line-height:1.7}
+  .form-field.select-wrap::after{
+    content:'';
+    position:absolute;right:28px;top:50%;
+    transform:translateY(-50%) rotate(45deg);
+    width:6px;height:6px;
+    border-right:1px solid var(--grey);border-bottom:1px solid var(--grey);
+    pointer-events:none;
+  }
+
+  .form-submit-row{
+    grid-column:1/-1;
+    padding:36px 28px;
+    background:var(--ivory-sub);
+    display:flex;align-items:center;justify-content:space-between;
+    gap:24px;
+    border-top:0.5px solid rgba(26,23,18,0.07);
+  }
+  .form-note{
+    font-family:var(--sans);font-size:0.7rem;font-weight:300;
+    line-height:1.6;color:var(--grey);
+    max-width:360px;
+  }
+  .btn-appt{
+    display:inline-flex;align-items:center;gap:16px;
+    background:var(--charcoal);color:var(--ivory);
+    font-family:var(--sans);font-size:0.62rem;font-weight:500;
+    letter-spacing:0.3em;text-transform:uppercase;
+    border:none;cursor:pointer;
+    padding:18px 40px;
+    border-radius:1px;
+    transition:background 0.4s var(--ease-luxury),gap 0.3s;
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+  .btn-appt:hover{background:var(--gold);gap:24px}
+  .btn-appt svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.4;fill:none;transition:transform 0.3s}
+  .btn-appt:hover svg{transform:translateX(4px)}
+
+  /* Form success state */
+  .form-success{
+    display:none;
+    grid-column:1/-1;
+    padding:60px 40px;
+    text-align:center;
+  }
+  .form-success.show{display:flex;flex-direction:column;align-items:center;gap:16px}
+  .form-success .success-icon{
+    width:44px;height:44px;border-radius:50%;
+    background:var(--gold-trace);
+    display:flex;align-items:center;justify-content:center;margin-bottom:8px;
+  }
+  .form-success .success-icon svg{width:20px;height:20px;stroke:var(--gold);stroke-width:1.4;fill:none}
+  .form-success-title{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--charcoal)}
+  .form-success-body{font-family:var(--sans);font-size:0.82rem;font-weight:300;line-height:1.8;color:var(--grey);max-width:380px}
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  footer{background:var(--charcoal);padding:80px 96px 48px}
+  .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:60px;padding-bottom:60px;border-bottom:0.5px solid rgba(244,238,227,0.08);margin-bottom:48px}
+  .footer-brand{font-family:var(--serif);font-size:1.35rem;font-weight:300;letter-spacing:0.3em;text-transform:uppercase;color:var(--ivory);margin-bottom:24px}
+  .footer-brand::after{content:'';display:block;width:32px;height:0.5px;background:var(--gold);margin-top:12px;opacity:0.6}
+  .footer-tagline{font-family:var(--sans);font-size:0.75rem;font-weight:300;line-height:1.8;color:rgba(244,238,227,0.35);max-width:260px}
+  .footer-col-title{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:rgba(244,238,227,0.3);margin-bottom:24px}
+  .footer-links{list-style:none;display:flex;flex-direction:column;gap:12px}
+  .footer-links a{font-family:var(--sans);font-size:0.8rem;font-weight:300;color:rgba(244,238,227,0.5);text-decoration:none;transition:color 0.3s}
+  .footer-links a:hover{color:rgba(244,238,227,0.9)}
+  .footer-bottom{display:flex;align-items:center;justify-content:space-between}
+  .footer-copy{font-family:var(--sans);font-size:0.68rem;font-weight:300;letter-spacing:0.05em;color:rgba(244,238,227,0.2)}
+  .footer-socials{display:flex;gap:28px}
+  .footer-socials a{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:rgba(244,238,227,0.25);text-decoration:none;transition:color 0.3s}
+  .footer-socials a:hover{color:rgba(244,238,227,0.7)}
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+  @media(max-width:1100px){
+    nav,nav.scrolled{padding-left:40px;padding-right:40px}
+    .store-hero-inner{padding:0 48px 60px}
+    .breadcrumb{padding-left:48px;padding-right:48px}
+    .store-info-panel{padding:60px 48px}
+    .atelier-story-text{padding:56px 48px}
+    .appt-section{padding:90px 48px}
+    footer{padding-left:48px;padding-right:48px}
+  }
+  @media(max-width:860px){
+    .store-info-grid{grid-template-columns:1fr}
+    .store-info-panel{border-right:none;border-bottom:0.5px solid rgba(26,23,18,0.08)}
+    .store-map-panel{min-height:400px}
+    #storeMap{position:relative;height:400px}
+    .atelier-story{grid-template-columns:1fr}
+    .atelier-story-img{min-height:360px}
+    .appt-form{grid-template-columns:1fr}
+    .form-field{border-right:none}
+    .form-submit-row{flex-direction:column;align-items:flex-start}
+    .footer-top{grid-template-columns:1fr 1fr;gap:40px}
+    .nav-right .nav-link{display:none}
+    .store-hero-title{font-size:clamp(3rem,14vw,5rem)}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none}
+    *{scroll-behavior:auto}
+    .store-hero-img{transform:none!important}
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="grain-overlay" aria-hidden="true"></div>
+
+<!-- ── MENU PANEL ─────────────────────────────────────────── -->
+<div class="menu-scrim" id="menuScrim" onclick="toggleNav()"></div>
+<aside class="menu-panel" id="menuPanel" aria-label="Main menu">
+  <div class="menu-panel-head">
+    <button class="menu-close" onclick="toggleNav()">
+      <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M1 1 L13 13 M13 1 L1 13"/></svg>
+      Close
+    </button>
+    <span class="menu-panel-logo">
+      <svg viewBox="0 0 246 40" xmlns="http://www.w3.org/2000/svg" aria-label="Vaishali S" style="color:var(--charcoal)">
+        <text class="logo-word" x="0" y="28" font-size="26">VAISHALI</text>
+        <g transform="translate(200,19) scale(0.85)" fill="#D8492E">
+          <ellipse cx="0" cy="-8.5" rx="3.2" ry="7.5"/><ellipse cx="0" cy="-8.5" rx="3.2" ry="7.5" transform="rotate(60)"/><ellipse cx="0" cy="-8.5" rx="3.2" ry="7.5" transform="rotate(120)"/><ellipse cx="0" cy="-8.5" rx="3.2" ry="7.5" transform="rotate(180)"/><ellipse cx="0" cy="-8.5" rx="3.2" ry="7.5" transform="rotate(240)"/><ellipse cx="0" cy="-8.5" rx="3.2" ry="7.5" transform="rotate(300)"/>
+          <circle cx="0" cy="0" r="3.4" fill="#F4D38F"/>
+        </g>
+        <text class="logo-word" x="218" y="28" font-size="26">S</text>
+      </svg>
+    </span>
+  </div>
+  <div class="menu-panel-body">
+    <div class="menu-group" id="grp-shop">
+      <button class="menu-group-head" onclick="toggleGroup('grp-shop')">Shop
+        <svg class="chev" viewBox="0 0 10 10"><path d="M3 1 L7 5 L3 9"/></svg></button>
+      <div class="menu-sub"><div class="menu-sub-inner">
+        <p class="menu-sub-title">By Collection</p>
+        <a href="https://www.vaishali-s.com/collections/kintsugi-f-w-25">2025 F/W Kintsugi — Paris Haute Couture</a>
+        <a href="https://www.vaishali-s.com/collections/2025-bridal-couture-showcase-naad">2025 Bridal: Naad Couture Showcase</a>
+        <a href="https://www.vaishali-s.com/collections/satori">2024 F/W: Satori</a>
+        <a href="https://www.vaishali-s.com/collections/i-am-nature">2024 S/S: I Am Nature</a>
+        <a href="https://www.vaishali-s.com/collections/all-couture">All Couture</a>
+        <p class="menu-sub-title">By Type</p>
+        <a href="https://www.vaishali-s.com/collections/dresses">Dresses</a>
+        <a href="https://www.vaishali-s.com/collections/sarees">Sarees</a>
+        <a href="https://www.vaishali-s.com/collections/jackets-capes">Jackets &amp; Capes</a>
+        <a href="https://www.vaishali-s.com/collections/all">All Clothing</a>
+        <p class="menu-sub-title">Accessories</p>
+        <a href="https://www.vaishali-s.com/collections/accessories">All Accessories</a>
+        <a href="https://www.vaishali-s.com/collections/bags">Bags</a>
+      </div></div>
+    </div>
+    <div class="menu-group"><a class="menu-flat" href="https://www.vaishali-s.com/collections/vaishali-s-art-deco">Home Decor</a></div>
+    <div class="menu-group expanded" id="grp-about">
+      <button class="menu-group-head" onclick="toggleGroup('grp-about')">About Us
+        <svg class="chev" viewBox="0 0 10 10"><path d="M3 1 L7 5 L3 9"/></svg></button>
+      <div class="menu-sub"><div class="menu-sub-inner">
+        <a href="philosophy.html">Our Philosophy</a>
+        <a href="mumbai-store.html" style="color:var(--gold);opacity:1">Our Flagship Store: Mumbai</a>
+        <a href="https://www.vaishali-s.com/pages/our-paris-store">Our Flagship Store: Paris</a>
+        <a href="https://www.vaishali-s.com/pages/customer-service">Policy and Customer Service</a>
+        <a href="https://www.vaishali-s.com/pages/contact-us">Contact Us</a>
+      </div></div>
+    </div>
+    <div class="menu-group"><a class="menu-flat" href="https://www.vaishali-s.com/blogs/news">News</a></div>
+  </div>
+  <div class="menu-panel-foot">
+    <a class="menu-foot-link" href="#appointment">Book an Appointment</a>
+    <a class="menu-foot-link" href="mumbai-store.html">Mumbai Flagship Atelier</a>
+    <div class="menu-foot-meta">
+      <div class="menu-foot-socials">
+        <a href="https://www.instagram.com/vaishalisstudio" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/VaishaliShadangule29/" target="_blank" rel="noopener">Facebook</a>
+        <a href="https://www.youtube.com/channel/UCNEG_LqIyj1hyNL-gSMmGWw" target="_blank" rel="noopener">YouTube</a>
+      </div>
+      <span class="menu-foot-currency">INR ₹</span>
+    </div>
+  </div>
+</aside>
+
+<!-- ── TOP NAV ────────────────────────────────────────────── -->
+<nav id="mainNav">
+  <div class="nav-left">
+    <button class="nav-icon-btn" onclick="toggleNav()" aria-label="Open menu">
+      <svg viewBox="0 0 18 18"><path d="M1 4 H17 M1 9 H17 M1 14 H17"/></svg>Menu
+    </button>
+    <button class="nav-icon-btn" onclick="window.open('https://www.vaishali-s.com/search','_self')" aria-label="Search">
+      <svg viewBox="0 0 18 18"><circle cx="8" cy="8" r="6"/><path d="M12.5 12.5 L17 17"/></svg>
+    </button>
+  </div>
+  <div class="nav-center">
+    <a href="vaishali-home-preview.html" style="text-decoration:none;color:inherit" aria-label="Vaishali S — Home">
+      <svg class="nav-logo-svg" viewBox="0 0 246 40" xmlns="http://www.w3.org/2000/svg" aria-label="Vaishali S">
+        <text class="logo-word" x="0" y="28" font-size="26">VAISHALI</text>
+        <g transform="translate(200,19) scale(0.9)" fill="#D8492E">
+          <ellipse cx="0" cy="-8.5" rx="3.2" ry="7.5"/><ellipse cx="0" cy="-8.5" rx="3.2" ry="7.5" transform="rotate(60)"/><ellipse cx="0" cy="-8.5" rx="3.2" ry="7.5" transform="rotate(120)"/><ellipse cx="0" cy="-8.5" rx="3.2" ry="7.5" transform="rotate(180)"/><ellipse cx="0" cy="-8.5" rx="3.2" ry="7.5" transform="rotate(240)"/><ellipse cx="0" cy="-8.5" rx="3.2" ry="7.5" transform="rotate(300)"/>
+          <circle cx="0" cy="0" r="3.4" fill="#F4D38F"/>
+        </g>
+        <text class="logo-word" x="218" y="28" font-size="26">S</text>
+      </svg>
+    </a>
+  </div>
+  <div class="nav-right">
+    <a class="nav-link" href="#appointment">Book Appointment</a>
+    <button class="nav-icon-btn" onclick="window.open('https://www.vaishali-s.com/account/login','_self')" aria-label="Account">
+      <svg viewBox="0 0 18 18"><circle cx="9" cy="6" r="3.4"/><path d="M2.5 16 C2.5 12 5.5 10.5 9 10.5 C12.5 10.5 15.5 12 15.5 16"/></svg>
+    </button>
+    <button class="nav-icon-btn" onclick="window.open('https://www.vaishali-s.com/cart','_self')" aria-label="Cart">
+      <svg viewBox="0 0 18 18"><path d="M3 5 H15 L14 16 H4 Z M6 5 C6 2.5 7.3 1.5 9 1.5 C10.7 1.5 12 2.5 12 5"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- ── HERO ───────────────────────────────────────────────── -->
+<section class="store-hero">
+  <img class="store-hero-img" id="heroImg"
+    src="https://www.vaishali-s.com/cdn/shop/files/mumbai-store-img.jpg?width=2400"
+    alt="Vaishali S Mumbai Atelier — Kala Ghoda"
+    fetchpriority="high"
+    onerror="this.style.display='none'">
+  <div class="store-hero-inner">
+    <div class="hero-city-line">
+      <span class="hero-city-tag">The House · Flagship Atelier</span>
+      <div class="hero-city-rule"></div>
+    </div>
+    <h1 class="store-hero-title">MUMBAI</h1>
+    <p class="store-hero-sub">Kala Ghoda, Fort &nbsp;·&nbsp; Est. 2001</p>
+    <p class="store-hero-coords">18.9322° N, 72.8347° E</p>
+  </div>
+</section>
+
+<!-- ── BREADCRUMB ─────────────────────────────────────────── -->
+<nav class="breadcrumb" aria-label="breadcrumb">
+  <div class="breadcrumb-inner">
+    <a href="vaishali-home-preview.html">Home</a>
+    <span>/</span>
+    <a href="philosophy.html">About Us</a>
+    <span>/</span>
+    <span class="current">Mumbai Flagship</span>
+  </div>
+</nav>
+
+<!-- ── INFO + MAP ─────────────────────────────────────────── -->
+<section class="store-info-grid">
+  <div class="store-info-panel reveal">
+    <p class="info-eyebrow">Vaishali S · Mumbai</p>
+    <h2 class="info-heading">A house rooted<br>in the heart of Fort</h2>
+
+    <div class="info-block">
+      <p class="info-block-label">Address</p>
+      <address class="info-address" style="font-style:normal">
+        Kirti Chambers<br>
+        35 Ambalal Doshi Marg<br>
+        Kala Ghoda, Fort<br>
+        Mumbai 400 001
+      </address>
+    </div>
+
+    <div class="info-block">
+      <p class="info-block-label">Atelier Hours</p>
+      <div class="info-hours">
+        <div><strong>Monday – Saturday</strong> &ensp;10:30 am – 7:30 pm</div>
+        <div><strong>Sunday</strong> &ensp;Closed</div>
+      </div>
+    </div>
+
+    <div class="info-block">
+      <p class="info-block-label">Contact</p>
+      <div class="info-contact">
+        <a href="tel:+919321569218">
+          <svg viewBox="0 0 18 18"><path d="M2 2 C2 2 4 1 5 3.5 L6 6 C6 7 5 7.5 5 8.5 C5 10 8 13 9.5 13 C10.5 13 11 12 12 12 L14.5 13 C17 14 16 16 16 16 C16 16 13 19 8 14 C3 9 2 2 2 2 Z"/></svg>
+          +91 93215 69218
+        </a>
+        <a href="mailto:vaishali.sstudio1@gmail.com">
+          <svg viewBox="0 0 18 18"><rect x="2" y="4" width="14" height="10" rx="1"/><path d="M2 4 L9 10 L16 4"/></svg>
+          vaishali.sstudio1@gmail.com
+        </a>
+        <a href="https://wa.me/917021110182" target="_blank" rel="noopener">
+          <svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="7"/><path d="M6 9 C6 7 7.5 5.5 9 5.5 C11 5.5 12.5 7 12.5 9 C12.5 11 11 12.5 9 12.5 C8 12.5 7.1 12.1 6.5 11.5 L4.5 12 L5 10 C4.4 9.4 6 9.2 6 9 Z" fill="none"/></svg>
+          WhatsApp Concierge
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="store-map-panel" id="mapContainer">
+    <div id="storeMap"></div>
+  </div>
+</section>
+
+<!-- ── ATELIER STORY ──────────────────────────────────────── -->
+<section class="atelier-story">
+  <div class="atelier-story-img">
+    <img src="https://www.vaishali-s.com/cdn/shop/files/2_orig_11.jpg?width=1200"
+      alt="Vaishali S atelier detail" loading="lazy"
+      onerror="this.parentElement.style.background='var(--stone)'">
+  </div>
+  <div class="atelier-story-text reveal">
+    <p class="atelier-kicker">The Space</p>
+    <p class="atelier-pull">"The atelier is where the conversation between weaver and wearer begins."</p>
+    <p class="atelier-body">
+      Nestled in the historic Kala Ghoda district of Mumbai's Fort area, the Vaishali S flagship is
+      more than a boutique — it is an archive of living craft. Within these walls, each handwoven
+      garment hangs as a testament to the artisans who spent weeks, sometimes months, at the loom.
+      Visitors are invited to touch, to ask, to understand the provenance of every thread.
+      Personal styling consultations are available by appointment.
+    </p>
+    <a href="#appointment" class="text-link">Book a Private Appointment</a>
+  </div>
+</section>
+
+<!-- ── APPOINTMENT FORM ───────────────────────────────────── -->
+<section class="appt-section" id="appointment">
+  <div class="appt-header reveal">
+    <p class="appt-kicker">Private Access</p>
+    <h2 class="appt-title">Book an <em>Appointment</em></h2>
+    <div class="appt-rule"></div>
+    <p class="appt-lead">
+      Each visit to our Mumbai atelier is a curated experience. Share your details and we will
+      personally reach out to arrange your session.
+    </p>
+  </div>
+
+  <form class="appt-form reveal reveal-d1" id="apptForm" novalidate>
+    <div class="form-field">
+      <label for="f-name">Full Name</label>
+      <input type="text" id="f-name" name="name" placeholder="Your name" autocomplete="name">
+    </div>
+    <div class="form-field">
+      <label for="f-phone">Contact Number</label>
+      <input type="tel" id="f-phone" name="phone" placeholder="+91 &nbsp;—" autocomplete="tel">
+    </div>
+    <div class="form-field">
+      <label for="f-email">Email Address</label>
+      <input type="email" id="f-email" name="email" placeholder="your@email.com" autocomplete="email">
+    </div>
+    <div class="form-field select-wrap">
+      <label for="f-type">Appointment Type</label>
+      <select id="f-type" name="type">
+        <option value="" disabled selected>Select a service</option>
+        <option value="styling">Private Styling Consultation</option>
+        <option value="bridal">Bridal Couture</option>
+        <option value="bespoke">Bespoke Commission</option>
+        <option value="gifting">Gifting &amp; Trousseau</option>
+        <option value="general">General Inquiry</option>
+      </select>
+    </div>
+    <div class="form-field full">
+      <label for="f-message">Your Message</label>
+      <textarea id="f-message" name="message" placeholder="Tell us about the occasion, any specific pieces you have in mind, or any other details…"></textarea>
+    </div>
+    <div class="form-submit-row">
+      <p class="form-note">Our atelier team typically responds within 24 hours. For immediate assistance, please contact us via WhatsApp.</p>
+      <button type="submit" class="btn-appt">
+        Schedule Appointment
+        <svg viewBox="0 0 18 18"><path d="M4 9 H14 M10 5 L14 9 L10 13"/></svg>
+      </button>
+    </div>
+    <div class="form-success" id="formSuccess">
+      <div class="success-icon">
+        <svg viewBox="0 0 20 20"><path d="M4 10 L8 14 L16 6"/></svg>
+      </div>
+      <p class="form-success-title">Thank you</p>
+      <p class="form-success-body">Your appointment request has been received. Our team will be in touch within 24 hours to confirm your visit.</p>
+    </div>
+  </form>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Vaishali S</div>
+      <p class="footer-tagline">A luxury fashion house rooted in handwoven couture, Indian craft heritage, and the global haute couture stage. Mumbai · Paris.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">The House</p>
+      <ul class="footer-links">
+        <li><a href="philosophy.html">Our Philosophy</a></li>
+        <li><a href="mumbai-store.html">Mumbai Atelier</a></li>
+        <li><a href="https://www.vaishali-s.com/pages/our-paris-store">Paris Flagship</a></li>
+        <li><a href="https://www.vaishali-s.com/blogs/news">Journal</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Collections</p>
+      <ul class="footer-links">
+        <li><a href="https://www.vaishali-s.com/collections/kintsugi-f-w-25">Kintsugi 2025</a></li>
+        <li><a href="https://www.vaishali-s.com/collections/satori">Satori 2024</a></li>
+        <li><a href="https://www.vaishali-s.com/collections/all-couture">All Couture</a></li>
+        <li><a href="https://www.vaishali-s.com/collections/2025-bridal-couture-showcase-naad">Bridal</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Inquiries</p>
+      <ul class="footer-links">
+        <li><a href="#appointment">Private Styling</a></li>
+        <li><a href="https://wa.me/917021110182">Atelier WhatsApp</a></li>
+        <li><a href="https://www.vaishali-s.com/pages/customer-service">Client Services</a></li>
+        <li><a href="https://www.vaishali-s.com/pages/faq">Acquisitions Policy</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 Vaishali S. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://www.instagram.com/vaishalisstudio" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.youtube.com/channel/UCNEG_LqIyj1hyNL-gSMmGWw" target="_blank" rel="noopener">YouTube</a>
+      <a href="https://www.facebook.com/VaishaliShadangule29/" target="_blank" rel="noopener">Facebook</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WPgU=" crossorigin=""></script>
+<script>
+  /* nav scroll */
+  const nav=document.getElementById('mainNav');
+  window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>60)},{passive:true});
+
+  /* hero img pan */
+  const heroImg=document.getElementById('heroImg');
+  if(heroImg){
+    heroImg.addEventListener('load',()=>{heroImg.classList.add('loaded')},{once:true});
+    if(heroImg.complete)heroImg.classList.add('loaded');
+  }
+
+  /* menu */
+  const menuPanel=document.getElementById('menuPanel');
+  const menuScrim=document.getElementById('menuScrim');
+  function toggleNav(){
+    const open=!menuPanel.classList.contains('open');
+    menuPanel.classList.toggle('open',open);
+    menuScrim.classList.toggle('open',open);
+    document.body.style.overflow=open?'hidden':'';
+  }
+  function toggleGroup(id){const g=document.getElementById(id);if(g)g.classList.toggle('expanded')}
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&menuPanel.classList.contains('open'))toggleNav()});
+
+  /* reveal */
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}});
+  },{threshold:0.1,rootMargin:'0px 0px -36px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  /* scroll progress */
+  const bar=document.getElementById('scrollProgress');
+  window.addEventListener('scroll',()=>{
+    const h=document.documentElement.scrollHeight-window.innerHeight;
+    bar.style.width=(h>0?(window.scrollY/h)*100:0)+'%';
+  },{passive:true});
+
+  /* Leaflet map — OpenStreetMap, no API key */
+  const LAT=18.9322,LNG=72.8347;
+  const map=L.map('storeMap',{
+    center:[LAT,LNG],zoom:16,
+    zoomControl:false,scrollWheelZoom:false,
+    attributionControl:true
+  });
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom:19
+  }).addTo(map);
+  L.control.zoom({position:'bottomright'}).addTo(map);
+
+  /* custom gold pin */
+  const pin=L.divIcon({
+    className:'',
+    html:`<div style="
+      width:14px;height:14px;
+      background:#B8975A;
+      border:2.5px solid #fff;
+      border-radius:50%;
+      box-shadow:0 0 0 3px rgba(184,151,90,0.35),0 4px 14px rgba(11,9,7,0.3);
+    "></div>`,
+    iconSize:[14,14],iconAnchor:[7,7],popupAnchor:[0,-14]
+  });
+  L.marker([LAT,LNG],{icon:pin})
+    .addTo(map)
+    .bindPopup(`
+      <span class="map-marker-label">Vaishali S · Mumbai</span>
+      <strong>Kirti Chambers</strong><br>
+      35 Ambalal Doshi Marg<br>
+      Kala Ghoda, Fort — 400 001
+    `,{maxWidth:200})
+    .openPopup();
+
+  /* subtle parallax on atelier image */
+  if(!window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+    const imgs=document.querySelectorAll('.atelier-story-img img');
+    window.addEventListener('scroll',()=>{
+      const vh=window.innerHeight;
+      imgs.forEach(img=>{
+        const r=img.getBoundingClientRect();
+        if(r.bottom<0||r.top>vh)return;
+        const offset=((r.top+r.height/2)-vh/2)/vh;
+        img.style.transform=`translateY(${offset*-16}px) scale(1.06)`;
+      });
+    },{passive:true});
+  }
+
+  /* appointment form */
+  document.getElementById('apptForm').addEventListener('submit',function(e){
+    e.preventDefault();
+    const fields=this.querySelectorAll('input,select,textarea');
+    let valid=true;
+    fields.forEach(f=>{
+      if(f.required&&!f.value.trim()){f.style.borderBottom='1px solid var(--gold)';valid=false}
+      else{f.style.borderBottom=''}
+    });
+    if(!valid)return;
+    /* show success — in production wire to actual endpoint */
+    this.querySelectorAll('.form-field,.form-submit-row').forEach(el=>el.style.display='none');
+    document.getElementById('formSuccess').classList.add('show');
+  });
+</script>
+</body>
+</html>
