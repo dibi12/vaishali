@@ -59,22 +59,22 @@
   }
 
   /* ── NAV ──────────────────────────────────────────────────── */
-  nav{
+  nav#mainNav{
     position:fixed;top:0;left:0;right:0;z-index:100;
     display:flex;align-items:center;justify-content:space-between;
     padding:24px 64px;
     background:transparent;
     transition:padding 0.4s var(--ease-luxury),border-color 0.5s,background 0.5s;
   }
-  nav.scrolled{
+  nav#mainNav.scrolled{
     padding:16px 64px;
     border-bottom:0.5px solid rgba(26,23,18,0.08);
     background:rgba(244,238,227,0.94);
     backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   }
-  .nav-left,.nav-right{display:flex;align-items:center;gap:28px;color:var(--ivory)}
-  .nav-center{position:absolute;left:50%;transform:translateX(-50%);color:var(--ivory)}
-  nav.scrolled .nav-left,nav.scrolled .nav-right,nav.scrolled .nav-center{color:var(--charcoal)}
+  .nav-left,.nav-right{display:flex;align-items:center;gap:28px;color:var(--ivory);text-shadow:0 1px 8px rgba(0,0,0,0.55)}
+  .nav-center{position:absolute;left:50%;transform:translateX(-50%);color:var(--ivory);text-shadow:0 1px 8px rgba(0,0,0,0.55)}
+  nav#mainNav.scrolled .nav-left,nav#mainNav.scrolled .nav-right,nav#mainNav.scrolled .nav-center{color:var(--charcoal);text-shadow:none}
   .nav-link{
     font-family:var(--sans);font-size:0.66rem;font-weight:500;
     letter-spacing:0.2em;text-transform:uppercase;color:inherit;
@@ -168,8 +168,8 @@
   .store-hero::after{
     content:'';position:absolute;inset:0;z-index:1;
     background:
-      linear-gradient(0deg, rgba(11,9,7,0.78) 0%, rgba(11,9,7,0.18) 50%, transparent 80%),
-      linear-gradient(180deg, rgba(11,9,7,0.28) 0%, transparent 28%);
+      linear-gradient(0deg, rgba(11,9,7,0.80) 0%, rgba(11,9,7,0.18) 50%, transparent 80%),
+      linear-gradient(180deg, rgba(11,9,7,0.62) 0%, rgba(11,9,7,0.22) 18%, transparent 38%);
     pointer-events:none;
   }
   .store-hero-inner{
@@ -462,7 +462,7 @@
 
   /* ── RESPONSIVE ──────────────────────────────────────────── */
   @media(max-width:1100px){
-    nav,nav.scrolled{padding-left:40px;padding-right:40px}
+    nav#mainNav,nav#mainNav.scrolled{padding-left:40px;padding-right:40px}
     .store-hero-inner{padding:0 48px 60px}
     .breadcrumb{padding-left:48px;padding-right:48px}
     .paris-intro{padding-left:48px;padding-right:48px}
