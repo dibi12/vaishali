@@ -128,6 +128,38 @@
   .menu-foot-socials a:hover{color:var(--gold)}
   .menu-foot-currency{font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.16em;color:var(--charcoal)}
 
+  /* ── CURRENCY PICKER ─────────────────────────────────────── */
+  .currency-picker{position:relative}
+  .currency-btn{
+    display:flex;align-items:center;gap:5px;
+    background:none;border:none;cursor:pointer;
+    font-family:var(--sans);font-size:0.68rem;font-weight:500;
+    letter-spacing:0.18em;text-transform:uppercase;
+    color:inherit;opacity:0.7;transition:opacity 0.3s;padding:4px 0;
+  }
+  .currency-btn:hover{opacity:1}
+  .currency-chevron{
+    width:8px;height:5px;stroke:currentColor;stroke-width:1.5;
+    fill:none;stroke-linecap:round;stroke-linejoin:round;
+    transition:transform 0.3s var(--ease-luxury);
+  }
+  .currency-picker.open .currency-chevron{transform:rotate(180deg)}
+  .currency-dropdown{
+    position:absolute;top:calc(100% + 14px);right:0;
+    background:var(--ivory);border:0.5px solid var(--stone);
+    min-width:88px;display:none;flex-direction:column;
+    z-index:500;box-shadow:0 8px 40px rgba(0,0,0,0.08);
+  }
+  .currency-picker.open .currency-dropdown{display:flex}
+  .currency-option{
+    font-family:var(--sans);font-size:0.66rem;font-weight:500;
+    letter-spacing:0.18em;text-transform:uppercase;
+    padding:11px 18px;cursor:pointer;
+    color:var(--charcoal);transition:background 0.2s;
+  }
+  .currency-option:hover{background:var(--champagne)}
+  .currency-option.active{color:var(--gold)}
+
   /* ── REVEAL ──────────────────────────────────────────────── */
   .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.95s var(--ease-luxury),transform 0.95s var(--ease-luxury)}
   .reveal.visible{opacity:1;transform:translateY(0)}
@@ -609,6 +641,21 @@
   </div>
   <div class="nav-right">
     <a class="nav-link" href="#appointment">Book Appointment</a>
+    <div class="currency-picker" id="currencyPicker">
+      <button class="currency-btn" onclick="toggleCurrency(event)" aria-label="Select currency">
+        <span id="currencyCode">INR</span>
+        <svg class="currency-chevron" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1 L5 5 L9 1"/></svg>
+      </button>
+      <div class="currency-dropdown" id="currencyDropdown">
+        <div class="currency-option active" onclick="setCurrency('INR','₹')">INR</div>
+        <div class="currency-option" onclick="setCurrency('AED','د.إ')">AED</div>
+        <div class="currency-option" onclick="setCurrency('USD','$')">USD</div>
+        <div class="currency-option" onclick="setCurrency('GBP','£')">GBP</div>
+        <div class="currency-option" onclick="setCurrency('SAR','﷼')">SAR</div>
+        <div class="currency-option" onclick="setCurrency('EUR','€')">EUR</div>
+        <div class="currency-option" onclick="setCurrency('AUD','A$')">AUD</div>
+      </div>
+    </div>
     <button class="nav-icon-btn" onclick="window.open('https://www.vaishali-s.com/account/login','_self')" aria-label="Account">
       <svg viewBox="0 0 18 18"><circle cx="9" cy="6" r="3.4"/><path d="M2.5 16 C2.5 12 5.5 10.5 9 10.5 C12.5 10.5 15.5 12 15.5 16"/></svg>
     </button>
@@ -834,6 +881,23 @@
   /* menu */
   const menuPanel=document.getElementById('menuPanel');
   const menuScrim=document.getElementById('menuScrim');
+  function toggleCurrency(e){
+    e.stopPropagation();
+    document.getElementById('currencyPicker').classList.toggle('open');
+  }
+  function setCurrency(code,symbol){
+    document.getElementById('currencyCode').textContent=code;
+    const mfc=document.querySelector('.menu-foot-currency');
+    if(mfc)mfc.textContent=code+' '+symbol;
+    document.querySelectorAll('.currency-option').forEach(el=>{
+      el.classList.toggle('active',el.textContent.trim()===code);
+    });
+    document.getElementById('currencyPicker').classList.remove('open');
+  }
+  document.addEventListener('click',function(){
+    const p=document.getElementById('currencyPicker');
+    if(p)p.classList.remove('open');
+  });
   function toggleNav(){
     const open=!menuPanel.classList.contains('open');
     menuPanel.classList.toggle('open',open);
