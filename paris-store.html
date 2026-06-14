@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mumbai Flagship Atelier — VAISHALI S</title>
+<title>Paris Flagship — VAISHALI S</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -136,10 +136,10 @@
   .reveal-d3{transition-delay:0.36s}
 
   /* ════════════════════════════════════════════════════════════
-     MUMBAI STORE PAGE
+     PARIS STORE PAGE
      ════════════════════════════════════════════════════════════ */
 
-  /* HERO */
+  /* HERO — three-panel feel via CSS grid overlay */
   .store-hero{
     position:relative;
     height:100vh;min-height:600px;
@@ -148,16 +148,28 @@
   }
   .store-hero-img{
     position:absolute;inset:0;width:100%;height:100%;
-    object-fit:cover;object-position:50% 40%;
+    object-fit:cover;object-position:50% 30%;
     transform:scale(1.06);
     transition:transform 8s var(--ease-luxury);
   }
   .store-hero-img.loaded{transform:scale(1)}
+  /* subtle vertical grid lines — echoes the boutique glass panels */
+  .store-hero::before{
+    content:'';position:absolute;inset:0;z-index:1;
+    background:repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent calc(33.33% - 0.5px),
+      rgba(255,255,255,0.07) calc(33.33% - 0.5px),
+      rgba(255,255,255,0.07) 33.33%
+    );
+    pointer-events:none;
+  }
   .store-hero::after{
-    content:'';position:absolute;inset:0;
+    content:'';position:absolute;inset:0;z-index:1;
     background:
-      linear-gradient(0deg, rgba(11,9,7,0.74) 0%, rgba(11,9,7,0.2) 55%, transparent 85%),
-      linear-gradient(180deg, rgba(11,9,7,0.25) 0%, transparent 30%);
+      linear-gradient(0deg, rgba(11,9,7,0.78) 0%, rgba(11,9,7,0.18) 50%, transparent 80%),
+      linear-gradient(180deg, rgba(11,9,7,0.28) 0%, transparent 28%);
     pointer-events:none;
   }
   .store-hero-inner{
@@ -177,7 +189,7 @@
   .store-hero-title{
     font-family:var(--serif);
     font-size:clamp(4rem,10vw,9rem);
-    font-weight:300;line-height:0.9;letter-spacing:0.04em;
+    font-weight:300;line-height:0.9;letter-spacing:0.08em;
     color:#fff;
     margin-bottom:20px;
   }
@@ -206,16 +218,39 @@
   .breadcrumb-inner span{opacity:0.4}
   .breadcrumb-inner .current{color:var(--charcoal)}
 
-  /* INFO + MAP SECTION */
+  /* INTRO TEXT BAND — unique to Paris page */
+  .paris-intro{
+    max-width:900px;
+    margin:0 auto;
+    padding:90px 64px 80px;
+    text-align:center;
+  }
+  .paris-intro-kicker{
+    font-family:var(--sans);font-size:0.58rem;font-weight:600;
+    letter-spacing:0.34em;text-transform:uppercase;color:var(--gold);
+    margin-bottom:26px;
+  }
+  .paris-intro-body{
+    font-family:var(--serif);
+    font-size:clamp(1.1rem,1.8vw,1.45rem);
+    font-weight:300;line-height:1.75;letter-spacing:0.01em;
+    color:var(--charcoal);opacity:0.82;
+  }
+  .paris-intro-body em{font-style:italic;color:var(--gold)}
+
+  /* INFO + MAP SECTION — reversed: map left, info right */
   .store-info-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
     min-height:600px;
+    border-top:0.5px solid rgba(26,23,18,0.08);
     border-bottom:0.5px solid rgba(26,23,18,0.08);
   }
+  .store-map-panel{position:relative;min-height:520px;background:var(--champagne);order:-1}
+  #storeMap{position:absolute;inset:0;width:100%;height:100%}
   .store-info-panel{
     padding:80px;
-    border-right:0.5px solid rgba(26,23,18,0.08);
+    border-left:0.5px solid rgba(26,23,18,0.08);
     display:flex;flex-direction:column;justify-content:center;
   }
   .info-eyebrow{
@@ -266,79 +301,59 @@
   .info-contact a:hover{opacity:1;color:var(--gold)}
   .info-contact a svg{width:14px;height:14px;stroke:var(--gold-dim);stroke-width:1.4;fill:none;flex-shrink:0}
 
-  /* MAP */
-  .store-map-panel{position:relative;min-height:520px;background:var(--champagne)}
-  #storeMap{position:absolute;inset:0;width:100%;height:100%}
-
-  /* Leaflet custom styles */
+  /* Leaflet */
   .leaflet-container{font-family:var(--sans)}
-  .leaflet-popup-content-wrapper{
-    border-radius:2px;box-shadow:0 8px 40px rgba(11,9,7,0.18);
-    border:0.5px solid var(--stone);
-  }
-  .leaflet-popup-content{
-    font-family:var(--sans);font-size:0.78rem;font-weight:300;
-    line-height:1.7;color:var(--charcoal);padding:2px 4px;
-  }
+  .leaflet-popup-content-wrapper{border-radius:2px;box-shadow:0 8px 40px rgba(11,9,7,0.18);border:0.5px solid var(--stone)}
+  .leaflet-popup-content{font-family:var(--sans);font-size:0.78rem;font-weight:300;line-height:1.7;color:var(--charcoal);padding:2px 4px}
   .leaflet-popup-content strong{font-weight:500;letter-spacing:0.05em}
-  .map-marker-label{
-    font-family:var(--serif);font-style:italic;
-    font-size:0.95rem;color:var(--charcoal);
-    display:block;margin-bottom:4px;
-  }
+  .map-marker-label{font-family:var(--serif);font-style:italic;font-size:0.95rem;color:var(--charcoal);display:block;margin-bottom:4px}
   .leaflet-control-attribution{font-size:0.55rem!important;opacity:0.45}
 
-  /* ATELIER STORY BAND */
-  .atelier-story{
+  /* PARIS STORY — full-width dark band with quote */
+  .paris-story{
+    background:var(--charcoal);
     display:grid;
-    grid-template-columns:5fr 7fr;
+    grid-template-columns:1fr 1fr;
     align-items:stretch;
-    border-bottom:0.5px solid rgba(26,23,18,0.08);
   }
-  .atelier-story-img{
-    position:relative;
-    overflow:hidden;
-    min-height:480px;
-    background:var(--stone);
-  }
-  .atelier-story-img img{
-    position:absolute;inset:0;width:100%;height:100%;
-    object-fit:cover;transition:transform 1.8s var(--ease-luxury);
-  }
-  .atelier-story:hover .atelier-story-img img{transform:scale(1.04)}
-  .atelier-story-text{
-    padding:clamp(56px,7vw,112px);
+  .paris-story-text{
+    padding:clamp(64px,8vw,120px);
     display:flex;flex-direction:column;justify-content:center;
-    background:var(--ivory);
   }
-  .atelier-kicker{
+  .paris-story-kicker{
     font-family:var(--sans);font-size:0.58rem;font-weight:600;
     letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);
     margin-bottom:28px;
   }
-  .atelier-pull{
+  .paris-story-pull{
     font-family:var(--serif);font-style:italic;
-    font-size:clamp(1.6rem,2.6vw,2.4rem);
+    font-size:clamp(1.7rem,2.8vw,2.6rem);
     font-weight:300;line-height:1.28;
-    color:var(--charcoal);
-    margin-bottom:32px;
+    color:var(--ivory);margin-bottom:32px;
   }
-  .atelier-body{
-    font-family:var(--sans);font-size:0.9rem;font-weight:300;
+  .paris-story-body{
+    font-family:var(--sans);font-size:0.88rem;font-weight:300;
     line-height:1.95;letter-spacing:0.01em;
-    color:var(--charcoal);opacity:0.75;
-    max-width:480px;
-    margin-bottom:36px;
+    color:rgba(244,238,227,0.6);max-width:460px;margin-bottom:36px;
   }
-  .text-link{
+  .text-link-light{
     display:inline-flex;align-items:center;gap:12px;
     font-family:var(--sans);font-size:0.66rem;font-weight:500;
-    letter-spacing:0.2em;text-transform:uppercase;color:var(--charcoal);
+    letter-spacing:0.2em;text-transform:uppercase;color:rgba(244,238,227,0.55);
     text-decoration:none;transition:gap 0.3s var(--ease-luxury),color 0.3s;align-self:flex-start;
   }
-  .text-link::after{content:'';display:block;width:32px;height:0.5px;background:var(--charcoal);transition:width 0.4s var(--ease-luxury),background 0.3s}
-  .text-link:hover{gap:20px;color:var(--gold)}
-  .text-link:hover::after{width:52px;background:var(--gold)}
+  .text-link-light::after{content:'';display:block;width:32px;height:0.5px;background:rgba(244,238,227,0.35);transition:width 0.4s var(--ease-luxury),background 0.3s}
+  .text-link-light:hover{gap:20px;color:var(--gold)}
+  .text-link-light:hover::after{width:52px;background:var(--gold)}
+  .paris-story-img{
+    position:relative;overflow:hidden;min-height:500px;background:#0B0907;
+  }
+  .paris-story-img img{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;opacity:0.7;
+    transition:transform 1.8s var(--ease-luxury),opacity 0.6s;
+  }
+  .paris-story:hover .paris-story-img img{transform:scale(1.04);opacity:0.85}
 
   /* APPOINTMENT SECTION */
   .appt-section{
@@ -346,38 +361,28 @@
     max-width:1000px;
     margin:0 auto;
   }
-  .appt-header{
-    text-align:center;
-    margin-bottom:72px;
-  }
+  .appt-header{text-align:center;margin-bottom:72px}
   .appt-kicker{
     font-family:var(--sans);font-size:0.58rem;font-weight:600;
     letter-spacing:0.34em;text-transform:uppercase;color:var(--gold);
     margin-bottom:22px;
   }
   .appt-title{
-    font-family:var(--serif);
-    font-size:clamp(2.2rem,3.6vw,3.4rem);
-    font-weight:300;line-height:1.1;
-    color:var(--charcoal);
-    margin-bottom:20px;
+    font-family:var(--serif);font-size:clamp(2.2rem,3.6vw,3.4rem);
+    font-weight:300;line-height:1.1;color:var(--charcoal);margin-bottom:20px;
   }
   .appt-title em{font-style:italic;color:var(--gold);opacity:0.85}
   .appt-rule{width:1px;height:52px;background:linear-gradient(180deg,var(--gold),transparent);margin:0 auto 26px}
   .appt-lead{
-    font-family:var(--serif);
-    font-size:1.05rem;font-weight:300;line-height:1.75;
-    color:var(--charcoal);opacity:0.72;
-    max-width:540px;margin:0 auto;
+    font-family:var(--serif);font-size:1.05rem;font-weight:300;line-height:1.75;
+    color:var(--charcoal);opacity:0.72;max-width:540px;margin:0 auto;
   }
 
   /* Form */
   .appt-form{
     display:grid;grid-template-columns:1fr 1fr;gap:0;
     border:0.5px solid rgba(26,23,18,0.1);
-    border-radius:3px;
-    overflow:hidden;
-    background:var(--ivory);
+    border-radius:3px;overflow:hidden;background:var(--ivory);
     box-shadow:0 24px 60px rgba(26,23,18,0.07);
   }
   .form-field{
@@ -388,81 +393,53 @@
   .form-field.full{grid-column:1/-1;border-right:none}
   .form-field:nth-child(even){border-right:none}
   .form-field label{
-    display:block;
-    font-family:var(--sans);font-size:0.56rem;font-weight:600;
+    display:block;font-family:var(--sans);font-size:0.56rem;font-weight:600;
     letter-spacing:0.26em;text-transform:uppercase;color:var(--gold);
-    padding:22px 28px 0;
-    pointer-events:none;
-    transition:color 0.3s;
+    padding:22px 28px 0;pointer-events:none;transition:color 0.3s;
   }
   .form-field:focus-within label{color:var(--charcoal)}
   .form-field input,
   .form-field select,
   .form-field textarea{
-    display:block;width:100%;
-    background:transparent;border:none;outline:none;
+    display:block;width:100%;background:transparent;border:none;outline:none;
     font-family:var(--sans);font-size:0.88rem;font-weight:300;
-    letter-spacing:0.02em;color:var(--charcoal);
-    padding:10px 28px 22px;
-    -webkit-appearance:none;
-    resize:none;
+    letter-spacing:0.02em;color:var(--charcoal);padding:10px 28px 22px;
+    -webkit-appearance:none;resize:none;
   }
-  .form-field input::placeholder,
-  .form-field textarea::placeholder{color:rgba(26,23,18,0.28)}
+  .form-field input::placeholder,.form-field textarea::placeholder{color:rgba(26,23,18,0.28)}
   .form-field select{cursor:pointer}
   .form-field select option{background:var(--ivory)}
   .form-field textarea{min-height:140px;line-height:1.7}
   .form-field.select-wrap::after{
-    content:'';
-    position:absolute;right:28px;top:50%;
+    content:'';position:absolute;right:28px;top:50%;
     transform:translateY(-50%) rotate(45deg);
     width:6px;height:6px;
     border-right:1px solid var(--grey);border-bottom:1px solid var(--grey);
     pointer-events:none;
   }
-
   .form-submit-row{
-    grid-column:1/-1;
-    padding:36px 28px;
-    background:var(--ivory-sub);
-    display:flex;align-items:center;justify-content:space-between;
-    gap:24px;
+    grid-column:1/-1;padding:36px 28px;background:var(--ivory-sub);
+    display:flex;align-items:center;justify-content:space-between;gap:24px;
     border-top:0.5px solid rgba(26,23,18,0.07);
   }
   .form-note{
     font-family:var(--sans);font-size:0.7rem;font-weight:300;
-    line-height:1.6;color:var(--grey);
-    max-width:360px;
+    line-height:1.6;color:var(--grey);max-width:360px;
   }
   .btn-appt{
     display:inline-flex;align-items:center;gap:16px;
     background:var(--charcoal);color:var(--ivory);
     font-family:var(--sans);font-size:0.62rem;font-weight:500;
     letter-spacing:0.3em;text-transform:uppercase;
-    border:none;cursor:pointer;
-    padding:18px 40px;
-    border-radius:1px;
-    transition:background 0.4s var(--ease-luxury),gap 0.3s;
-    white-space:nowrap;
-    flex-shrink:0;
+    border:none;cursor:pointer;padding:18px 40px;border-radius:1px;
+    transition:background 0.4s var(--ease-luxury),gap 0.3s;white-space:nowrap;flex-shrink:0;
   }
   .btn-appt:hover{background:var(--gold);gap:24px}
   .btn-appt svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.4;fill:none;transition:transform 0.3s}
   .btn-appt:hover svg{transform:translateX(4px)}
-
-  /* Form success state */
-  .form-success{
-    display:none;
-    grid-column:1/-1;
-    padding:60px 40px;
-    text-align:center;
-  }
+  .form-success{display:none;grid-column:1/-1;padding:60px 40px;text-align:center}
   .form-success.show{display:flex;flex-direction:column;align-items:center;gap:16px}
-  .form-success .success-icon{
-    width:44px;height:44px;border-radius:50%;
-    background:var(--gold-trace);
-    display:flex;align-items:center;justify-content:center;margin-bottom:8px;
-  }
+  .form-success .success-icon{width:44px;height:44px;border-radius:50%;background:var(--gold-trace);display:flex;align-items:center;justify-content:center;margin-bottom:8px}
   .form-success .success-icon svg{width:20px;height:20px;stroke:var(--gold);stroke-width:1.4;fill:none}
   .form-success-title{font-family:var(--serif);font-size:1.8rem;font-weight:300;color:var(--charcoal)}
   .form-success-body{font-family:var(--sans);font-size:0.82rem;font-weight:300;line-height:1.8;color:var(--grey);max-width:380px}
@@ -488,18 +465,19 @@
     nav,nav.scrolled{padding-left:40px;padding-right:40px}
     .store-hero-inner{padding:0 48px 60px}
     .breadcrumb{padding-left:48px;padding-right:48px}
+    .paris-intro{padding-left:48px;padding-right:48px}
     .store-info-panel{padding:60px 48px}
-    .atelier-story-text{padding:56px 48px}
+    .paris-story-text{padding:64px 48px}
     .appt-section{padding:90px 48px}
     footer{padding-left:48px;padding-right:48px}
   }
   @media(max-width:860px){
     .store-info-grid{grid-template-columns:1fr}
-    .store-info-panel{border-right:none;border-bottom:0.5px solid rgba(26,23,18,0.08)}
-    .store-map-panel{min-height:400px}
-    #storeMap{position:relative;height:400px}
-    .atelier-story{grid-template-columns:1fr}
-    .atelier-story-img{min-height:360px}
+    .store-map-panel{order:0;min-height:380px}
+    #storeMap{position:relative;height:380px}
+    .store-info-panel{border-left:none;border-top:0.5px solid rgba(26,23,18,0.08)}
+    .paris-story{grid-template-columns:1fr}
+    .paris-story-img{min-height:320px}
     .appt-form{grid-template-columns:1fr}
     .form-field{border-right:none}
     .form-submit-row{flex-direction:column;align-items:flex-start}
@@ -565,8 +543,8 @@
         <svg class="chev" viewBox="0 0 10 10"><path d="M3 1 L7 5 L3 9"/></svg></button>
       <div class="menu-sub"><div class="menu-sub-inner">
         <a href="philosophy.html">Our Philosophy</a>
-        <a href="mumbai-store.html" style="color:var(--gold);opacity:1">Our Flagship Store: Mumbai</a>
-        <a href="paris-store.html">Our Flagship Store: Paris</a>
+        <a href="mumbai-store.html">Our Flagship Store: Mumbai</a>
+        <a href="paris-store.html" style="color:var(--gold);opacity:1">Our Flagship Store: Paris</a>
         <a href="https://www.vaishali-s.com/pages/customer-service">Policy and Customer Service</a>
         <a href="https://www.vaishali-s.com/pages/contact-us">Contact Us</a>
       </div></div>
@@ -574,15 +552,15 @@
     <div class="menu-group"><a class="menu-flat" href="https://www.vaishali-s.com/blogs/news">News</a></div>
   </div>
   <div class="menu-panel-foot">
-    <a class="menu-foot-link" href="#appointment">Book an Appointment</a>
-    <a class="menu-foot-link" href="mumbai-store.html">Mumbai Flagship Atelier</a>
+    <a class="menu-foot-link" href="#appointment">Book a Paris Appointment</a>
+    <a class="menu-foot-link" href="mumbai-store.html">Visit Mumbai Atelier</a>
     <div class="menu-foot-meta">
       <div class="menu-foot-socials">
         <a href="https://www.instagram.com/vaishalisstudio" target="_blank" rel="noopener">Instagram</a>
         <a href="https://www.facebook.com/VaishaliShadangule29/" target="_blank" rel="noopener">Facebook</a>
         <a href="https://www.youtube.com/channel/UCNEG_LqIyj1hyNL-gSMmGWw" target="_blank" rel="noopener">YouTube</a>
       </div>
-      <span class="menu-foot-currency">INR ₹</span>
+      <span class="menu-foot-currency">EUR €</span>
     </div>
   </div>
 </aside>
@@ -623,18 +601,18 @@
 <!-- ── HERO ───────────────────────────────────────────────── -->
 <section class="store-hero">
   <img class="store-hero-img" id="heroImg"
-    src="https://www.vaishali-s.com/cdn/shop/files/mumbai-store-img.jpg?width=2400"
-    alt="Vaishali S Mumbai Atelier — Kala Ghoda"
+    src="https://www.vaishali-s.com/cdn/shop/files/paris-store-img.jpg?v=1745895714&width=2400"
+    alt="Vaishali S Paris Flagship — Boulevard Saint-Germain"
     fetchpriority="high"
     onerror="this.style.display='none'">
   <div class="store-hero-inner">
     <div class="hero-city-line">
-      <span class="hero-city-tag">The House · Flagship Atelier</span>
+      <span class="hero-city-tag">The House · Paris Flagship</span>
       <div class="hero-city-rule"></div>
     </div>
-    <h1 class="store-hero-title">MUMBAI</h1>
-    <p class="store-hero-sub">Kala Ghoda, Fort &nbsp;·&nbsp; Est. 2001</p>
-    <p class="store-hero-coords">18.9322° N, 72.8347° E</p>
+    <h1 class="store-hero-title">PARIS</h1>
+    <p class="store-hero-sub">Boulevard Saint-Germain, 7ème &nbsp;·&nbsp; Paris, France</p>
+    <p class="store-hero-coords">48.8540° N, 2.3294° E</p>
   </div>
 </section>
 
@@ -645,30 +623,43 @@
     <span>/</span>
     <a href="philosophy.html">About Us</a>
     <span>/</span>
-    <span class="current">Mumbai Flagship</span>
+    <span class="current">Paris Flagship</span>
   </div>
 </nav>
 
-<!-- ── INFO + MAP ─────────────────────────────────────────── -->
+<!-- ── INTRO TEXT ─────────────────────────────────────────── -->
+<div class="paris-intro reveal">
+  <p class="paris-intro-kicker">From the looms of India to the heart of Paris</p>
+  <p class="paris-intro-body">
+    Vaishali S Couture has found its Parisian home at <em>188 Boulevard Saint-Germain</em>.
+    Step into a world where age-old Indian craftsmanship meets effortless French elegance.
+    Each piece tells a story, each fabric holds a soul. Come experience the harmony of
+    heritage and haute couture — handmade, heartfelt, and now in Paris.
+  </p>
+</div>
+
+<!-- ── MAP LEFT + INFO RIGHT ──────────────────────────────── -->
 <section class="store-info-grid">
+  <div class="store-map-panel" id="mapContainer">
+    <div id="storeMap"></div>
+  </div>
   <div class="store-info-panel reveal">
-    <p class="info-eyebrow">Vaishali S · Mumbai</p>
-    <h2 class="info-heading">A house rooted<br>in the heart of Fort</h2>
+    <p class="info-eyebrow">Vaishali S · Paris</p>
+    <h2 class="info-heading">Saint-Germain-<br>des-Prés</h2>
 
     <div class="info-block">
       <p class="info-block-label">Address</p>
       <address class="info-address" style="font-style:normal">
-        Kirti Chambers<br>
-        35 Ambalal Doshi Marg<br>
-        Kala Ghoda, Fort<br>
-        Mumbai 400 001
+        188 Boulevard Saint-Germain<br>
+        75007 Paris<br>
+        France
       </address>
     </div>
 
     <div class="info-block">
-      <p class="info-block-label">Atelier Hours</p>
+      <p class="info-block-label">Boutique Hours</p>
       <div class="info-hours">
-        <div><strong>Monday – Saturday</strong> &ensp;10:30 am – 7:30 pm</div>
+        <div><strong>Monday – Saturday</strong> &ensp;11:00 am – 7:00 pm</div>
         <div><strong>Sunday</strong> &ensp;Closed</div>
       </div>
     </div>
@@ -676,57 +667,54 @@
     <div class="info-block">
       <p class="info-block-label">Contact</p>
       <div class="info-contact">
-        <a href="tel:+919321569218">
+        <a href="tel:+33777936942">
           <svg viewBox="0 0 18 18"><path d="M2 2 C2 2 4 1 5 3.5 L6 6 C6 7 5 7.5 5 8.5 C5 10 8 13 9.5 13 C10.5 13 11 12 12 12 L14.5 13 C17 14 16 16 16 16 C16 16 13 19 8 14 C3 9 2 2 2 2 Z"/></svg>
-          +91 93215 69218
+          +33 7 77 93 69 42
         </a>
-        <a href="mailto:vaishali.sstudio1@gmail.com">
+        <a href="mailto:vaishaliscoutureparis@gmail.com">
           <svg viewBox="0 0 18 18"><rect x="2" y="4" width="14" height="10" rx="1"/><path d="M2 4 L9 10 L16 4"/></svg>
-          vaishali.sstudio1@gmail.com
+          vaishaliscoutureparis@gmail.com
         </a>
-        <a href="https://wa.me/917021110182" target="_blank" rel="noopener">
-          <svg viewBox="0 0 18 18"><circle cx="9" cy="9" r="7"/><path d="M6 9 C6 7 7.5 5.5 9 5.5 C11 5.5 12.5 7 12.5 9 C12.5 11 11 12.5 9 12.5 C8 12.5 7.1 12.1 6.5 11.5 L4.5 12 L5 10 C4.4 9.4 6 9.2 6 9 Z" fill="none"/></svg>
-          WhatsApp Concierge
+        <a href="https://www.instagram.com/vaishalisstudio" target="_blank" rel="noopener">
+          <svg viewBox="0 0 18 18"><rect x="3" y="3" width="12" height="12" rx="3"/><circle cx="9" cy="9" r="3.2"/><circle cx="13" cy="5" r="0.9" fill="var(--gold-dim)" stroke="none"/></svg>
+          @vaishalisstudio
         </a>
       </div>
     </div>
   </div>
-
-  <div class="store-map-panel" id="mapContainer">
-    <div id="storeMap"></div>
-  </div>
 </section>
 
-<!-- ── ATELIER STORY ──────────────────────────────────────── -->
-<section class="atelier-story">
-  <div class="atelier-story-img">
-    <img src="https://www.vaishali-s.com/cdn/shop/files/2_orig_11.jpg?width=1200"
-      alt="Vaishali S atelier detail" loading="lazy"
-      onerror="this.parentElement.style.background='var(--stone)'">
-  </div>
-  <div class="atelier-story-text reveal">
-    <p class="atelier-kicker">The Space</p>
-    <p class="atelier-pull">"The atelier is where the conversation between weaver and wearer begins."</p>
-    <p class="atelier-body">
-      Nestled in the historic Kala Ghoda district of Mumbai's Fort area, the Vaishali S flagship is
-      more than a boutique — it is an archive of living craft. Within these walls, each handwoven
-      garment hangs as a testament to the artisans who spent weeks, sometimes months, at the loom.
-      Visitors are invited to touch, to ask, to understand the provenance of every thread.
-      Personal styling consultations are available by appointment.
+<!-- ── PARIS STORY BAND ───────────────────────────────────── -->
+<section class="paris-story">
+  <div class="paris-story-text reveal">
+    <p class="paris-story-kicker">The Boutique</p>
+    <p class="paris-story-pull">"Where Indian craft finds its most Parisian expression."</p>
+    <p class="paris-story-body">
+      Nestled in the literary heart of Paris — on the same boulevard that has inspired artists,
+      philosophers and couturiers for over a century — the Vaishali S Paris boutique is a
+      quiet monument to slow fashion. Our Kintsugi collection debuted at Paris Haute Couture
+      Week 2025, and the boutique now carries the full range of handwoven couture, each piece
+      traceable to the loom and the hands that made it.
+      Private viewing appointments are warmly encouraged.
     </p>
-    <a href="#appointment" class="text-link">Book a Private Appointment</a>
+    <a href="#appointment" class="text-link-light">Arrange a Private Visit</a>
+  </div>
+  <div class="paris-story-img">
+    <img src="https://www.vaishali-s.com/cdn/shop/files/paris-store-img.jpg?v=1745895714&width=1200"
+      alt="Vaishali S Paris boutique interior" loading="lazy"
+      onerror="this.parentElement.style.background='#1A1712'">
   </div>
 </section>
 
 <!-- ── APPOINTMENT FORM ───────────────────────────────────── -->
 <section class="appt-section" id="appointment">
   <div class="appt-header reveal">
-    <p class="appt-kicker">Private Access</p>
+    <p class="appt-kicker">Private Access · Paris</p>
     <h2 class="appt-title">Book an <em>Appointment</em></h2>
     <div class="appt-rule"></div>
     <p class="appt-lead">
-      Each visit to our Mumbai atelier is a curated experience. Share your details and we will
-      personally reach out to arrange your session.
+      Each Paris visit is a carefully arranged private experience. Share your details and our
+      Parisian team will reach out to confirm your appointment.
     </p>
   </div>
 
@@ -737,7 +725,7 @@
     </div>
     <div class="form-field">
       <label for="f-phone">Contact Number</label>
-      <input type="tel" id="f-phone" name="phone" placeholder="+91 &nbsp;—" autocomplete="tel">
+      <input type="tel" id="f-phone" name="phone" placeholder="+33  —" autocomplete="tel">
     </div>
     <div class="form-field">
       <label for="f-email">Email Address</label>
@@ -751,15 +739,16 @@
         <option value="bridal">Bridal Couture</option>
         <option value="bespoke">Bespoke Commission</option>
         <option value="gifting">Gifting &amp; Trousseau</option>
+        <option value="press">Press &amp; Editorial</option>
         <option value="general">General Inquiry</option>
       </select>
     </div>
     <div class="form-field full">
       <label for="f-message">Your Message</label>
-      <textarea id="f-message" name="message" placeholder="Tell us about the occasion, any specific pieces you have in mind, or any other details…"></textarea>
+      <textarea id="f-message" name="message" placeholder="Tell us about the occasion, any pieces you have in mind, preferred dates, or any other details…"></textarea>
     </div>
     <div class="form-submit-row">
-      <p class="form-note">Our atelier team typically responds within 24 hours. For immediate assistance, please contact us via WhatsApp.</p>
+      <p class="form-note">Our Paris team typically responds within 24 hours. For urgent inquiries, please email us directly.</p>
       <button type="submit" class="btn-appt">
         Schedule Appointment
         <svg viewBox="0 0 18 18"><path d="M4 9 H14 M10 5 L14 9 L10 13"/></svg>
@@ -769,8 +758,8 @@
       <div class="success-icon">
         <svg viewBox="0 0 20 20"><path d="M4 10 L8 14 L16 6"/></svg>
       </div>
-      <p class="form-success-title">Thank you</p>
-      <p class="form-success-body">Your appointment request has been received. Our team will be in touch within 24 hours to confirm your visit.</p>
+      <p class="form-success-title">Merci</p>
+      <p class="form-success-body">Your appointment request has been received by our Paris team. We will be in touch within 24 hours to confirm your visit.</p>
     </div>
   </form>
 </section>
@@ -804,7 +793,7 @@
       <p class="footer-col-title">Inquiries</p>
       <ul class="footer-links">
         <li><a href="#appointment">Private Styling</a></li>
-        <li><a href="https://wa.me/917021110182">Atelier WhatsApp</a></li>
+        <li><a href="mailto:vaishaliscoutureparis@gmail.com">Paris Email</a></li>
         <li><a href="https://www.vaishali-s.com/pages/customer-service">Client Services</a></li>
         <li><a href="https://www.vaishali-s.com/pages/faq">Acquisitions Policy</a></li>
       </ul>
@@ -858,8 +847,8 @@
     bar.style.width=(h>0?(window.scrollY/h)*100:0)+'%';
   },{passive:true});
 
-  /* Leaflet map — OpenStreetMap, no API key */
-  const LAT=18.9322,LNG=72.8347;
+  /* Leaflet map — 188 Boulevard Saint-Germain, Paris */
+  const LAT=48.8540,LNG=2.3294;
   const map=L.map('storeMap',{
     center:[LAT,LNG],zoom:16,
     zoomControl:false,scrollWheelZoom:false,
@@ -871,7 +860,6 @@
   }).addTo(map);
   L.control.zoom({position:'bottomright'}).addTo(map);
 
-  /* custom gold pin */
   const pin=L.divIcon({
     className:'',
     html:`<div style="
@@ -886,16 +874,15 @@
   L.marker([LAT,LNG],{icon:pin})
     .addTo(map)
     .bindPopup(`
-      <span class="map-marker-label">Vaishali S · Mumbai</span>
-      <strong>Kirti Chambers</strong><br>
-      35 Ambalal Doshi Marg<br>
-      Kala Ghoda, Fort — 400 001
-    `,{maxWidth:200})
+      <span class="map-marker-label">Vaishali S Couture · Paris</span>
+      <strong>188 Boulevard Saint-Germain</strong><br>
+      75007 Paris, France
+    `,{maxWidth:210})
     .openPopup();
 
-  /* subtle parallax on atelier image */
+  /* parallax on story image */
   if(!window.matchMedia('(prefers-reduced-motion:reduce)').matches){
-    const imgs=document.querySelectorAll('.atelier-story-img img');
+    const imgs=document.querySelectorAll('.paris-story-img img');
     window.addEventListener('scroll',()=>{
       const vh=window.innerHeight;
       imgs.forEach(img=>{
@@ -910,14 +897,6 @@
   /* appointment form */
   document.getElementById('apptForm').addEventListener('submit',function(e){
     e.preventDefault();
-    const fields=this.querySelectorAll('input,select,textarea');
-    let valid=true;
-    fields.forEach(f=>{
-      if(f.required&&!f.value.trim()){f.style.borderBottom='1px solid var(--gold)';valid=false}
-      else{f.style.borderBottom=''}
-    });
-    if(!valid)return;
-    /* show success — in production wire to actual endpoint */
     this.querySelectorAll('.form-field,.form-submit-row').forEach(el=>el.style.display='none');
     document.getElementById('formSuccess').classList.add('show');
   });
