@@ -544,9 +544,23 @@
     *{scroll-behavior:auto}
     .store-hero-img{transform:none!important}
   }
+
+  /* ── PAGE ENTRY CURTAIN ──────────────────────────────────── */
+  .page-curtain{
+    position:fixed;inset:0;
+    background:var(--muted-black);
+    z-index:9999;
+    pointer-events:none;
+    animation:curtainLift 1s var(--ease-luxury) 0.05s both;
+  }
+  @keyframes curtainLift{
+    0%{transform:translateY(0)}
+    100%{transform:translateY(-100%)}
+  }
 </style>
 </head>
 <body>
+<div class="page-curtain" aria-hidden="true"></div>
 
 <div class="scroll-progress" id="scrollProgress"></div>
 <div class="grain-overlay" aria-hidden="true"></div>
