@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Order Confirmed — VAISHALI S</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --ivory:#F4EEE3;--ivory-sub:#ECE3D4;--champagne:#E6DAC6;--stone:#DAD0BF;
+    --charcoal:#1A1712;--muted-black:#0B0907;--grey:#7C7261;
+    --gold:#B8975A;--gold-dim:rgba(184,151,90,0.6);
+    --serif:"Cormorant Garamond",serif;--sans:"Inter",sans-serif;
+    --ease-luxury:cubic-bezier(0.25,1,0.5,1);
+  }
+  html{scroll-behavior:smooth;font-size:16px}
+  body{background:var(--ivory);color:var(--charcoal);font-family:var(--sans);font-weight:300;-webkit-font-smoothing:antialiased;min-height:100vh}
+  .page-curtain{position:fixed;inset:0;background:var(--muted-black);z-index:9999;pointer-events:none;animation:curtainLift 1s var(--ease-luxury) 0.05s both}
+  @keyframes curtainLift{0%{transform:translateY(0)}100%{transform:translateY(-100%)}}
+
+  .cf-header{display:flex;align-items:center;justify-content:center;padding:24px 64px;border-bottom:0.5px solid var(--stone)}
+  .cf-logo svg{height:24px;width:auto;display:block;overflow:visible}
+  .logo-word{font-family:var(--serif);fill:var(--charcoal);letter-spacing:0.25em}
+
+  .cf-wrap{max-width:760px;margin:0 auto;padding:80px 32px 100px}
+  .cf-hero{text-align:center;margin-bottom:56px}
+  .cf-check{width:64px;height:64px;border-radius:50%;border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 32px;animation:popIn 0.6s var(--ease-luxury) 0.3s both}
+  @keyframes popIn{0%{transform:scale(0);opacity:0}100%{transform:scale(1);opacity:1}}
+  .cf-check svg{width:28px;height:28px;stroke:var(--gold);stroke-width:1.3;fill:none;stroke-dasharray:40;stroke-dashoffset:40;animation:draw 0.6s var(--ease-luxury) 0.7s forwards}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .cf-eyebrow{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+  .cf-title{font-family:var(--serif);font-size:clamp(2.2rem,5vw,3.4rem);font-weight:300;line-height:1.1;color:var(--charcoal);margin-bottom:20px}
+  .cf-sub{font-family:var(--sans);font-size:0.78rem;font-weight:300;line-height:1.85;color:var(--grey);max-width:480px;margin:0 auto}
+  .cf-sub strong{color:var(--charcoal);font-weight:400}
+
+  .cf-card{background:white;border:0.5px solid var(--stone);padding:40px 44px;margin-bottom:28px}
+  .cf-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px 36px;padding-bottom:32px;margin-bottom:32px;border-bottom:0.5px solid var(--stone)}
+  .cf-meta-label{font-family:var(--sans);font-size:0.55rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:7px}
+  .cf-meta-val{font-family:var(--sans);font-size:0.78rem;font-weight:300;color:var(--charcoal);line-height:1.6}
+  .cf-meta-val.mono{font-family:var(--serif);font-size:1.15rem;letter-spacing:0.04em}
+
+  .cf-line{display:grid;grid-template-columns:60px 1fr auto;gap:16px;padding:16px 0;border-bottom:0.5px solid rgba(218,208,191,0.55);align-items:center}
+  .cf-line:last-of-type{border-bottom:none}
+  .cf-line-img{aspect-ratio:3/4;overflow:hidden;background:var(--champagne)}
+  .cf-line-img img{width:100%;height:100%;object-fit:cover;display:block}
+  .cf-line-name{font-family:var(--sans);font-size:0.68rem;font-weight:500;letter-spacing:0.04em;text-transform:uppercase;color:var(--charcoal);line-height:1.4}
+  .cf-line-meta{font-family:var(--sans);font-size:0.6rem;font-weight:300;color:var(--grey);margin-top:4px}
+  .cf-line-price{font-family:var(--serif);font-size:1rem;font-weight:300;color:var(--charcoal);white-space:nowrap}
+  .cf-totals{margin-top:24px;padding-top:8px}
+  .cf-total-row{display:flex;justify-content:space-between;padding:8px 0;font-family:var(--sans);font-size:0.74rem;font-weight:300;color:var(--grey)}
+  .cf-total-row span:last-child{color:var(--charcoal)}
+  .cf-grand{display:flex;justify-content:space-between;align-items:baseline;padding-top:18px;margin-top:10px;border-top:0.5px solid var(--stone)}
+  .cf-grand-label{font-family:var(--sans);font-size:0.68rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--charcoal)}
+  .cf-grand-val{font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--charcoal)}
+
+  .cf-next{background:var(--muted-black);color:var(--ivory);padding:40px 44px;margin-bottom:36px}
+  .cf-next-title{font-family:var(--serif);font-size:1.4rem;font-weight:300;color:var(--ivory);margin-bottom:24px}
+  .cf-step{display:flex;gap:16px;margin-bottom:20px}
+  .cf-step:last-child{margin-bottom:0}
+  .cf-step-dot{width:28px;height:28px;border-radius:50%;border:0.5px solid var(--gold-dim);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--serif);font-size:0.85rem;font-style:italic;color:var(--gold)}
+  .cf-step-text{font-family:var(--sans);font-size:0.72rem;font-weight:300;line-height:1.7;color:rgba(244,238,227,0.7);padding-top:4px}
+  .cf-step-text strong{color:var(--ivory);font-weight:400}
+
+  .cf-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .cf-btn{display:inline-flex;align-items:center;padding:15px 34px;font-family:var(--sans);font-size:0.64rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:all 0.3s}
+  .cf-btn.solid{background:var(--charcoal);color:var(--ivory)}
+  .cf-btn.solid:hover{background:var(--muted-black)}
+  .cf-btn.outline{background:transparent;color:var(--charcoal);border:0.5px solid var(--charcoal)}
+  .cf-btn.outline:hover{background:var(--charcoal);color:var(--ivory)}
+
+  .cf-empty{text-align:center;padding:120px 24px}
+  .cf-empty h2{font-family:var(--serif);font-size:2rem;font-weight:300;margin-bottom:14px}
+  .cf-empty p{font-family:var(--sans);font-size:0.74rem;color:var(--grey);margin-bottom:30px}
+  .cf-empty a{display:inline-block;padding:15px 34px;background:var(--charcoal);color:var(--ivory);font-family:var(--sans);font-size:0.64rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none}
+
+  @media(max-width:560px){
+    .cf-card,.cf-next{padding:28px 22px}
+    .cf-meta-grid{grid-template-columns:1fr}
+    .cf-header{padding:20px 24px}
+    .cf-wrap{padding:56px 20px 80px}
+  }
+</style>
+</head>
+<body>
+<div class="page-curtain" aria-hidden="true"></div>
+
+<header class="cf-header">
+  <a class="cf-logo" href="vaishali-home-preview.html" aria-label="Vaishali S — Home">
+    <svg viewBox="0 0 246 40" xmlns="http://www.w3.org/2000/svg">
+      <text class="logo-word" x="0" y="28" font-size="26">VAISHALI</text>
+      <g transform="translate(200,19) scale(0.9)" fill="#D8492E">
+        <path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(60)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(120)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(180)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(240)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(300)"/>
+      </g>
+      <text class="logo-word" x="218" y="28" font-size="26">S</text>
+    </svg>
+  </a>
+</header>
+
+<div class="cf-wrap" id="cfWrap">
+  <div class="cf-hero">
+    <div class="cf-check"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M6 14.5 L11.5 20 L22 8"/></svg></div>
+    <p class="cf-eyebrow">Order Confirmed</p>
+    <h1 class="cf-title">Thank you for your order.</h1>
+    <p class="cf-sub">A confirmation has been sent to <strong id="cfEmail">your inbox</strong>. Each piece is handwoven to order by our partner artisans — our atelier will be in touch with your craft timeline.</p>
+  </div>
+
+  <div class="cf-card">
+    <div class="cf-meta-grid">
+      <div><div class="cf-meta-label">Order Number</div><div class="cf-meta-val mono" id="cfNumber">—</div></div>
+      <div><div class="cf-meta-label">Order Date</div><div class="cf-meta-val" id="cfDate">—</div></div>
+      <div><div class="cf-meta-label">Shipping To</div><div class="cf-meta-val" id="cfName">—</div></div>
+      <div><div class="cf-meta-label">Delivery Method</div><div class="cf-meta-val" id="cfDelivery">—</div></div>
+      <div style="grid-column:1/-1"><div class="cf-meta-label">Address</div><div class="cf-meta-val" id="cfAddress">—</div></div>
+    </div>
+    <div id="cfLines"></div>
+    <div class="cf-totals">
+      <div class="cf-total-row"><span>Subtotal</span><span id="cfSubtotal"></span></div>
+      <div class="cf-total-row" id="cfDiscountRow" style="display:none"><span>Discount</span><span id="cfDiscount"></span></div>
+      <div class="cf-total-row"><span>Shipping</span><span>Complimentary</span></div>
+      <div class="cf-grand"><span class="cf-grand-label">Total Paid</span><span class="cf-grand-val" id="cfTotal"></span></div>
+    </div>
+  </div>
+
+  <div class="cf-next">
+    <h2 class="cf-next-title">What happens next</h2>
+    <div class="cf-step"><div class="cf-step-dot">1</div><div class="cf-step-text"><strong>Confirmation</strong> — You’ll receive an email summary of this order within minutes.</div></div>
+    <div class="cf-step"><div class="cf-step-dot">2</div><div class="cf-step-text"><strong>The Loom</strong> — Your piece is allocated to a master weaver. Ready styles dispatch in 3–5 days; made-to-order in 4–6 weeks.</div></div>
+    <div class="cf-step"><div class="cf-step-dot">3</div><div class="cf-step-text"><strong>Delivery</strong> — We share insured tracking the moment your order leaves the atelier.</div></div>
+  </div>
+
+  <div class="cf-actions">
+    <a class="cf-btn solid" href="couture-collection.html">Continue Shopping</a>
+    <a class="cf-btn outline" href="https://wa.me/919321569218" target="_blank" rel="noopener">Questions? WhatsApp Us</a>
+  </div>
+</div>
+
+<script src="catalog.js"></script>
+<script>
+  const rates = { INR:1, AED:0.044, USD:0.012, GBP:0.0095, SAR:0.045, EUR:0.011, AUD:0.019 };
+  const symbols = { INR:'Rs. ', AED:'AED ', USD:'$ ', GBP:'£', SAR:'SAR ', EUR:'€', AUD:'A$ ' };
+  function fmtMoney(baseINR, cur){
+    const val = baseINR * rates[cur];
+    const num = cur === 'INR'
+      ? val.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})
+      : val.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+    return symbols[cur] + num;
+  }
+  const deliveryNames = { express:'Complimentary Express · 3–5 days', atelier:'Atelier Collection' };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    let order;
+    try { order = JSON.parse(localStorage.getItem('vs_last_order')); } catch(e){ order = null; }
+    if(!order){
+      document.getElementById('cfWrap').innerHTML = `<div class="cf-empty"><h2>No recent order</h2><p>We couldn’t find a recent order in this session.</p><a href="couture-collection.html">Explore Collections</a></div>`;
+      return;
+    }
+    const cur = order.currency || 'INR';
+    document.getElementById('cfEmail').textContent = order.email;
+    document.getElementById('cfNumber').textContent = order.number;
+    document.getElementById('cfDate').textContent = new Date(order.date).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'});
+    document.getElementById('cfName').textContent = order.name;
+    document.getElementById('cfDelivery').textContent = deliveryNames[order.delivery] || order.delivery;
+    document.getElementById('cfAddress').textContent = order.address;
+
+    document.getElementById('cfLines').innerHTML = order.items.map(i => `
+      <div class="cf-line">
+        <div class="cf-line-img"><img src="${i.img}" alt="${i.name}" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'"></div>
+        <div><p class="cf-line-name">${i.name}</p><p class="cf-line-meta">Size: ${i.size} · Qty: ${i.qty}</p></div>
+        <p class="cf-line-price">${fmtMoney(i.price * i.qty, cur)}</p>
+      </div>`).join('');
+
+    document.getElementById('cfSubtotal').textContent = fmtMoney(order.subtotal, cur);
+    if(order.discount > 0){
+      document.getElementById('cfDiscountRow').style.display = '';
+      document.getElementById('cfDiscount').textContent = '− ' + fmtMoney(order.discount, cur);
+    }
+    document.getElementById('cfTotal').textContent = fmtMoney(order.total, cur);
+  });
+</script>
+</body>
+</html>
