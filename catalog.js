@@ -149,17 +149,131 @@ const CATALOG = {
   },
 
   /* ── KINTSUGI PRÊT — F/W 2025 ── */
-  'kintsugi-pret-draped-jacket': {
+  'the-fable-set': {
     collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
-    name:'Kintsugi Pret Draped Jacket', price:115000, badge:'New',
-    img:IMG.silk, img2:IMG.amber, img3:IMG.gold,
-    short:'A draped jacket bringing the couture philosophy of Kintsugi into everyday luxury — same loom, easier wear.'
+    name:'The Fable Set', price:32500,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1_12f4eb6c-58c0-4e24-97bb-ca3653909563.jpg?v=1768045377', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/2_0eccc858-b6dd-482e-8853-92c56520f9ce.jpg?v=1768045377', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/4_8e6e2259-b8ef-4ac1-af88-e978072731ca.jpg?v=1768045377',
+    short:'The Fable Corded Dress and Shirt Set is defined by refined texture and precise detailing.',
+    long:'The Fable Corded Dress and Shirt Set is defined by refined texture and precise detailing. Designed with a clean, elongated silhouette, the ensemble focuses on craftsmanship and form. Crafted in silk by silk, the corded dress features linear cording that adds structure and depth.'
   },
-  'gold-seam-pleated-trouser-set': {
+  'the-aristo-set': {
     collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
-    name:'Gold Seam Pleated Trouser Set', price:78000, badge:'New',
-    img:IMG.pants, img2:IMG.silk, img3:IMG.amber,
-    short:'A pleated top-and-trouser set seamed in gold thread — structured ease for the modern wardrobe.'
+    name:'The Aristo Set', price:75500,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1_aed2451d-8d4c-4727-a5a3-88a71a9781a1.jpg?v=1768043073', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/2_ffd594ca-4c7b-44d7-9e59-735ed34c93a1.jpg?v=1768043074', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/3_3d16e0e2-9840-4324-acda-6859b94dc889.jpg?v=1768043073',
+    short:'The Aristo Set is a sharp, contemporary co-ord designed for modern dressing.',
+    long:'The Aristo Set is a sharp, contemporary co-ord designed for modern dressing. Tailored to perfection, the ensemble balances clean lines with a strong, structured silhouette. Crafted in rich Chettinad silk, the Aristo Set features elegant golden stripe detailing that adds depth and visual interest.'
+  },
+  'the-aureum-set': {
+    collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
+    name:'The Aureum Set', price:79000,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1_39e6ac55-7f77-44ff-a98c-a1d506a1c4b0.jpg?v=1768041858', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/2_f1ec917a-e6e6-4678-8fe2-30933a7e4fbd.jpg?v=1768041858', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/3_c13f441b-9b1b-45f4-a70f-d18e4cef38e9.jpg?v=1768041858',
+    short:'The Aureum Set is a timeless expression of sharp tailoring and understated luxury.',
+    long:'The Aureum Set is a timeless expression of sharp tailoring and understated luxury. Designed for a structured yet effortless silhouette, this co-ord blends heritage craftsmanship with a modern sensibility. Crafted in rich Chettinad silk, the Aureum Set features elegant golden stripe detailing that adds subtle depth and character.'
+  },
+  'the-aris-jacket': {
+    collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
+    name:'The Aris Jacket', price:52000,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1_f879eacd-d358-4857-8d2b-742a72f3a5a2.jpg?v=1768036398', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/709.jpg?v=1768036398', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/2_f0e5e08f-db15-4200-b36d-a72be2149ae7.jpg?v=1768036398',
+    short:'The Aris Jacket is a refined expression of tailored elegance.',
+    long:'The Aris Jacket is a refined expression of tailored elegance. Designed with a structured silhouette, this piece seamlessly blends the formality of a jacket, creating a timeless yet contemporary look. Crafted in rich Khunn, the dress features classic jacket detailing with a clean lapel and a belted waist that enhances the silhouette.'
+  },
+  'the-ombra-dress': {
+    collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
+    name:'The Ombra Dress', price:73000,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1_726253ca-a9a2-4127-bd69-e75822ed0d4d.jpg?v=1768031687', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/3_ab50538f-edb4-420f-9be1-65ff1f4f5643.jpg?v=1768031687', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/2_cc49f665-a0d3-411a-8b44-829a14aefa68.jpg?v=1768031687',
+    short:'This Corded Asymmetrical Dress is a bold expression of sculptural elegance.',
+    long:'This Corded Asymmetrical Dress is a bold expression of sculptural elegance. Designed with a clean, fitted upper silhouette, the dress draws attention to its intricate surface detailing. The standout feature lies in the corded construction, which flows seamlessly into an asymmetrical hemline, creating movement and visual depth crafted in silk by silk.'
+  },
+  'the-harbour-blazer': {
+    collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
+    name:'The Harbour Blazer', price:33500,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1_dca85170-41a7-446d-aa48-7326c9e4e05a.jpg?v=1768029508', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/2_b5a7350f-424f-4455-942b-be85ded07aa5.jpg?v=1768029508', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/45_e2733c20-b2b0-4479-a234-90e77d6c3e1d.jpg?v=1768029508',
+    short:'The Harbour Blazer and Corded Vest Set is a modern interpretation of tailored elegance.',
+    long:'The Harbour Blazer and Corded Vest Set is a modern interpretation of tailored elegance. Designed with sharp lines and thoughtful layering, this ensemble brings together structure, texture, and refined craftsmanship. The corded vest and pants are crafted in Metallic Khunn, with intricate cotton cording on the vest adding depth and dimension.'
+  },
+  'the-crest-set': {
+    collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
+    name:'The Crest Set', price:60000,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1_c6ccaf15-0fba-4f29-8775-590462e8aa34.jpg?v=1768027810', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/2_1ba1ff01-2ece-480c-9a04-371db3adc769.jpg?v=1768027810', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/3_4cdb30d7-c4a7-4a8d-9605-c9c5c4f7b8ad.jpg?v=1768027810',
+    short:'The Crest Dress and Jacket Set is a striking blend of craftsmanship and modern elegance.',
+    long:'The Crest Dress and Jacket Set is a striking blend of craftsmanship and modern elegance. Designed to make a subtle statement, this ensemble brings together rich textures and thoughtful detailing. Crafted in a refined mix of silk by silk and Khunn, the crest dress features intricate embroidery that adds depth and character to the silhouette.'
+  },
+  'the-aurora-set': {
+    collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
+    name:'The Aurora Set', price:44000,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1_81ac17d2-023f-41c1-afb9-4f5e3bb48724.jpg?v=1767955664', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/2_031d0370-14b0-4478-a6ac-6b5e8ee7affb.jpg?v=1767955664', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/3_eae15f3d-7899-4662-ab70-b753350e7844.jpg?v=1767955664',
+    short:'The Aurora Jacket and Top Set with Corded Skirt is a refined composition of texture and elegance.',
+    long:'The Aurora Jacket and Top Set with Corded Skirt is a refined composition of texture and elegance. Designed with thoughtful layering, this ensemble balances structure and fluidity for a timeless yet contemporary look. The Aurora jacket, crafted in Murshidabad Silk, features delicate mushroom embroidery, adding a signature handcrafted touch.'
+  },
+  'the-limea-set': {
+    collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
+    name:'The Limea Set', price:18000,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1_b7d2c1d8-b6e8-4a37-823e-f3c878a2642a.jpg?v=1767945079', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/2_eb1d6db1-8fc1-4e18-a7fc-bf4de692f24c.jpg?v=1767945079', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/3_e470a4bf-d969-4c90-90d7-597701bb27eb.jpg?v=1767945079',
+    short:'The Limea Jacket with Corded Bustier and Skirt is a striking blend of texture and modern elegance.',
+    long:'The Limea Jacket with Corded Bustier and Skirt is a striking blend of texture and modern elegance. Crafted in Murshidabad Silk, this ensemble highlights artisanal craftsmanship through thoughtful layering and detail. The jacket features delicate mushroom embroidery, adding structure and refinement, while the corded bustier and corded skirt bring depth and dimension through intricate cording.'
+  },
+  'the-gleam-glint-set': {
+    collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
+    name:'The Gleam & Glint Set', price:62500,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1_0f66742b-57ad-4aa4-abe5-e9ddf019e0f9.jpg?v=1767943141', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/2_3d001526-09fc-49c1-a25c-bf88225db39e.jpg?v=1767943141', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/3_384a9418-3eac-41d3-a6f4-976c13817547.jpg?v=1767943141',
+    short:'The Gleam Top and Glint Skirt Set is an elegant expression of understated luxury.',
+    long:'The Gleam Top and Glint Skirt Set is an elegant expression of understated luxury. Designed with clean lines and thoughtful detailing, this ensemble brings together softness, structure, and timeless appeal. Crafted in fluid silk by silk, the Gleam top features a graceful boat neckline that enhances its refined silhouette.'
+  },
+  'the-meadow-set': {
+    collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
+    name:'The Meadow Set', price:39500,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1_0e15c530-6d79-4b8d-aa56-20e40aaaea85.jpg?v=1767941268', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/2_3300dd51-e2b0-4715-9ea0-fa6f17d13a4b.jpg?v=1767941268', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/3_ba173423-dce9-41f0-b347-1ed5a3b6625a.jpg?v=1767941268',
+    short:'The Meadow Jacket & Dress Set is a refined blend of structure and softness.',
+    long:'The Meadow Jacket & Dress Set is a refined blend of structure and softness. Designed for effortless layering, this ensemble brings together rich textures and thoughtful detailing for a timeless yet contemporary look. The Meadow dress is crafted in Khunn, offering a grounded, artisanal base, while the Meadow jacket is made in luxurious silk by silk.'
+  },
+  'the-breeze-set': {
+    collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
+    name:'The Breeze Set', price:35000,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/vaishalis1555.jpg?v=1767878250', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1_13147407-f3c7-4651-9f88-e680115c5662.jpg?v=1767879509', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/2_de18a803-2f1b-4e83-a9f6-6345dfac20bd.jpg?v=1767879509',
+    short:'The Breeze Corded Dress and Eminence Jacket Set is a statement of modern elegance and fluid movement.',
+    long:'The Breeze Corded Dress and Eminence Jacket Set is a statement of modern elegance and fluid movement. Crafted in luxurious silk by silk, this ensemble blends structure with softness for a refined, elevated look. The Breeze dress features intricate cotton cording, adding depth and texture, echoed across the Eminence jacket for a cohesive finish.'
+  },
+  'the-coraline-dress': {
+    collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
+    name:'The Coraline Dress', price:128500,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1_1317c9b0-80c6-42e5-b525-11b0e9fd08b4.jpg?v=1767873430', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/2_71767acf-65b0-4234-9976-560895dd79f0.jpg?v=1767873430', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/3_9a0933d3-9467-40c8-87af-302ba3c66c0f.jpg?v=1767873430',
+    short:'The Coraline Dress is a striking expression of handcrafted artistry in rich Murshidabad silk.',
+    long:'The Coraline Dress is a striking expression of handcrafted artistry, meticulously crafted from rich Murshidabad silk and finished with a soft cotton lining for enhanced comfort. Intricately detailed with coral-inspired embroidery and sculptural cording, the dress gains depth and dimension, elevating its refined silhouette. Designed in a graceful below-the-knee length, it offers a balanced interplay of structure and fluidity.'
+  },
+  'the-echo-set': {
+    collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
+    name:'The Echo Set', price:48000,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1_26bcc63a-0e26-411c-874c-5c2c95f734b8.jpg?v=1767870689', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/45_38d1f2ea-7c88-4cfd-a6d0-4c314b41bbac.jpg?v=1767870689', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/3_6bdbde33-b1ba-44c1-9348-b10ab36dad32.jpg?v=1767870689',
+    short:'The Echo Cape Set is a reimagined interpretation of the signature Infinity Cape.',
+    long:'The Echo Cape Set is a reimagined interpretation of the signature Infinity Cape, designed with a fresh, contemporary sensibility. Thoughtfully structured, it brings together elegance and ease in a modern silhouette. The Echo cape features a refined collared neckline and is detailed with delicate mushroom embroidery, adding a subtle handcrafted element.'
+  },
+  'the-solenne-set': {
+    collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
+    name:'The Solenne Set', price:33500,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1_452461b4-0d86-4f56-a0fd-45c675e56743.jpg?v=1767867598', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/5_1e403a2a-f026-4551-8157-0c258a55a58d.jpg?v=1767867598', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/2_ce6d09c4-aec7-43fd-b5d5-ac96e7e0f3ef.jpg?v=1767867598',
+    short:'The Solenne checkered Murshidabad jacket features delicate embroidery and a modern asymmetric hem.',
+    long:'The Solenne checkered Murshidabad jacket features delicate embroidery on the outer layer, while an asymmetric hem adds a modern, contemporary touch. Tailored straight pants complete the look with clean, polished lines. This versatile set beautifully balances classic craftsmanship with everyday sophistication.'
+  },
+  'the-eden-set': {
+    collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
+    name:'The Eden Set', price:26500,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/45_5aafedf9-e6fc-443c-bc0d-43a06c1b8210.jpg?v=1767860363', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/2_995f75b4-7ad9-4151-a5f5-ebd344f1a33a.jpg?v=1767860364', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1_f1593f5d-3b84-4674-a434-1bb24b7a332c.jpg?v=1767860364',
+    short:'The Eden Dress and Shirt Set embodies effortless, layered elegance.',
+    long:'The Eden Dress and Shirt Set embodies effortless, layered elegance, designed for a refined yet contemporary wardrobe. Crafted with thoughtful detailing, this ensemble brings together structure and ease in a timeless silhouette. The Eden dress features a fitted upper and is crafted from soft khadi, offering a breathable and comfortable fit.'
+  },
+  'the-ripple-set': {
+    collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
+    name:'The Ripple Set', price:53500,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1_052105d1-b6fe-4170-848c-20cf818b7004.jpg?v=1767859057', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/2_d8f56226-a0fc-434c-9d23-357981577f9a.jpg?v=1767859057', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/3_e875bc40-eaf3-4471-abf9-c15cd74f720a.jpg?v=1767859057',
+    short:'The Ripple Top and Serene Skirt Set embodies contemporary elegance rooted in craftsmanship.',
+    long:'The Ripple Top and Serene Skirt Set embodies contemporary elegance rooted in craftsmanship. The sleeveless Ripple Top is meticulously crafted from the finest khadi, elevated with sculptural corded detailing made entirely from cotton. The Serene Skirt is fashioned from breathable khadi and delicately enhanced with subtle threadwork.'
+  },
+  'the-liora-set': {
+    collection:'kintsugi-pret', collectionName:'Kintsugi Prêt — F/W 2025',
+    name:'The Liora Set', price:46500,
+    img:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/1.jpg?v=1767855697', img2:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/3.jpg?v=1767855697', img3:'https://cdn.shopify.com/s/files/1/0574/4449/9629/files/2_da0d94de-f307-42a2-bb5d-0f3487ad2a9b.jpg?v=1767855697',
+    short:'The Liora Top and Skirt Set features a two-layered top in silk-by-silk and Chanderi.',
+    long:'The Liora Top and Skirt Set features a two-layered top with an inner silk-by-silk layer and an outer Chanderi layer. The inner layer is detailed with pin tucks for subtle texture, while the outer layer is finished with delicate mushroom embroidery. The look is completed with a softly flowing corded silk skirt, creating a refined, elegant silhouette.'
   },
 
   /* ── ANCESTRAL THREADS — S/S 2023 ── */
