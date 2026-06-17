@@ -86,13 +86,13 @@
   .nav-book-btn:hover{opacity:1}
 
   /* HERO */
-  .coll-hero{position:relative;height:92vh;min-height:600px;overflow:hidden;background:var(--muted-black);display:flex;align-items:flex-end}
-  .coll-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.7;transition:opacity 1.5s ease}
-  .coll-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(11,9,7,0.88) 0%,rgba(11,9,7,0.28) 55%,rgba(11,9,7,0.12) 100%)}
-  .coll-hero-content{position:relative;z-index:2;width:100%;padding:0 96px 80px;text-align:center}
-  .coll-hero-type{font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
-  .coll-hero-title{font-family:var(--serif);font-size:clamp(2rem,5.5vw,4.8rem);font-weight:300;line-height:1.05;letter-spacing:0.02em;color:white;max-width:900px;margin:0 auto 28px}
-  .coll-hero-season{font-family:var(--sans);font-size:0.62rem;font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.5)}
+  .coll-hero{position:relative;height:90vh;min-height:620px;overflow:hidden;background-color:var(--muted-black);background-position:center 22%;background-size:cover;background-repeat:no-repeat;display:flex;align-items:flex-end}
+  .coll-hero-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(11,9,7,0.82) 0%,rgba(11,9,7,0.34) 42%,rgba(11,9,7,0.08) 72%,rgba(11,9,7,0.22) 100%)}
+  .coll-hero-content{position:relative;z-index:2;width:100%;padding:0 96px 92px;text-align:center}
+  .coll-hero-type{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);margin-bottom:26px}
+  .coll-hero-title{font-family:var(--serif);font-size:clamp(2.4rem,6vw,5.4rem);font-weight:300;line-height:1.04;letter-spacing:0.012em;color:#fff;max-width:1000px;margin:0 auto 30px;text-shadow:0 2px 36px rgba(0,0,0,0.45)}
+  .coll-hero-season{font-family:var(--sans);font-size:0.64rem;font-weight:300;letter-spacing:0.28em;text-transform:uppercase;color:rgba(255,255,255,0.66)}
+  .coll-hero-season::before{content:"";display:block;width:42px;height:1px;background:var(--gold);margin:0 auto 22px}
 
   /* BREADCRUMB */
   nav.breadcrumb{background:var(--ivory);border-bottom:0.5px solid var(--stone);padding:14px 64px;display:flex;align-items:center;gap:10px}
@@ -103,23 +103,28 @@
   .bc-cur{color:var(--charcoal)}
 
   /* EDITORIAL */
-  .coll-editorial{background:white;padding:64px 96px 48px;border-bottom:0.5px solid var(--stone)}
-  .coll-edit-meta{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:48px}
-  .coll-size-guide{font-family:var(--sans);font-size:0.6rem;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color 0.3s;cursor:pointer}
-  .coll-size-guide:hover{color:var(--charcoal)}
-  .coll-quote{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.4rem);font-weight:300;font-style:italic;line-height:1.45;color:var(--charcoal);text-align:center;max-width:720px;margin:0 auto 40px}
-  .coll-description{font-family:var(--sans);font-size:0.74rem;font-weight:300;line-height:1.9;color:var(--grey);text-align:center;max-width:680px;margin:0 auto}
-  .coll-description p{margin-bottom:16px}
+  .coll-editorial{background:#fff;padding:96px 96px 72px}
+  .coll-edit-inner{max-width:760px;margin:0 auto;text-align:center}
+  .coll-edit-eyebrow{font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.36em;text-transform:uppercase;color:var(--gold);margin-bottom:34px}
+  .coll-quote{font-family:var(--serif);font-size:clamp(1.7rem,2.9vw,2.55rem);font-weight:300;font-style:italic;line-height:1.3;letter-spacing:0.006em;color:var(--charcoal);margin:0 auto 34px;max-width:640px}
+  .coll-quote-rule{width:54px;height:1px;background:var(--gold);opacity:0.75;margin:0 auto 42px}
+  .coll-description{font-family:var(--sans);font-size:0.82rem;font-weight:300;line-height:2.05;color:#5b5346;max-width:600px;margin:0 auto}
+  .coll-description p{margin-bottom:20px}
   .coll-description p:last-child{margin-bottom:0}
-  .coll-description em{font-family:var(--serif);font-style:italic;font-size:0.85rem;color:var(--charcoal)}
+  .coll-description em{font-family:var(--serif);font-style:italic;font-size:1.02rem;color:var(--charcoal);letter-spacing:0.01em}
 
-  /* PRODUCT SECTION */
-  .coll-sort-bar{padding:20px 64px;background:var(--ivory);border-bottom:0.5px solid var(--stone);display:flex;align-items:center;justify-content:space-between}
-  .coll-count{font-family:var(--sans);font-size:0.62rem;font-weight:300;color:var(--grey);letter-spacing:0.1em}
-  .sort-wrap{position:relative}
-  .sort-select{appearance:none;-webkit-appearance:none;background:var(--ivory);border:0.5px solid var(--stone);padding:8px 32px 8px 14px;font-family:var(--sans);font-size:0.65rem;font-weight:400;letter-spacing:0.1em;color:var(--charcoal);cursor:pointer;outline:none;transition:border-color 0.2s;min-width:200px}
-  .sort-select:focus{border-color:var(--charcoal)}
-  .sort-chevron{position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;stroke:var(--grey);stroke-width:1.5;fill:none}
+  /* PRODUCT SECTION — toolbar */
+  .coll-sort-bar{padding:22px 64px;background:#fff;border-top:0.5px solid var(--stone);border-bottom:0.5px solid var(--stone);display:flex;align-items:center;justify-content:space-between;position:sticky;top:73px;z-index:40}
+  .coll-bar-left{display:flex;align-items:center;gap:26px}
+  .coll-count{font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--charcoal)}
+  .coll-count b{color:var(--gold);font-weight:600}
+  .coll-size-guide{font-family:var(--sans);font-size:0.56rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--grey);text-decoration:none;border-bottom:0.5px solid var(--stone);padding-bottom:3px;transition:color 0.3s,border-color 0.3s}
+  .coll-size-guide:hover{color:var(--charcoal);border-color:var(--gold)}
+  .sort-wrap{position:relative;display:flex;align-items:center}
+  .sort-label{font-family:var(--sans);font-size:0.55rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--grey);margin-right:14px}
+  .sort-select{appearance:none;-webkit-appearance:none;background:transparent;border:none;border-bottom:0.5px solid var(--charcoal);padding:7px 26px 7px 2px;font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--charcoal);cursor:pointer;outline:none;transition:border-color 0.2s}
+  .sort-select:hover{border-color:var(--gold)}
+  .sort-chevron{position:absolute;right:4px;top:50%;transform:translateY(-50%);pointer-events:none;stroke:var(--charcoal);stroke-width:1.5;fill:none}
 
   /* PRODUCT GRID */
   .coll-grid{padding:0 64px 80px;background:white}
@@ -310,7 +315,6 @@
 
 <!-- HERO (populated by JS) -->
 <section class="coll-hero" id="collHero">
-  <img class="coll-hero-img" id="heroImg" src="" alt="" onerror="this.style.opacity='0'">
   <div class="coll-hero-overlay"></div>
   <div class="coll-hero-content">
     <p class="coll-hero-type" id="heroType"></p>
@@ -330,19 +334,23 @@
 
 <!-- EDITORIAL -->
 <section class="coll-editorial">
-  <div class="coll-edit-meta">
-    <div></div>
-    <a class="coll-size-guide" href="mumbai-store.html#appointment">View Size Guide</a>
+  <div class="coll-edit-inner">
+    <p class="coll-edit-eyebrow" id="collEyebrow">The Collection</p>
+    <blockquote class="coll-quote" id="collQuote"></blockquote>
+    <div class="coll-quote-rule"></div>
+    <div class="coll-description" id="collDescription"></div>
   </div>
-  <blockquote class="coll-quote" id="collQuote"></blockquote>
-  <div class="coll-description" id="collDescription"></div>
 </section>
 
 <!-- PRODUCTS SECTION (shown if products exist) -->
 <div id="productsSection" style="display:none">
   <div class="coll-sort-bar">
-    <span class="coll-count" id="collCount"></span>
+    <div class="coll-bar-left">
+      <span class="coll-count" id="collCount"></span>
+      <a class="coll-size-guide" href="mumbai-store.html#appointment">View Size Guide</a>
+    </div>
     <div class="sort-wrap">
+      <span class="sort-label">Sort</span>
       <select class="sort-select" id="sortSelect" onchange="renderProducts()" aria-label="Sort products">
         <option value="featured">Most Relevant</option>
         <option value="best-selling">Best Selling</option>
@@ -676,7 +684,7 @@ function renderProducts(){
     </a>`;
   }).join('');
 
-  document.getElementById('collCount').textContent = products.length + ' product' + (products.length === 1 ? '' : 's');
+  document.getElementById('collCount').innerHTML = '<b>' + products.length + '</b> ' + (products.length === 1 ? 'Piece' : 'Pieces');
 }
 
 /* ── INIT ─────────────────────────────────────────── */
@@ -687,12 +695,12 @@ document.addEventListener('DOMContentLoaded', () => {
   collectionData = coll;
 
   document.title = coll.title + ' — VAISHALI S';
-  document.getElementById('heroImg').src = coll.hero;
-  document.getElementById('heroImg').alt = coll.title;
+  document.getElementById('collHero').style.backgroundImage = "url('" + coll.hero + "')";
   document.getElementById('heroType').textContent = coll.type;
   document.getElementById('heroTitle').textContent = coll.title;
   document.getElementById('heroSeason').textContent = coll.season;
   document.getElementById('breadcrumbCur').textContent = coll.title.split(':')[0].trim();
+  document.getElementById('collEyebrow').textContent = coll.type || 'The Collection';
   document.getElementById('collQuote').textContent = coll.quote;
   document.getElementById('collDescription').innerHTML = coll.description;
 
