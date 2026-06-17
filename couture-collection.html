@@ -948,7 +948,20 @@
     document.getElementById('emptyState').classList.toggle('visible',visible.length===0);
   }
 
-  document.addEventListener('DOMContentLoaded', renderGrid);
+  /* ── PRODUCT CLICK → PDP ──────────────────────────── */
+  function slugify(name){
+    return name.toLowerCase().replace(/[—–]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+  }
+  function wireProductCards(){
+    document.querySelectorAll('#productGrid .product-card').forEach(card=>{
+      card.style.cursor='pointer';
+      card.addEventListener('click',()=>{
+        window.location.href='product.html?p='+slugify(card.dataset.name);
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{ renderGrid(); wireProductCards(); });
 </script>
 </body>
 </html>

@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product — VAISHALI S</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --ivory:#F4EEE3;--ivory-sub:#ECE3D4;--champagne:#E6DAC6;--stone:#DAD0BF;
+    --charcoal:#1A1712;--muted-black:#0B0907;--grey:#7C7261;
+    --gold:#B8975A;--gold-dim:rgba(184,151,90,0.6);--gold-trace:rgba(184,151,90,0.14);
+    --serif:"Cormorant Garamond",serif;--sans:"Inter",sans-serif;
+    --ease-luxury:cubic-bezier(0.25,1,0.5,1);
+  }
+  html{scroll-behavior:smooth;font-size:16px}
+  body{background:var(--ivory);color:var(--charcoal);font-family:var(--sans);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+  .scroll-progress{position:fixed;top:0;left:0;height:1.5px;background:linear-gradient(90deg,var(--gold),var(--gold-dim));z-index:9000;width:0%;transition:width 0.1s linear}
+  .page-curtain{position:fixed;inset:0;background:var(--muted-black);z-index:9999;pointer-events:none;animation:curtainLift 1s var(--ease-luxury) 0.05s both}
+  @keyframes curtainLift{0%{transform:translateY(0)}100%{transform:translateY(-100%)}}
+
+  /* MENU */
+  .menu-scrim{position:fixed;inset:0;background:rgba(11,9,7,0.45);z-index:299;opacity:0;pointer-events:none;transition:opacity 0.5s}
+  .menu-scrim.open{opacity:1;pointer-events:all}
+  aside.menu-panel{position:fixed;top:0;left:0;bottom:0;width:min(420px,88vw);background:var(--ivory);z-index:300;transform:translateX(-100%);transition:transform 0.65s var(--ease-luxury);display:flex;flex-direction:column}
+  aside.menu-panel.open{transform:translateX(0)}
+  .menu-panel-head{display:flex;align-items:center;justify-content:space-between;padding:28px 34px 24px;border-bottom:0.5px solid rgba(26,23,18,0.06)}
+  .menu-close{display:flex;align-items:center;gap:10px;background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--charcoal);opacity:0.6;transition:opacity 0.3s}
+  .menu-close:hover{opacity:1}
+  .menu-close svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.4;fill:none}
+  .menu-panel-logo svg{height:18px;width:auto;overflow:visible}
+  .menu-panel-body{flex:1;overflow-y:auto;padding:18px 0 28px}
+  .menu-group{border-bottom:0.5px solid rgba(26,23,18,0.06)}
+  .menu-group-head{width:100%;display:flex;align-items:center;justify-content:space-between;padding:22px 34px;background:none;border:none;cursor:pointer;font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--charcoal);text-align:left;transition:color 0.3s,padding-left 0.4s var(--ease-luxury)}
+  .menu-group-head:hover{color:var(--gold);padding-left:40px}
+  .menu-group-head .chev{width:10px;height:10px;stroke:currentColor;stroke-width:1.2;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform 0.4s var(--ease-luxury);flex-shrink:0}
+  .menu-group-head.active .chev{transform:rotate(90deg)}
+  .menu-sub{max-height:0;overflow:hidden;transition:max-height 0.5s var(--ease-luxury)}
+  .menu-sub.open{max-height:800px}
+  .menu-sub-inner{padding:8px 34px 24px;display:flex;flex-direction:column;gap:2px}
+  .menu-sub-inner a{font-family:var(--sans);font-size:0.7rem;font-weight:400;letter-spacing:0.1em;color:var(--grey);text-decoration:none;padding:7px 0;border-bottom:0.5px solid rgba(26,23,18,0.04);transition:color 0.3s,padding-left 0.3s}
+  .menu-sub-inner a:hover{color:var(--charcoal);padding-left:6px}
+  .menu-sub-title{font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin:16px 0 8px}
+  .menu-flat{display:block;width:100%;padding:22px 34px;font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--charcoal);text-decoration:none;border:none;background:none;text-align:left;cursor:pointer;transition:color 0.3s,padding-left 0.4s var(--ease-luxury)}
+  .menu-flat:hover{color:var(--gold);padding-left:40px}
+  .menu-panel-foot{padding:24px 34px;border-top:0.5px solid rgba(26,23,18,0.06)}
+  .menu-foot-link{display:block;font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--charcoal);text-decoration:none;padding:8px 0;opacity:0.6;transition:opacity 0.3s}
+  .menu-foot-link:hover{opacity:1}
+  .menu-foot-meta{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:18px;border-top:0.5px solid rgba(26,23,18,0.06)}
+  .menu-foot-socials{display:flex;gap:18px}
+  .menu-foot-socials a{font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color 0.3s}
+  .menu-foot-socials a:hover{color:var(--gold)}
+  .menu-foot-currency{font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.16em;color:var(--charcoal)}
+
+  /* CURRENCY */
+  .currency-picker{position:relative}
+  .currency-btn{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:0.68rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:inherit;opacity:0.7;transition:opacity 0.3s;padding:4px 0}
+  .currency-btn:hover{opacity:1}
+  .currency-chevron{width:8px;height:5px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform 0.3s var(--ease-luxury)}
+  .currency-picker.open .currency-chevron{transform:rotate(180deg)}
+  .currency-dropdown{position:absolute;top:calc(100% + 14px);right:0;background:var(--ivory);border:0.5px solid var(--stone);min-width:88px;display:none;flex-direction:column;z-index:500;box-shadow:0 8px 40px rgba(0,0,0,0.08)}
+  .currency-picker.open .currency-dropdown{display:flex}
+  .currency-option{font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:11px 18px;cursor:pointer;color:var(--charcoal);transition:background 0.2s}
+  .currency-option:hover{background:var(--champagne)}
+  .currency-option.active{color:var(--gold)}
+
+  /* NAV */
+  nav#mainNav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:24px 64px;background:rgba(244,238,227,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:0.5px solid rgba(28,28,28,0.08);transition:padding 0.4s var(--ease-luxury)}
+  nav#mainNav.scrolled{padding:18px 64px}
+  .nav-left,.nav-right{display:flex;align-items:center;gap:28px;color:var(--charcoal)}
+  .nav-center{position:absolute;left:50%;transform:translateX(-50%);color:var(--charcoal)}
+  .nav-link{font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:inherit;text-decoration:none;opacity:0.82;transition:opacity 0.3s}
+  .nav-link:hover{opacity:1}
+  .nav-icon-btn{background:none;border:none;cursor:pointer;color:inherit;display:inline-flex;align-items:center;gap:8px;padding:0;font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;opacity:0.85;transition:opacity 0.3s;position:relative}
+  .nav-icon-btn:hover{opacity:1}
+  .nav-icon-btn svg{width:17px;height:17px;stroke:currentColor;stroke-width:1.3;fill:none}
+  .nav-logo-svg{height:26px;width:auto;display:block;overflow:visible}
+  .logo-word{font-family:var(--serif);fill:currentColor;letter-spacing:0.25em}
+  .nav-book-btn{display:inline-flex;align-items:center;font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:8px 18px;border:0.5px solid rgba(26,23,18,0.35);color:var(--charcoal);background:transparent;text-decoration:none;transition:all 0.3s;white-space:nowrap}
+  .nav-book-btn:hover{background:var(--charcoal);color:var(--ivory)}
+  .cart-count{position:absolute;top:-7px;right:-12px;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:var(--gold);color:white;font-family:var(--sans);font-size:0.5rem;font-weight:600;display:flex;align-items:center;justify-content:center;letter-spacing:0;transform:scale(0);transition:transform 0.3s var(--ease-luxury)}
+  .cart-count.show{transform:scale(1)}
+
+  /* BREADCRUMB */
+  nav.breadcrumb{background:var(--ivory);border-bottom:0.5px solid var(--stone);padding:14px 64px;display:flex;align-items:center;gap:10px;margin-top:73px;flex-wrap:wrap}
+  nav.breadcrumb a,.bc-sep,.bc-cur{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase}
+  nav.breadcrumb a{color:var(--grey);text-decoration:none;transition:color 0.3s}
+  nav.breadcrumb a:hover{color:var(--charcoal)}
+  .bc-sep{color:var(--stone)}
+  .bc-cur{color:var(--charcoal)}
+
+  /* PDP LAYOUT */
+  .pdp{display:grid;grid-template-columns:1fr 1fr;gap:0;background:white}
+  .pdp-gallery{display:flex;flex-direction:column;gap:2px;background:var(--stone)}
+  .pdp-gallery-main{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--champagne)}
+  .pdp-gallery-main img{width:100%;height:100%;object-fit:cover;display:block}
+  .pdp-gallery-sub{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+  .pdp-gallery-sub .cell{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--champagne)}
+  .pdp-gallery-sub .cell img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.3s var(--ease-luxury)}
+  .pdp-gallery-sub .cell:hover img{transform:scale(1.05)}
+  .pdp-badge{position:absolute;top:18px;left:18px;background:var(--gold);color:white;font-family:var(--sans);font-size:0.5rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;padding:5px 12px;z-index:2}
+
+  .pdp-info{padding:80px 72px;position:relative}
+  .pdp-info-sticky{position:sticky;top:120px}
+  .pdp-collection{font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);margin-bottom:18px}
+  .pdp-name{font-family:var(--serif);font-size:clamp(2rem,3.4vw,2.9rem);font-weight:300;line-height:1.12;color:var(--charcoal);margin-bottom:20px}
+  .pdp-price{font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--charcoal);margin-bottom:6px}
+  .pdp-price-sym{font-family:var(--sans);font-size:0.85rem;font-weight:300;color:var(--grey)}
+  .pdp-tax-note{font-family:var(--sans);font-size:0.6rem;font-weight:300;letter-spacing:0.08em;color:var(--grey);margin-bottom:32px}
+  .pdp-desc{font-family:var(--sans);font-size:0.8rem;font-weight:300;line-height:1.9;color:var(--grey);margin-bottom:36px;padding-bottom:36px;border-bottom:0.5px solid var(--stone)}
+
+  .pdp-size-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .pdp-size-label{font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--charcoal)}
+  .pdp-size-guide{font-family:var(--sans);font-size:0.58rem;font-weight:400;letter-spacing:0.1em;color:var(--grey);text-decoration:underline;text-underline-offset:3px;cursor:pointer;background:none;border:none}
+  .pdp-size-guide:hover{color:var(--charcoal)}
+  .pdp-sizes{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .pdp-size{min-width:50px;padding:12px 14px;border:0.5px solid var(--stone);background:transparent;font-family:var(--sans);font-size:0.66rem;font-weight:400;letter-spacing:0.08em;color:var(--charcoal);cursor:pointer;transition:all 0.25s;text-align:center}
+  .pdp-size:hover{border-color:var(--charcoal)}
+  .pdp-size.active{background:var(--charcoal);color:var(--ivory);border-color:var(--charcoal)}
+  .pdp-size-hint{font-family:var(--sans);font-size:0.6rem;font-weight:300;color:#b14b3a;letter-spacing:0.05em;margin-bottom:28px;min-height:14px;opacity:0;transition:opacity 0.3s}
+  .pdp-size-hint.show{opacity:1}
+
+  .pdp-actions{display:flex;gap:12px;margin-bottom:18px}
+  .pdp-add{flex:1;padding:18px;background:var(--charcoal);color:var(--ivory);font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;border:none;cursor:pointer;transition:background 0.3s}
+  .pdp-add:hover{background:var(--muted-black)}
+  .pdp-add.added{background:var(--gold)}
+  .pdp-wishlist{width:56px;flex-shrink:0;border:0.5px solid var(--stone);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.3s}
+  .pdp-wishlist svg{width:18px;height:18px;stroke:var(--charcoal);stroke-width:1.3;fill:none;transition:fill 0.3s,stroke 0.3s}
+  .pdp-wishlist:hover{border-color:var(--charcoal)}
+  .pdp-wishlist.active svg{fill:#b14b3a;stroke:#b14b3a}
+  .pdp-mto{display:flex;align-items:center;gap:10px;padding:16px 18px;background:var(--ivory-sub);margin-bottom:32px}
+  .pdp-mto svg{width:20px;height:20px;stroke:var(--gold);stroke-width:1.2;fill:none;flex-shrink:0}
+  .pdp-mto p{font-family:var(--sans);font-size:0.64rem;font-weight:300;line-height:1.6;color:var(--grey)}
+  .pdp-mto a{color:var(--charcoal);text-decoration:underline;text-underline-offset:2px}
+
+  /* ACCORDION */
+  .pdp-accordion{border-top:0.5px solid var(--stone)}
+  .acc-item{border-bottom:0.5px solid var(--stone)}
+  .acc-head{width:100%;display:flex;align-items:center;justify-content:space-between;padding:20px 0;background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--charcoal);text-align:left}
+  .acc-head .acc-icon{width:11px;height:11px;position:relative;flex-shrink:0}
+  .acc-head .acc-icon::before,.acc-head .acc-icon::after{content:"";position:absolute;background:var(--charcoal);transition:transform 0.3s var(--ease-luxury)}
+  .acc-head .acc-icon::before{top:5px;left:0;width:11px;height:1px}
+  .acc-head .acc-icon::after{top:0;left:5px;width:1px;height:11px}
+  .acc-item.open .acc-icon::after{transform:scaleY(0)}
+  .acc-body{max-height:0;overflow:hidden;transition:max-height 0.45s var(--ease-luxury)}
+  .acc-body-inner{padding:0 0 24px;font-family:var(--sans);font-size:0.74rem;font-weight:300;line-height:1.85;color:var(--grey)}
+  .acc-body-inner ul{list-style:none;margin-top:8px}
+  .acc-body-inner li{padding-left:18px;position:relative;margin-bottom:7px}
+  .acc-body-inner li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;background:var(--gold);border-radius:50%}
+
+  /* RELATED */
+  .pdp-related{padding:90px 64px;background:var(--ivory)}
+  .pdp-related-head{text-align:center;margin-bottom:48px}
+  .pdp-related-eyebrow{font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .pdp-related-title{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;color:var(--charcoal)}
+  .related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:0.5px solid var(--stone);border-left:0.5px solid var(--stone)}
+  .related-card{cursor:pointer;border-right:0.5px solid var(--stone);border-bottom:0.5px solid var(--stone);background:white;transition:background 0.3s;text-decoration:none;display:block}
+  .related-card:hover{background:white}
+  .related-img{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--champagne)}
+  .related-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s var(--ease-luxury)}
+  .related-card:hover .related-img img{transform:scale(1.05)}
+  .related-info{padding:18px}
+  .related-name{font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal);margin-bottom:6px;line-height:1.4}
+  .related-price{font-family:var(--serif);font-size:0.95rem;font-weight:300;color:var(--charcoal)}
+
+  /* CART DRAWER */
+  .cart-scrim{position:fixed;inset:0;background:rgba(11,9,7,0.5);z-index:799;opacity:0;pointer-events:none;transition:opacity 0.5s}
+  .cart-scrim.open{opacity:1;pointer-events:all}
+  aside.cart-drawer{position:fixed;top:0;right:0;bottom:0;width:min(440px,92vw);background:var(--ivory);z-index:800;transform:translateX(100%);transition:transform 0.6s var(--ease-luxury);display:flex;flex-direction:column}
+  aside.cart-drawer.open{transform:translateX(0)}
+  .cart-head{display:flex;align-items:center;justify-content:space-between;padding:28px 32px;border-bottom:0.5px solid var(--stone)}
+  .cart-head-title{font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--charcoal)}
+  .cart-head-title span{font-family:var(--sans);font-size:0.7rem;font-weight:300;color:var(--grey)}
+  .cart-close{background:none;border:none;cursor:pointer;color:var(--charcoal);opacity:0.6;transition:opacity 0.3s}
+  .cart-close:hover{opacity:1}
+  .cart-close svg{width:15px;height:15px;stroke:currentColor;stroke-width:1.4;fill:none}
+  .cart-body{flex:1;overflow-y:auto;padding:8px 32px}
+  .cart-empty{text-align:center;padding:80px 20px}
+  .cart-empty p{font-family:var(--serif);font-size:1.4rem;font-weight:300;color:var(--charcoal);margin-bottom:10px}
+  .cart-empty span{font-family:var(--sans);font-size:0.66rem;font-weight:300;letter-spacing:0.08em;color:var(--grey)}
+  .cart-empty-btn{display:inline-block;margin-top:28px;padding:14px 30px;background:var(--charcoal);color:var(--ivory);font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:background 0.3s}
+  .cart-empty-btn:hover{background:var(--muted-black)}
+  .cart-line{display:grid;grid-template-columns:78px 1fr;gap:16px;padding:24px 0;border-bottom:0.5px solid var(--stone)}
+  .cart-line-img{aspect-ratio:3/4;overflow:hidden;background:var(--champagne)}
+  .cart-line-img img{width:100%;height:100%;object-fit:cover;display:block}
+  .cart-line-name{font-family:var(--sans);font-size:0.68rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:var(--charcoal);line-height:1.45;margin-bottom:5px}
+  .cart-line-size{font-family:var(--sans);font-size:0.6rem;font-weight:300;color:var(--grey);margin-bottom:12px}
+  .cart-line-bottom{display:flex;align-items:center;justify-content:space-between}
+  .cart-qty{display:flex;align-items:center;border:0.5px solid var(--stone)}
+  .cart-qty button{width:26px;height:26px;background:none;border:none;cursor:pointer;color:var(--charcoal);font-size:0.9rem;line-height:1;display:flex;align-items:center;justify-content:center;transition:background 0.2s}
+  .cart-qty button:hover{background:var(--champagne)}
+  .cart-qty span{min-width:28px;text-align:center;font-family:var(--sans);font-size:0.66rem;color:var(--charcoal)}
+  .cart-line-price{font-family:var(--serif);font-size:1rem;font-weight:300;color:var(--charcoal)}
+  .cart-line-remove{font-family:var(--sans);font-size:0.55rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--grey);background:none;border:none;cursor:pointer;text-decoration:underline;text-underline-offset:2px;margin-top:8px;padding:0}
+  .cart-line-remove:hover{color:#b14b3a}
+  .cart-foot{padding:24px 32px 32px;border-top:0.5px solid var(--stone);background:var(--ivory)}
+  .cart-subtotal{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:6px}
+  .cart-subtotal-label{font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--charcoal)}
+  .cart-subtotal-val{font-family:var(--serif);font-size:1.4rem;font-weight:300;color:var(--charcoal)}
+  .cart-foot-note{font-family:var(--sans);font-size:0.6rem;font-weight:300;color:var(--grey);letter-spacing:0.05em;margin-bottom:20px}
+  .cart-checkout{display:block;width:100%;padding:18px;background:var(--charcoal);color:var(--ivory);font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;text-align:center;text-decoration:none;border:none;cursor:pointer;transition:background 0.3s;margin-bottom:10px}
+  .cart-checkout:hover{background:var(--muted-black)}
+  .cart-continue{display:block;width:100%;text-align:center;font-family:var(--sans);font-size:0.6rem;font-weight:400;letter-spacing:0.16em;text-transform:uppercase;color:var(--grey);background:none;border:none;cursor:pointer;padding:8px}
+  .cart-continue:hover{color:var(--charcoal)}
+
+  /* TOAST */
+  .toast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--charcoal);color:var(--ivory);font-family:var(--sans);font-size:0.66rem;font-weight:400;letter-spacing:0.12em;padding:16px 28px;z-index:1000;opacity:0;pointer-events:none;transition:opacity 0.4s,transform 0.4s var(--ease-luxury)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* WHATSAPP */
+  .wa-float{position:fixed;bottom:32px;right:32px;width:50px;height:50px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;z-index:600;box-shadow:0 4px 20px rgba(37,211,102,0.35);transition:transform 0.3s var(--ease-luxury),box-shadow 0.3s;text-decoration:none}
+  .wa-float:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,211,102,0.5)}
+  .wa-float svg{width:26px;height:26px;fill:white}
+
+  /* FOOTER */
+  footer{background:var(--charcoal);color:var(--ivory);padding:80px 64px 40px}
+  .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:64px}
+  .footer-brand{font-family:var(--serif);font-size:1.4rem;font-weight:300;letter-spacing:0.04em;margin-bottom:16px}
+  .footer-tagline{font-family:var(--sans);font-size:0.68rem;font-weight:300;line-height:1.8;color:rgba(244,238,227,0.45);max-width:280px}
+  .footer-col-title{font-family:var(--sans);font-size:0.55rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  .footer-links{list-style:none}
+  .footer-links li{margin-bottom:12px}
+  .footer-links a{font-family:var(--sans);font-size:0.68rem;font-weight:300;color:rgba(244,238,227,0.55);text-decoration:none;transition:color 0.3s}
+  .footer-links a:hover{color:var(--ivory)}
+  .footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:32px;border-top:0.5px solid rgba(244,238,227,0.08)}
+  .footer-copy{font-family:var(--sans);font-size:0.6rem;font-weight:300;color:rgba(244,238,227,0.3);letter-spacing:0.06em}
+  .footer-socials{display:flex;gap:24px}
+  .footer-socials a{font-family:var(--sans);font-size:0.6rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:rgba(244,238,227,0.4);text-decoration:none;transition:color 0.3s}
+  .footer-socials a:hover{color:var(--ivory)}
+
+  @media(max-width:960px){
+    .pdp{grid-template-columns:1fr}
+    .pdp-info{padding:48px 32px}
+    .pdp-info-sticky{position:static}
+    .related-grid{grid-template-columns:repeat(2,1fr)}
+    nav.breadcrumb{padding:12px 24px;margin-top:64px}
+    .pdp-related{padding:60px 24px}
+  }
+  @media(max-width:768px){
+    nav#mainNav{padding:18px 20px}
+    footer{padding:60px 24px 40px}
+    .footer-top{grid-template-columns:1fr 1fr;gap:32px}
+    .wa-float{bottom:24px;right:24px}
+  }
+</style>
+</head>
+<body>
+
+<div id="scrollProgress" class="scroll-progress"></div>
+<div class="page-curtain" aria-hidden="true"></div>
+
+<!-- MENU SCRIM -->
+<div class="menu-scrim" id="menuScrim" onclick="toggleNav()"></div>
+
+<!-- MENU PANEL -->
+<aside class="menu-panel" id="menuPanel" aria-label="Site navigation">
+  <div class="menu-panel-head">
+    <button class="menu-close" onclick="toggleNav()">
+      <svg viewBox="0 0 13 13" aria-hidden="true"><path d="M1 1 L12 12 M12 1 L1 12"/></svg>
+      Close
+    </button>
+    <div class="menu-panel-logo">
+      <a href="vaishali-home-preview.html" aria-label="Vaishali S — Home" style="color:var(--charcoal)">
+        <svg viewBox="0 0 246 40" xmlns="http://www.w3.org/2000/svg">
+          <text class="logo-word" x="0" y="28" font-size="26">VAISHALI</text>
+          <g transform="translate(200,19) scale(0.9)" fill="#D8492E">
+            <path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(60)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(120)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(180)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(240)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(300)"/>
+          </g>
+          <text class="logo-word" x="218" y="28" font-size="26">S</text>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="menu-panel-body">
+    <div class="menu-group"><a class="menu-flat" href="couture-collection.html">New Arrivals</a></div>
+    <div class="menu-group" id="grp-collections">
+      <button class="menu-group-head" onclick="toggleGroup('grp-collections')">Collections<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1 L7 5 L3 9"/></svg></button>
+      <div class="menu-sub">
+        <div class="menu-sub-inner">
+          <p class="menu-sub-title">Couture</p>
+          <a href="couture-collection.html">All Couture</a>
+          <a href="collection-detail.html?c=kintsugi">Kintsugi — F/W 2025</a>
+          <a href="collection-detail.html?c=satori">Satori — F/W 2024</a>
+          <a href="collection-detail.html?c=i-am-nature">I Am Nature — S/S 2024</a>
+          <p class="menu-sub-title">Bridal</p>
+          <a href="collection-detail.html?c=naad-bridal">Naad — Bridal 2025</a>
+          <a href="collection-detail.html?c=anahata">Anahata — Bridal 2026</a>
+        </div>
+      </div>
+    </div>
+    <div class="menu-group"><a class="menu-flat" href="couture-collection.html">Couture</a></div>
+    <div class="menu-group"><a class="menu-flat" href="made-to-order.html">Made To Order</a></div>
+    <div class="menu-group"><a class="menu-flat" href="our-craft.html">Our Craft</a></div>
+    <div class="menu-group" id="grp-stores">
+      <button class="menu-group-head" onclick="toggleGroup('grp-stores')">Stores<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1 L7 5 L3 9"/></svg></button>
+      <div class="menu-sub">
+        <div class="menu-sub-inner">
+          <a href="paris-store.html">Paris Flagship — 188 Blvd Saint-Germain</a>
+          <a href="mumbai-store.html">Mumbai Atelier — Kala Ghoda, Fort</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="menu-panel-foot">
+    <a class="menu-foot-link" href="mumbai-store.html#appointment">Book Appointment</a>
+    <a class="menu-foot-link" href="paris-store.html">Find Your Closest Boutique</a>
+    <div class="menu-foot-meta">
+      <div class="menu-foot-socials">
+        <a href="https://www.instagram.com/vaishalisstudio" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/VaishaliShadangule29/" target="_blank" rel="noopener">Facebook</a>
+      </div>
+      <span class="menu-foot-currency" id="menuCurrency">INR ₹</span>
+    </div>
+  </div>
+</aside>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-left">
+    <button class="nav-icon-btn" onclick="toggleNav()" aria-label="Open menu">
+      <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M1 4 H17 M1 9 H17 M1 14 H17"/></svg>
+      Menu
+    </button>
+  </div>
+  <div class="nav-center">
+    <a href="vaishali-home-preview.html" style="text-decoration:none;color:inherit" aria-label="Vaishali S — Home">
+      <svg class="nav-logo-svg" viewBox="0 0 246 40" xmlns="http://www.w3.org/2000/svg">
+        <text class="logo-word" x="0" y="28" font-size="26">VAISHALI</text>
+        <g transform="translate(200,19) scale(0.9)" fill="#D8492E">
+          <path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(60)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(120)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(180)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(240)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(300)"/>
+        </g>
+        <text class="logo-word" x="218" y="28" font-size="26">S</text>
+      </svg>
+    </a>
+  </div>
+  <div class="nav-right">
+    <div class="currency-picker" id="currencyPicker">
+      <button class="currency-btn" onclick="toggleCurrency(event)" aria-label="Select currency">
+        <span id="currencyCode">INR</span>
+        <svg class="currency-chevron" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1 L5 5 L9 1"/></svg>
+      </button>
+      <div class="currency-dropdown" id="currencyDropdown">
+        <div class="currency-option active" onclick="setCurrency('INR','₹')">INR</div>
+        <div class="currency-option" onclick="setCurrency('AED','د.إ')">AED</div>
+        <div class="currency-option" onclick="setCurrency('USD','$')">USD</div>
+        <div class="currency-option" onclick="setCurrency('GBP','£')">GBP</div>
+        <div class="currency-option" onclick="setCurrency('SAR','﷼')">SAR</div>
+        <div class="currency-option" onclick="setCurrency('EUR','€')">EUR</div>
+        <div class="currency-option" onclick="setCurrency('AUD','A$')">AUD</div>
+      </div>
+    </div>
+    <button class="nav-icon-btn" onclick="window.open('https://www.vaishali-s.com/account/login','_self')" aria-label="Account">
+      <svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="6" r="3.4"/><path d="M2.5 16 C2.5 12 5.5 10.5 9 10.5 C12.5 10.5 15.5 12 15.5 16"/></svg>
+    </button>
+    <button class="nav-icon-btn" onclick="openCart()" aria-label="Open bag">
+      <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M4 5 H14 L13 16 H5 Z M6.5 5 V4 A2.5 2.5 0 0 1 11.5 4 V5"/></svg>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="vaishali-home-preview.html">Home</a>
+  <span class="bc-sep">—</span>
+  <a href="couture-collection.html">Collections</a>
+  <span class="bc-sep">—</span>
+  <a id="bcCollection" href="#">Collection</a>
+  <span class="bc-sep">—</span>
+  <span class="bc-cur" id="bcProduct">Product</span>
+</nav>
+
+<!-- PDP -->
+<div class="pdp">
+  <div class="pdp-gallery">
+    <div class="pdp-gallery-main">
+      <div class="pdp-badge" id="pdpBadge" style="display:none">New</div>
+      <img id="galleryMain" src="" alt="" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'">
+    </div>
+    <div class="pdp-gallery-sub">
+      <div class="cell"><img id="gallerySub1" src="" alt="" loading="lazy" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'"></div>
+      <div class="cell"><img id="gallerySub2" src="" alt="" loading="lazy" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'"></div>
+    </div>
+  </div>
+
+  <div class="pdp-info">
+    <div class="pdp-info-sticky">
+      <p class="pdp-collection" id="pdpCollection"></p>
+      <h1 class="pdp-name" id="pdpName"></h1>
+      <p class="pdp-price" id="pdpPrice"></p>
+      <p class="pdp-tax-note">Inclusive of all taxes · Complimentary global shipping</p>
+      <p class="pdp-desc" id="pdpDesc"></p>
+
+      <div class="pdp-size-head">
+        <span class="pdp-size-label">Select Size</span>
+        <button class="pdp-size-guide" onclick="window.location.href='mumbai-store.html#appointment'">Size Guide</button>
+      </div>
+      <div class="pdp-sizes" id="pdpSizes">
+        <button class="pdp-size" onclick="selectSize(this,'XS')">XS</button>
+        <button class="pdp-size" onclick="selectSize(this,'S')">S</button>
+        <button class="pdp-size" onclick="selectSize(this,'M')">M</button>
+        <button class="pdp-size" onclick="selectSize(this,'L')">L</button>
+        <button class="pdp-size" onclick="selectSize(this,'XL')">XL</button>
+        <button class="pdp-size" onclick="selectSize(this,'Made to Measure')">Made to Measure</button>
+      </div>
+      <p class="pdp-size-hint" id="sizeHint">Please select a size</p>
+
+      <div class="pdp-actions">
+        <button class="pdp-add" id="addBtn" onclick="addCurrentToCart()">Add to Bag</button>
+        <button class="pdp-wishlist" id="wishBtn" onclick="toggleWish(this)" aria-label="Add to wishlist">
+          <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M9 15.5 C9 15.5 1.5 11 1.5 5.8 A3.8 3.8 0 0 1 9 4.2 A3.8 3.8 0 0 1 16.5 5.8 C16.5 11 9 15.5 9 15.5 Z"/></svg>
+        </button>
+      </div>
+
+      <div class="pdp-mto">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 2 L10 18 M2 10 L18 10" stroke-width="0"/><circle cx="10" cy="10" r="8"/><path d="M6.5 10 L9 12.5 L13.5 7.5"/></svg>
+        <p>Each piece is handwoven to order. <a href="made-to-order.html">Explore Made to Order</a> for full bespoke commissions.</p>
+      </div>
+
+      <div class="pdp-accordion">
+        <div class="acc-item open" id="acc-1">
+          <button class="acc-head" onclick="toggleAcc('acc-1')">Description<span class="acc-icon"></span></button>
+          <div class="acc-body"><div class="acc-body-inner" id="accDesc"></div></div>
+        </div>
+        <div class="acc-item" id="acc-2">
+          <button class="acc-head" onclick="toggleAcc('acc-2')">Fabric &amp; Craft<span class="acc-icon"></span></button>
+          <div class="acc-body"><div class="acc-body-inner" id="accFabric"></div></div>
+        </div>
+        <div class="acc-item" id="acc-3">
+          <button class="acc-head" onclick="toggleAcc('acc-3')">Shipping &amp; Returns<span class="acc-icon"></span></button>
+          <div class="acc-body"><div class="acc-body-inner">
+            <ul>
+              <li>Complimentary insured worldwide shipping.</li>
+              <li>Ready pieces dispatch in 3–5 business days; made-to-order in 4–6 weeks.</li>
+              <li>Exchanges accepted within 14 days on unworn ready-to-wear.</li>
+              <li>Bespoke and made-to-measure commissions are final sale.</li>
+            </ul>
+          </div></div>
+        </div>
+        <div class="acc-item" id="acc-4">
+          <button class="acc-head" onclick="toggleAcc('acc-4')">The Atelier<span class="acc-icon"></span></button>
+          <div class="acc-body"><div class="acc-body-inner">
+            For styling guidance or a private viewing, contact our Mumbai atelier or Paris flagship. Our team can arrange a virtual consultation or in-person appointment at your convenience.
+          </div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RELATED -->
+<section class="pdp-related">
+  <div class="pdp-related-head">
+    <p class="pdp-related-eyebrow">Complete the Story</p>
+    <h2 class="pdp-related-title">From the Same Collection</h2>
+  </div>
+  <div class="related-grid" id="relatedGrid"></div>
+</section>
+
+<!-- CART DRAWER -->
+<div class="cart-scrim" id="cartScrim" onclick="closeCart()"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Shopping bag">
+  <div class="cart-head">
+    <div class="cart-head-title">Your Bag <span id="cartHeadCount"></span></div>
+    <button class="cart-close" onclick="closeCart()" aria-label="Close bag">
+      <svg viewBox="0 0 15 15" aria-hidden="true"><path d="M1 1 L14 14 M14 1 L1 14"/></svg>
+    </button>
+  </div>
+  <div class="cart-body" id="cartBody"></div>
+  <div class="cart-foot" id="cartFoot" style="display:none">
+    <div class="cart-subtotal">
+      <span class="cart-subtotal-label">Subtotal</span>
+      <span class="cart-subtotal-val" id="cartSubtotal"></span>
+    </div>
+    <p class="cart-foot-note">Shipping &amp; taxes calculated at checkout.</p>
+    <a class="cart-checkout" href="checkout.html">Proceed to Checkout</a>
+    <button class="cart-continue" onclick="closeCart()">Continue Shopping</button>
+  </div>
+</aside>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- WHATSAPP -->
+<a class="wa-float" href="https://wa.me/919321569218" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Vaishali S</div>
+      <p class="footer-tagline">A luxury fashion house rooted in handwoven couture, Indian craft heritage, and the global haute couture stage. Mumbai · Paris.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">The House</p>
+      <ul class="footer-links">
+        <li><a href="philosophy.html">Our Philosophy</a></li>
+        <li><a href="our-craft.html">Our Craft</a></li>
+        <li><a href="made-to-order.html">Made to Order</a></li>
+        <li><a href="paris-couture.html">Paris Couture</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Stores</p>
+      <ul class="footer-links">
+        <li><a href="paris-store.html">Paris Flagship</a></li>
+        <li><a href="mumbai-store.html">Mumbai Atelier</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Contact</p>
+      <ul class="footer-links">
+        <li><a href="mailto:vaishaliscoutureparis@gmail.com">Paris Office</a></li>
+        <li><a href="mailto:vaishalis.sstudio1@gmail.com">Mumbai Atelier</a></li>
+        <li><a href="mumbai-store.html#appointment">Book Appointment</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Vaishali S Couture. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://www.instagram.com/vaishalisstudio" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/VaishaliShadangule29/" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.youtube.com/channel/UCNEG_LqIyj1hyNL-gSMmGWw" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </div>
+</footer>
+
+<script src="catalog.js"></script>
+<script>
+/* ── CURRENCY (shared) ──────────────────────────────── */
+const rates = { INR:1, AED:0.044, USD:0.012, GBP:0.0095, SAR:0.045, EUR:0.011, AUD:0.019 };
+const symbols = { INR:'Rs. ', AED:'AED ', USD:'$ ', GBP:'£', SAR:'SAR ', EUR:'€', AUD:'A$ ' };
+let currentCurrency = localStorage.getItem('vs_currency') || 'INR';
+
+function fmtMoney(baseINR){
+  const val = baseINR * rates[currentCurrency];
+  const sym = symbols[currentCurrency];
+  const num = currentCurrency === 'INR'
+    ? val.toLocaleString('en-IN', { minimumFractionDigits:2, maximumFractionDigits:2 })
+    : val.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits:2 });
+  return sym + num;
+}
+function toggleCurrency(e){ e.stopPropagation(); document.getElementById('currencyPicker').classList.toggle('open') }
+function setCurrency(code, symbol){
+  currentCurrency = code;
+  localStorage.setItem('vs_currency', code);
+  document.getElementById('currencyCode').textContent = code;
+  const mfc = document.getElementById('menuCurrency'); if(mfc) mfc.textContent = code + ' ' + symbol;
+  document.querySelectorAll('.currency-option').forEach(el => el.classList.toggle('active', el.textContent.trim() === code));
+  document.getElementById('currencyPicker').classList.remove('open');
+  refreshPrices();
+}
+document.addEventListener('click', () => { const p = document.getElementById('currencyPicker'); if(p) p.classList.remove('open') });
+
+function refreshPrices(){
+  if(currentProduct) document.getElementById('pdpPrice').innerHTML = priceHTML(currentProduct.price);
+  document.querySelectorAll('.related-price').forEach(el => { el.textContent = fmtMoney(parseInt(el.dataset.price)); });
+  renderCart();
+}
+function priceHTML(baseINR){
+  const full = fmtMoney(baseINR);
+  const sym = symbols[currentCurrency];
+  return `<span class="pdp-price-sym">${sym}</span>${full.slice(sym.length)}`;
+}
+
+/* ── NAV / MENU ─────────────────────────────────────── */
+const menuPanel = document.getElementById('menuPanel');
+const menuScrim = document.getElementById('menuScrim');
+function toggleNav(){
+  const open = !menuPanel.classList.contains('open');
+  menuPanel.classList.toggle('open', open);
+  menuScrim.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function toggleGroup(id){
+  const grp = document.getElementById(id);
+  const sub = grp.querySelector('.menu-sub');
+  const head = grp.querySelector('.menu-group-head');
+  const isOpen = sub.classList.contains('open');
+  document.querySelectorAll('.menu-sub.open').forEach(s => s.classList.remove('open'));
+  document.querySelectorAll('.menu-group-head.active').forEach(h => h.classList.remove('active'));
+  if(!isOpen){ sub.classList.add('open'); head.classList.add('active') }
+}
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 40);
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  document.getElementById('scrollProgress').style.width = pct + '%';
+}, { passive: true });
+
+function toggleAcc(id){
+  const item = document.getElementById(id);
+  const body = item.querySelector('.acc-body');
+  const open = item.classList.toggle('open');
+  body.style.maxHeight = open ? body.firstElementChild.scrollHeight + 40 + 'px' : '0';
+}
+
+/* ── CART (localStorage, shared across pages) ───────── */
+function getCart(){ try { return JSON.parse(localStorage.getItem('vs_cart')) || [] } catch(e){ return [] } }
+function saveCart(c){ localStorage.setItem('vs_cart', JSON.stringify(c)); updateCartCount(); }
+function updateCartCount(){
+  const n = getCart().reduce((s,i)=>s+i.qty,0);
+  const el = document.getElementById('cartCount');
+  el.textContent = n;
+  el.classList.toggle('show', n > 0);
+  const hc = document.getElementById('cartHeadCount');
+  if(hc) hc.textContent = n ? '(' + n + ')' : '';
+}
+function addToCart(item){
+  const cart = getCart();
+  const existing = cart.find(i => i.id === item.id && i.size === item.size);
+  if(existing) existing.qty += item.qty;
+  else cart.push(item);
+  saveCart(cart);
+  renderCart();
+}
+function changeQty(idx, delta){
+  const cart = getCart();
+  cart[idx].qty += delta;
+  if(cart[idx].qty <= 0) cart.splice(idx, 1);
+  saveCart(cart);
+  renderCart();
+}
+function removeLine(idx){
+  const cart = getCart();
+  cart.splice(idx, 1);
+  saveCart(cart);
+  renderCart();
+}
+function renderCart(){
+  const cart = getCart();
+  const body = document.getElementById('cartBody');
+  const foot = document.getElementById('cartFoot');
+  if(!cart.length){
+    body.innerHTML = `<div class="cart-empty"><p>Your bag is empty</p><span>Discover our handwoven couture collections.</span><br><a class="cart-empty-btn" href="couture-collection.html">Explore Collections</a></div>`;
+    foot.style.display = 'none';
+    return;
+  }
+  body.innerHTML = cart.map((i, idx) => `
+    <div class="cart-line">
+      <div class="cart-line-img"><img src="${i.img}" alt="${i.name}" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'"></div>
+      <div>
+        <p class="cart-line-name">${i.name}</p>
+        <p class="cart-line-size">Size: ${i.size}</p>
+        <div class="cart-line-bottom">
+          <div class="cart-qty">
+            <button onclick="changeQty(${idx},-1)" aria-label="Decrease">−</button>
+            <span>${i.qty}</span>
+            <button onclick="changeQty(${idx},1)" aria-label="Increase">+</button>
+          </div>
+          <span class="cart-line-price">${fmtMoney(i.price * i.qty)}</span>
+        </div>
+        <button class="cart-line-remove" onclick="removeLine(${idx})">Remove</button>
+      </div>
+    </div>`).join('');
+  const subtotal = cart.reduce((s,i)=>s + i.price * i.qty, 0);
+  document.getElementById('cartSubtotal').textContent = fmtMoney(subtotal);
+  foot.style.display = '';
+}
+function openCart(){ renderCart(); document.getElementById('cartDrawer').classList.add('open'); document.getElementById('cartScrim').classList.add('open'); document.body.style.overflow = 'hidden'; }
+function closeCart(){ document.getElementById('cartDrawer').classList.remove('open'); document.getElementById('cartScrim').classList.remove('open'); document.body.style.overflow = ''; }
+
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2600);
+}
+
+/* ── PDP STATE ──────────────────────────────────────── */
+let currentProduct = null;
+let selectedSize = null;
+
+function selectSize(btn, size){
+  selectedSize = size;
+  document.querySelectorAll('.pdp-size').forEach(s => s.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('sizeHint').classList.remove('show');
+}
+function toggleWish(btn){
+  btn.classList.toggle('active');
+  showToast(btn.classList.contains('active') ? 'Saved to your wishlist' : 'Removed from wishlist');
+}
+function addCurrentToCart(){
+  if(!selectedSize){
+    document.getElementById('sizeHint').classList.add('show');
+    document.getElementById('sizeHint').textContent = 'Please select a size';
+    return;
+  }
+  addToCart({ id: currentProduct.id, name: currentProduct.name, price: currentProduct.price, img: currentProduct.img, size: selectedSize, qty: 1 });
+  const btn = document.getElementById('addBtn');
+  btn.classList.add('added'); btn.textContent = 'Added to Bag ✓';
+  setTimeout(()=>{ btn.classList.remove('added'); btn.textContent = 'Add to Bag'; }, 1800);
+  showToast(currentProduct.name + ' added to your bag');
+  openCart();
+}
+
+/* ── INIT ───────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  // currency from storage
+  document.getElementById('currencyCode').textContent = currentCurrency;
+  document.querySelectorAll('.currency-option').forEach(el => el.classList.toggle('active', el.textContent.trim() === currentCurrency));
+
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('p') || Object.keys(CATALOG)[0];
+  const p = CATALOG[id] || CATALOG[Object.keys(CATALOG)[0]];
+  p.id = id;
+  currentProduct = p;
+
+  document.title = p.name + ' — VAISHALI S';
+  document.getElementById('pdpCollection').textContent = p.collectionName;
+  document.getElementById('pdpName').textContent = p.name;
+  document.getElementById('pdpPrice').innerHTML = priceHTML(p.price);
+  document.getElementById('pdpDesc').textContent = p.short;
+  document.getElementById('accDesc').textContent = p.long || p.short;
+  document.getElementById('accFabric').innerHTML = p.fabric || defaultFabric();
+
+  document.getElementById('galleryMain').src = p.img;
+  document.getElementById('galleryMain').alt = p.name;
+  document.getElementById('gallerySub1').src = p.img2 || p.img;
+  document.getElementById('gallerySub2').src = p.img3 || p.img;
+  if(p.badge){ const b = document.getElementById('pdpBadge'); b.textContent = p.badge; b.style.display = ''; }
+
+  const bcc = document.getElementById('bcCollection');
+  bcc.textContent = p.collectionName;
+  bcc.href = 'collection-detail.html?c=' + p.collection;
+  document.getElementById('bcProduct').textContent = p.name;
+
+  // related products (same collection, excluding current)
+  const related = Object.entries(CATALOG)
+    .filter(([slug, prod]) => prod.collection === p.collection && slug !== id)
+    .slice(0, 4);
+  const grid = document.getElementById('relatedGrid');
+  grid.innerHTML = related.map(([slug, prod]) => `
+    <a class="related-card" href="product.html?p=${slug}">
+      <div class="related-img"><img src="${prod.img}" alt="${prod.name}" loading="lazy" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'"></div>
+      <div class="related-info">
+        <p class="related-name">${prod.name}</p>
+        <p class="related-price" data-price="${prod.price}">${fmtMoney(prod.price)}</p>
+      </div>
+    </a>`).join('');
+  if(!related.length){ document.querySelector('.pdp-related').style.display = 'none'; }
+
+  // open first accordion height
+  const acc1 = document.getElementById('acc-1');
+  acc1.querySelector('.acc-body').style.maxHeight = acc1.querySelector('.acc-body-inner').scrollHeight + 40 + 'px';
+
+  updateCartCount();
+});
+
+function defaultFabric(){
+  return `<ul>
+    <li>Handwoven on traditional pit looms by partner weaving communities.</li>
+    <li>Natural fibre base — silk, cotton, or blended khadi depending on the piece.</li>
+    <li>Finished and constructed in the Mumbai atelier.</li>
+    <li>Dry clean only · Store flat, away from direct light.</li>
+  </ul>`;
+}
+</script>
+</body>
+</html>
