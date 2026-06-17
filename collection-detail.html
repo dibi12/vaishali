@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collection — VAISHALI S</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --ivory:#F4EEE3;--ivory-sub:#ECE3D4;--champagne:#E6DAC6;--stone:#DAD0BF;
+    --charcoal:#1A1712;--muted-black:#0B0907;--grey:#7C7261;
+    --gold:#B8975A;--gold-dim:rgba(184,151,90,0.6);--gold-trace:rgba(184,151,90,0.14);
+    --serif:"Cormorant Garamond",serif;--sans:"Inter",sans-serif;
+    --ease-luxury:cubic-bezier(0.25,1,0.5,1);
+  }
+  html{scroll-behavior:smooth;font-size:16px}
+  body{background:var(--ivory);color:var(--charcoal);font-family:var(--sans);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+  .scroll-progress{position:fixed;top:0;left:0;height:1.5px;background:linear-gradient(90deg,var(--gold),var(--gold-dim));z-index:9000;width:0%;transition:width 0.1s linear}
+  .page-curtain{position:fixed;inset:0;background:var(--muted-black);z-index:9999;pointer-events:none;animation:curtainLift 1s var(--ease-luxury) 0.05s both}
+  @keyframes curtainLift{0%{transform:translateY(0)}100%{transform:translateY(-100%)}}
+
+  /* MENU */
+  .menu-scrim{position:fixed;inset:0;background:rgba(11,9,7,0.45);z-index:299;opacity:0;pointer-events:none;transition:opacity 0.5s}
+  .menu-scrim.open{opacity:1;pointer-events:all}
+  aside.menu-panel{position:fixed;top:0;left:0;bottom:0;width:min(420px,88vw);background:var(--ivory);z-index:300;transform:translateX(-100%);transition:transform 0.65s var(--ease-luxury);display:flex;flex-direction:column}
+  aside.menu-panel.open{transform:translateX(0)}
+  .menu-panel-head{display:flex;align-items:center;justify-content:space-between;padding:28px 34px 24px;border-bottom:0.5px solid rgba(26,23,18,0.06)}
+  .menu-close{display:flex;align-items:center;gap:10px;background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--charcoal);opacity:0.6;transition:opacity 0.3s}
+  .menu-close:hover{opacity:1}
+  .menu-close svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.4;fill:none}
+  .menu-panel-logo svg{height:18px;width:auto;overflow:visible}
+  .menu-panel-body{flex:1;overflow-y:auto;padding:18px 0 28px}
+  .menu-group{border-bottom:0.5px solid rgba(26,23,18,0.06)}
+  .menu-group-head{width:100%;display:flex;align-items:center;justify-content:space-between;padding:22px 34px;background:none;border:none;cursor:pointer;font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--charcoal);text-align:left;transition:color 0.3s,padding-left 0.4s var(--ease-luxury)}
+  .menu-group-head:hover{color:var(--gold);padding-left:40px}
+  .menu-group-head .chev{width:10px;height:10px;stroke:currentColor;stroke-width:1.2;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform 0.4s var(--ease-luxury);flex-shrink:0}
+  .menu-group-head.active .chev{transform:rotate(90deg)}
+  .menu-sub{max-height:0;overflow:hidden;transition:max-height 0.5s var(--ease-luxury)}
+  .menu-sub.open{max-height:800px}
+  .menu-sub-inner{padding:8px 34px 24px;display:flex;flex-direction:column;gap:2px}
+  .menu-sub-inner a{font-family:var(--sans);font-size:0.7rem;font-weight:400;letter-spacing:0.1em;color:var(--grey);text-decoration:none;padding:7px 0;border-bottom:0.5px solid rgba(26,23,18,0.04);transition:color 0.3s,padding-left 0.3s}
+  .menu-sub-inner a:hover{color:var(--charcoal);padding-left:6px}
+  .menu-sub-title{font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin:16px 0 8px}
+  .menu-flat{display:block;width:100%;padding:22px 34px;font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--charcoal);text-decoration:none;border:none;background:none;text-align:left;cursor:pointer;transition:color 0.3s,padding-left 0.4s var(--ease-luxury)}
+  .menu-flat:hover{color:var(--gold);padding-left:40px}
+  .menu-panel-foot{padding:24px 34px;border-top:0.5px solid rgba(26,23,18,0.06)}
+  .menu-foot-link{display:block;font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--charcoal);text-decoration:none;padding:8px 0;opacity:0.6;transition:opacity 0.3s}
+  .menu-foot-link:hover{opacity:1}
+  .menu-foot-meta{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:18px;border-top:0.5px solid rgba(26,23,18,0.06)}
+  .menu-foot-socials{display:flex;gap:18px}
+  .menu-foot-socials a{font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color 0.3s}
+  .menu-foot-socials a:hover{color:var(--gold)}
+  .menu-foot-currency{font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.16em;color:var(--charcoal)}
+
+  /* CURRENCY */
+  .currency-picker{position:relative}
+  .currency-btn{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:0.68rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:inherit;opacity:0.7;transition:opacity 0.3s;padding:4px 0}
+  .currency-btn:hover{opacity:1}
+  .currency-chevron{width:8px;height:5px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform 0.3s var(--ease-luxury)}
+  .currency-picker.open .currency-chevron{transform:rotate(180deg)}
+  .currency-dropdown{position:absolute;top:calc(100% + 14px);right:0;background:var(--ivory);border:0.5px solid var(--stone);min-width:88px;display:none;flex-direction:column;z-index:500;box-shadow:0 8px 40px rgba(0,0,0,0.08)}
+  .currency-picker.open .currency-dropdown{display:flex}
+  .currency-option{font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:11px 18px;cursor:pointer;color:var(--charcoal);transition:background 0.2s}
+  .currency-option:hover{background:var(--champagne)}
+  .currency-option.active{color:var(--gold)}
+
+  /* NAV */
+  nav#mainNav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:24px 64px;background:rgba(244,238,227,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:0.5px solid rgba(28,28,28,0.08);transition:padding 0.4s var(--ease-luxury)}
+  nav#mainNav.on-hero{background:rgba(11,9,7,0.2);border-bottom-color:transparent;color:var(--ivory)}
+  nav#mainNav.scrolled{padding:18px 64px}
+  nav#mainNav.on-hero.scrolled{background:rgba(11,9,7,0.7)}
+  .nav-left,.nav-right{display:flex;align-items:center;gap:28px;color:inherit}
+  .nav-center{position:absolute;left:50%;transform:translateX(-50%);color:inherit}
+  .nav-link{font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:inherit;text-decoration:none;opacity:0.82;transition:opacity 0.3s}
+  .nav-link:hover{opacity:1}
+  .nav-icon-btn{background:none;border:none;cursor:pointer;color:inherit;display:inline-flex;align-items:center;gap:8px;padding:0;font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;opacity:0.85;transition:opacity 0.3s}
+  .nav-icon-btn:hover{opacity:1}
+  .nav-icon-btn svg{width:17px;height:17px;stroke:currentColor;stroke-width:1.3;fill:none}
+  .nav-logo-svg{height:26px;width:auto;display:block;overflow:visible}
+  .logo-word{font-family:var(--serif);fill:currentColor;letter-spacing:0.25em}
+  .nav-book-btn{display:inline-flex;align-items:center;font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:8px 18px;border:0.5px solid currentColor;color:inherit;background:transparent;text-decoration:none;transition:all 0.3s;white-space:nowrap;opacity:0.85}
+  .nav-book-btn:hover{opacity:1}
+
+  /* HERO */
+  .coll-hero{position:relative;height:92vh;min-height:600px;overflow:hidden;background:var(--muted-black);display:flex;align-items:flex-end}
+  .coll-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.7;transition:opacity 1.5s ease}
+  .coll-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(11,9,7,0.88) 0%,rgba(11,9,7,0.28) 55%,rgba(11,9,7,0.12) 100%)}
+  .coll-hero-content{position:relative;z-index:2;width:100%;padding:0 96px 80px;text-align:center}
+  .coll-hero-type{font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  .coll-hero-title{font-family:var(--serif);font-size:clamp(2rem,5.5vw,4.8rem);font-weight:300;line-height:1.05;letter-spacing:0.02em;color:white;max-width:900px;margin:0 auto 28px}
+  .coll-hero-season{font-family:var(--sans);font-size:0.62rem;font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.5)}
+
+  /* BREADCRUMB */
+  nav.breadcrumb{background:var(--ivory);border-bottom:0.5px solid var(--stone);padding:14px 64px;display:flex;align-items:center;gap:10px}
+  nav.breadcrumb a,.bc-sep,.bc-cur{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase}
+  nav.breadcrumb a{color:var(--grey);text-decoration:none;transition:color 0.3s}
+  nav.breadcrumb a:hover{color:var(--charcoal)}
+  .bc-sep{color:var(--stone)}
+  .bc-cur{color:var(--charcoal)}
+
+  /* EDITORIAL */
+  .coll-editorial{background:white;padding:64px 96px 48px;border-bottom:0.5px solid var(--stone)}
+  .coll-edit-meta{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:48px}
+  .coll-size-guide{font-family:var(--sans);font-size:0.6rem;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color 0.3s;cursor:pointer}
+  .coll-size-guide:hover{color:var(--charcoal)}
+  .coll-quote{font-family:var(--serif);font-size:clamp(1.5rem,3vw,2.4rem);font-weight:300;font-style:italic;line-height:1.45;color:var(--charcoal);text-align:center;max-width:720px;margin:0 auto 40px}
+  .coll-description{font-family:var(--sans);font-size:0.74rem;font-weight:300;line-height:1.9;color:var(--grey);text-align:center;max-width:680px;margin:0 auto}
+  .coll-description p{margin-bottom:16px}
+  .coll-description p:last-child{margin-bottom:0}
+  .coll-description em{font-family:var(--serif);font-style:italic;font-size:0.85rem;color:var(--charcoal)}
+
+  /* PRODUCT SECTION */
+  .coll-sort-bar{padding:20px 64px;background:var(--ivory);border-bottom:0.5px solid var(--stone);display:flex;align-items:center;justify-content:space-between}
+  .coll-count{font-family:var(--sans);font-size:0.62rem;font-weight:300;color:var(--grey);letter-spacing:0.1em}
+  .sort-wrap{position:relative}
+  .sort-select{appearance:none;-webkit-appearance:none;background:var(--ivory);border:0.5px solid var(--stone);padding:8px 32px 8px 14px;font-family:var(--sans);font-size:0.65rem;font-weight:400;letter-spacing:0.1em;color:var(--charcoal);cursor:pointer;outline:none;transition:border-color 0.2s;min-width:200px}
+  .sort-select:focus{border-color:var(--charcoal)}
+  .sort-chevron{position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;stroke:var(--grey);stroke-width:1.5;fill:none}
+
+  /* PRODUCT GRID */
+  .coll-grid{padding:0 64px 80px;background:white}
+  .coll-products{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+  .coll-card{cursor:pointer;padding-bottom:0;transition:background 0.3s}
+  .coll-card:hover{background:var(--ivory-sub)}
+  .coll-img-wrap{position:relative;overflow:hidden;background:var(--champagne);aspect-ratio:3/4}
+  .coll-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.3s var(--ease-luxury)}
+  .coll-card:hover .coll-img{transform:scale(1.06)}
+  .coll-quick{position:absolute;bottom:0;left:0;right:0;background:rgba(26,23,18,0.88);color:var(--ivory);font-family:var(--sans);font-size:0.56rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;text-align:center;padding:12px;opacity:0;transform:translateY(100%);transition:opacity 0.3s var(--ease-luxury),transform 0.3s var(--ease-luxury)}
+  .coll-card:hover .coll-quick{opacity:1;transform:translateY(0)}
+  .coll-badge{position:absolute;top:14px;left:14px;background:var(--gold);color:white;font-family:var(--sans);font-size:0.5rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:4px 10px;z-index:1}
+  .coll-info{padding:20px 4px 28px}
+  .coll-name{font-family:var(--sans);font-size:0.68rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--charcoal);line-height:1.4;margin-bottom:8px}
+  .coll-price{font-family:var(--serif);font-size:1.05rem;font-weight:300;color:var(--charcoal)}
+  .coll-price-sym{font-family:var(--sans);font-size:0.65rem;font-weight:300;color:var(--grey)}
+
+  /* ENQUIRE (empty collections) */
+  .coll-enquire{padding:80px 96px;background:white;text-align:center}
+  .coll-enquire-title{font-family:var(--serif);font-size:clamp(1.8rem,4vw,3rem);font-weight:300;color:var(--charcoal);margin-bottom:16px}
+  .coll-enquire-sub{font-family:var(--sans);font-size:0.7rem;font-weight:300;color:var(--grey);letter-spacing:0.08em;margin-bottom:40px;line-height:1.8}
+  .coll-enquire-btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:0.65rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;padding:14px 36px;background:var(--charcoal);color:var(--ivory);text-decoration:none;transition:background 0.3s;margin:0 8px}
+  .coll-enquire-btn:hover{background:var(--muted-black)}
+  .coll-enquire-btn.outline{background:transparent;color:var(--charcoal);border:0.5px solid var(--charcoal)}
+  .coll-enquire-btn.outline:hover{background:var(--charcoal);color:var(--ivory)}
+
+  /* WHATSAPP */
+  .wa-float{position:fixed;bottom:32px;right:32px;width:50px;height:50px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;z-index:600;box-shadow:0 4px 20px rgba(37,211,102,0.35);transition:transform 0.3s var(--ease-luxury),box-shadow 0.3s;text-decoration:none}
+  .wa-float:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,211,102,0.5)}
+  .wa-float svg{width:26px;height:26px;fill:white}
+  .mobile-book-cta{display:none}
+
+  /* FOOTER */
+  footer{background:var(--charcoal);color:var(--ivory);padding:80px 64px 40px}
+  .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:64px}
+  .footer-brand{font-family:var(--serif);font-size:1.4rem;font-weight:300;letter-spacing:0.04em;margin-bottom:16px}
+  .footer-tagline{font-family:var(--sans);font-size:0.68rem;font-weight:300;line-height:1.8;color:rgba(244,238,227,0.45);max-width:280px}
+  .footer-col-title{font-family:var(--sans);font-size:0.55rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  .footer-links{list-style:none}
+  .footer-links li{margin-bottom:12px}
+  .footer-links a{font-family:var(--sans);font-size:0.68rem;font-weight:300;color:rgba(244,238,227,0.55);text-decoration:none;transition:color 0.3s}
+  .footer-links a:hover{color:var(--ivory)}
+  .footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:32px;border-top:0.5px solid rgba(244,238,227,0.08)}
+  .footer-copy{font-family:var(--sans);font-size:0.6rem;font-weight:300;color:rgba(244,238,227,0.3);letter-spacing:0.06em}
+  .footer-socials{display:flex;gap:24px}
+  .footer-socials a{font-family:var(--sans);font-size:0.6rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:rgba(244,238,227,0.4);text-decoration:none;transition:color 0.3s}
+  .footer-socials a:hover{color:var(--ivory)}
+
+  @media(max-width:900px){
+    .coll-hero-content{padding:0 32px 60px}
+    .coll-editorial{padding:48px 32px 36px}
+    .coll-sort-bar{padding:16px 24px}
+    .coll-grid{padding:0 24px 60px}
+    .coll-products{grid-template-columns:repeat(2,1fr)}
+    nav.breadcrumb{padding:12px 24px}
+  }
+  @media(max-width:768px){
+    nav#mainNav{padding:18px 20px}
+    .mobile-book-cta{display:flex;align-items:center;justify-content:center;position:fixed;bottom:0;left:0;right:0;height:52px;background:var(--charcoal);z-index:700;font-family:var(--sans);font-size:0.65rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--ivory);text-decoration:none;border-top:0.5px solid rgba(244,238,227,0.1)}
+    .wa-float{bottom:72px}
+    footer{padding:60px 24px 40px}
+    .footer-top{grid-template-columns:1fr 1fr;gap:32px}
+    .coll-hero{height:75vh}
+    .coll-enquire{padding:60px 24px}
+  }
+</style>
+</head>
+<body>
+
+<div id="scrollProgress" class="scroll-progress"></div>
+<div class="page-curtain" aria-hidden="true"></div>
+
+<!-- MENU SCRIM -->
+<div class="menu-scrim" id="menuScrim" onclick="toggleNav()"></div>
+
+<!-- MENU PANEL -->
+<aside class="menu-panel" id="menuPanel" aria-label="Site navigation">
+  <div class="menu-panel-head">
+    <button class="menu-close" onclick="toggleNav()">
+      <svg viewBox="0 0 13 13" aria-hidden="true"><path d="M1 1 L12 12 M12 1 L1 12"/></svg>
+      Close
+    </button>
+    <div class="menu-panel-logo">
+      <a href="vaishali-home-preview.html" aria-label="Vaishali S — Home" style="color:var(--charcoal)">
+        <svg viewBox="0 0 246 40" xmlns="http://www.w3.org/2000/svg">
+          <text class="logo-word" x="0" y="28" font-size="26">VAISHALI</text>
+          <g transform="translate(200,19) scale(0.9)" fill="#D8492E">
+            <path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(60)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(120)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(180)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(240)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(300)"/>
+          </g>
+          <text class="logo-word" x="218" y="28" font-size="26">S</text>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="menu-panel-body">
+    <div class="menu-group"><a class="menu-flat" href="https://www.vaishali-s.com/collections/new-in-2026-white-bridal-anahata-bbfw-showcase">New Arrivals</a></div>
+    <div class="menu-group" id="grp-collections">
+      <button class="menu-group-head" onclick="toggleGroup('grp-collections')">Collections<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1 L7 5 L3 9"/></svg></button>
+      <div class="menu-sub">
+        <div class="menu-sub-inner">
+          <p class="menu-sub-title">Couture</p>
+          <a href="couture-collection.html" style="color:var(--gold)">All Couture</a>
+          <a href="collection-detail.html?c=kintsugi">Kintsugi — F/W 2025</a>
+          <a href="collection-detail.html?c=satori">Satori — F/W 2024</a>
+          <a href="collection-detail.html?c=i-am-nature">I Am Nature — S/S 2024</a>
+          <p class="menu-sub-title">Bridal</p>
+          <a href="collection-detail.html?c=naad-bridal">Naad — Bridal 2025</a>
+          <a href="collection-detail.html?c=anahata">Anahata — Bridal 2026</a>
+          <p class="menu-sub-title">Ready-to-Wear</p>
+          <a href="https://www.vaishali-s.com/collections/dresses">Dresses</a>
+          <a href="https://www.vaishali-s.com/collections/all">All Clothing</a>
+        </div>
+      </div>
+    </div>
+    <div class="menu-group"><a class="menu-flat" href="https://www.vaishali-s.com/collections/all">Ready-to-Wear</a></div>
+    <div class="menu-group"><a class="menu-flat" href="couture-collection.html">Couture</a></div>
+    <div class="menu-group"><a class="menu-flat" href="made-to-order.html">Made To Order</a></div>
+    <div class="menu-group"><a class="menu-flat" href="our-craft.html">Our Craft</a></div>
+    <div class="menu-group"><a class="menu-flat" href="https://www.vaishali-s.com/blogs/news">Journal</a></div>
+    <div class="menu-group" id="grp-stores">
+      <button class="menu-group-head" onclick="toggleGroup('grp-stores')">Stores<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1 L7 5 L3 9"/></svg></button>
+      <div class="menu-sub">
+        <div class="menu-sub-inner">
+          <a href="paris-store.html">Paris Flagship — 188 Blvd Saint-Germain</a>
+          <a href="mumbai-store.html">Mumbai Atelier — Kala Ghoda, Fort</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="menu-panel-foot">
+    <a class="menu-foot-link" href="mumbai-store.html#appointment">Book Appointment</a>
+    <a class="menu-foot-link" href="paris-store.html">Find Your Closest Boutique</a>
+    <div class="menu-foot-meta">
+      <div class="menu-foot-socials">
+        <a href="https://www.instagram.com/vaishalisstudio" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/VaishaliShadangule29/" target="_blank" rel="noopener">Facebook</a>
+      </div>
+      <span class="menu-foot-currency" id="menuCurrency">INR ₹</span>
+    </div>
+  </div>
+</aside>
+
+<!-- NAV -->
+<nav id="mainNav" class="on-hero">
+  <div class="nav-left">
+    <button class="nav-icon-btn" onclick="toggleNav()" aria-label="Open menu">
+      <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M1 4 H17 M1 9 H17 M1 14 H17"/></svg>
+      Menu
+    </button>
+  </div>
+  <div class="nav-center">
+    <a href="vaishali-home-preview.html" style="text-decoration:none;color:inherit" aria-label="Vaishali S — Home">
+      <svg class="nav-logo-svg" viewBox="0 0 246 40" xmlns="http://www.w3.org/2000/svg">
+        <text class="logo-word" x="0" y="28" font-size="26">VAISHALI</text>
+        <g transform="translate(200,19) scale(0.9)" fill="#D8492E">
+          <path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(60)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(120)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(180)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(240)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(300)"/>
+        </g>
+        <text class="logo-word" x="218" y="28" font-size="26">S</text>
+      </svg>
+    </a>
+  </div>
+  <div class="nav-right">
+    <a class="nav-book-btn" href="mumbai-store.html#appointment">Book Appointment</a>
+    <div class="currency-picker" id="currencyPicker">
+      <button class="currency-btn" onclick="toggleCurrency(event)" aria-label="Select currency">
+        <span id="currencyCode">INR</span>
+        <svg class="currency-chevron" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1 L5 5 L9 1"/></svg>
+      </button>
+      <div class="currency-dropdown" id="currencyDropdown">
+        <div class="currency-option active" onclick="setCurrency('INR','₹')">INR</div>
+        <div class="currency-option" onclick="setCurrency('AED','د.إ')">AED</div>
+        <div class="currency-option" onclick="setCurrency('USD','$')">USD</div>
+        <div class="currency-option" onclick="setCurrency('GBP','£')">GBP</div>
+        <div class="currency-option" onclick="setCurrency('SAR','﷼')">SAR</div>
+        <div class="currency-option" onclick="setCurrency('EUR','€')">EUR</div>
+        <div class="currency-option" onclick="setCurrency('AUD','A$')">AUD</div>
+      </div>
+    </div>
+    <button class="nav-icon-btn" onclick="window.open('https://www.vaishali-s.com/account/login','_self')" aria-label="Account">
+      <svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="6" r="3.4"/><path d="M2.5 16 C2.5 12 5.5 10.5 9 10.5 C12.5 10.5 15.5 12 15.5 16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO (populated by JS) -->
+<section class="coll-hero" id="collHero">
+  <img class="coll-hero-img" id="heroImg" src="" alt="" onerror="this.style.opacity='0'">
+  <div class="coll-hero-overlay"></div>
+  <div class="coll-hero-content">
+    <p class="coll-hero-type" id="heroType"></p>
+    <h1 class="coll-hero-title" id="heroTitle">Loading…</h1>
+    <p class="coll-hero-season" id="heroSeason"></p>
+  </div>
+</section>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="vaishali-home-preview.html">Home</a>
+  <span class="bc-sep">—</span>
+  <a href="couture-collection.html">Collections</a>
+  <span class="bc-sep">—</span>
+  <span class="bc-cur" id="breadcrumbCur">Collection</span>
+</nav>
+
+<!-- EDITORIAL -->
+<section class="coll-editorial">
+  <div class="coll-edit-meta">
+    <div></div>
+    <a class="coll-size-guide" href="mumbai-store.html#appointment">View Size Guide</a>
+  </div>
+  <blockquote class="coll-quote" id="collQuote"></blockquote>
+  <div class="coll-description" id="collDescription"></div>
+</section>
+
+<!-- PRODUCTS SECTION (shown if products exist) -->
+<div id="productsSection" style="display:none">
+  <div class="coll-sort-bar">
+    <span class="coll-count" id="collCount"></span>
+    <div class="sort-wrap">
+      <select class="sort-select" id="sortSelect" onchange="renderProducts()" aria-label="Sort products">
+        <option value="featured">Most Relevant</option>
+        <option value="best-selling">Best Selling</option>
+        <option value="az">Alphabetically, A-Z</option>
+        <option value="za">Alphabetically, Z-A</option>
+        <option value="price-asc">Price, Low to High</option>
+        <option value="price-desc">Price, High to Low</option>
+        <option value="date-old">Date, Old to New</option>
+        <option value="date-new">Date, New to Old</option>
+      </select>
+      <svg class="sort-chevron" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1 L5 5 L9 1"/></svg>
+    </div>
+  </div>
+  <div class="coll-grid">
+    <div class="coll-products" id="collProducts"></div>
+  </div>
+</div>
+
+<!-- ENQUIRE SECTION (shown if no products) -->
+<div class="coll-enquire" id="enquireSection" style="display:none">
+  <h2 class="coll-enquire-title">Enquire About This Collection</h2>
+  <p class="coll-enquire-sub">This collection is held in our archive. Individual pieces may be available<br>for commission or private appointment. Please contact us to discuss.</p>
+  <a class="coll-enquire-btn" href="mumbai-store.html#appointment">Book Appointment</a>
+  <a class="coll-enquire-btn outline" href="https://wa.me/919321569218" target="_blank" rel="noopener">WhatsApp</a>
+</div>
+
+<!-- WHATSAPP -->
+<a class="wa-float" href="https://wa.me/919321569218" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- MOBILE STICKY CTA -->
+<a class="mobile-book-cta" href="mumbai-store.html#appointment">Book Appointment</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Vaishali S</div>
+      <p class="footer-tagline">A luxury fashion house rooted in handwoven couture, Indian craft heritage, and the global haute couture stage. Mumbai · Paris.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">The House</p>
+      <ul class="footer-links">
+        <li><a href="philosophy.html">Our Philosophy</a></li>
+        <li><a href="our-craft.html">Our Craft</a></li>
+        <li><a href="made-to-order.html">Made to Order</a></li>
+        <li><a href="paris-couture.html">Paris Couture</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Stores</p>
+      <ul class="footer-links">
+        <li><a href="paris-store.html">Paris Flagship</a></li>
+        <li><a href="mumbai-store.html">Mumbai Atelier</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Contact</p>
+      <ul class="footer-links">
+        <li><a href="mailto:vaishaliscoutureparis@gmail.com">Paris Office</a></li>
+        <li><a href="mailto:vaishalis.sstudio1@gmail.com">Mumbai Atelier</a></li>
+        <li><a href="mumbai-store.html#appointment">Book Appointment</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Vaishali S Couture. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://www.instagram.com/vaishalisstudio" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/VaishaliShadangule29/" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.youtube.com/channel/UCNEG_LqIyj1hyNL-gSMmGWw" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── COLLECTION DATA ──────────────────────────────────────── */
+const collections = {
+  'anahata': {
+    title: '2026 White Bridal: Anahata — BBFW Showcase',
+    type: 'New In 2026 · White Bridal',
+    season: 'Bridal Couture · Bombay Fashion Week',
+    quote: '"Where two souls meet, the universe listens."',
+    description: `<p><em>Anahata</em> — Where Souls Entwine is a bridal collection born from the sacred space of the heart. Inspired by Anahata, the unstruck sound, it celebrates love that exists beyond words — pure, eternal, and resonant.</p><p>Each silhouette is sculpted as an embrace, fluid yet powerful, echoing the rhythm of two energies becoming one. Handwoven textiles breathe with intention, intricate corded details trace invisible bonds, and every movement carries a quiet strength like a heartbeat shared.</p>`,
+    hero: 'https://www.vaishali-s.com/cdn/shop/files/SAT09.jpg?v=1721300228&width=1600',
+    products: [
+      { name: 'Anahata Ivory Draped Veil Gown', price: 485000, img: 'https://www.vaishali-s.com/cdn/shop/files/SAT09.jpg?v=1721300228&width=800', badge: 'New', date: 20260115, sales: 8 },
+      { name: 'Crystal Bridal Cape Ensemble', price: 342000, img: 'https://www.vaishali-s.com/cdn/shop/files/SAT23.jpg?v=1721305009&width=800', badge: 'New', date: 20260115, sales: 5 }
+    ]
+  },
+  'festive-menswear': {
+    title: '2025 F/W: Festive Menswear Showcase',
+    type: 'New In 2025 F/W · Menswear',
+    season: '2025 · Festive Season',
+    quote: '"The man who wears a handloom wears history."',
+    description: `<p>This festive menswear showcase redefines masculine elegance through the lens of Indian craft. Structured bandhgalas meet fluid drapes; traditional weaves carry contemporary architecture. Each piece is a collaboration between the designer and the loom — between intention and inheritance.</p>`,
+    hero: 'https://www.vaishali-s.com/cdn/shop/files/DSC_4066_1.jpg?v=1730959242&width=1600',
+    products: []
+  },
+  'kintsugi-pret': {
+    title: '2025 F/W Kintsugi: Prêt-à-Porter Line',
+    type: 'New In 2025 F/W · Kintsugi',
+    season: '2025 F/W · Ready to Wear',
+    quote: '"Luxury should breathe — even in everyday life."',
+    description: `<p>The Kintsugi Prêt line brings the philosophy of the Paris Haute Couture collection into wearable, everyday luxury. Crafted from the same handwoven textiles as the couture pieces, these designs offer structured ease without sacrificing craft or the poetry of the repair.</p>`,
+    hero: 'https://www.vaishali-s.com/cdn/shop/files/IMG_4201.jpg?v=1721305390&width=1600',
+    products: [
+      { name: 'Kintsugi Pret Draped Jacket', price: 115000, img: 'https://www.vaishali-s.com/cdn/shop/files/IMG_7953_1.jpg?v=1742817036&width=800', badge: 'New', date: 20251201, sales: 14 },
+      { name: 'Gold Seam Pleated Trouser Set', price: 78000, img: 'https://www.vaishali-s.com/cdn/shop/files/DSC_4066_1.jpg?v=1730959242&width=800', badge: 'New', date: 20251201, sales: 22 }
+    ]
+  },
+  'naad-bridal': {
+    title: '2025 Bridal: Naad Couture Showcase',
+    type: '2025 Bridal · Naad Couture',
+    season: 'Bridal Couture · 2025',
+    quote: '"Sound becomes form. Form becomes feeling."',
+    description: `<p>Naad — the primordial sound — resonates through this bridal collection in crimson and gold. Each piece vibrates with the energy of celebration, of union, of the sacred rituals that mark the beginning of a shared life.</p><p>Handwoven silk carries centuries of Indian bridal tradition into a contemporary silhouette. The embroidery maps constellations; the drape follows the body like water finding its course.</p>`,
+    hero: 'https://www.vaishali-s.com/cdn/shop/files/SAT65.jpg?v=1721307756&width=1600',
+    products: [
+      { name: 'Naad Crimson Bridal Lehenga', price: 545000, img: 'https://www.vaishali-s.com/cdn/shop/files/SAT65.jpg?v=1721307756&width=800', date: 20250801, sales: 6 },
+      { name: 'Naad Floral Embroidered Sari', price: 298000, img: 'https://www.vaishali-s.com/cdn/shop/files/VS_L2_i2copy2.jpg?v=1753797090&width=800', date: 20250801, sales: 11 }
+    ]
+  },
+  'kintsugi': {
+    title: '2025 F/W: Kintsugi — Paris Haute Couture Week',
+    type: '2025 F/W · Paris Haute Couture',
+    season: 'Haute Couture · Presented in Paris',
+    quote: '"To repair with gold — to find beauty in what is broken."',
+    description: `<p>Kintsugi, the Japanese art of mending broken pottery with lacquered gold, inspired a collection rooted in the belief that fractures do not diminish beauty — they illuminate it. Each piece traces its fault lines in handwoven gold zari and Murshidabad silk, transforming imperfection into luminous seams.</p><p>Presented at Paris Haute Couture Week, the collection opened with draped silhouettes that moved like tectonic shifts — slow, inevitable, geological in their grace. The gold is not ornament. It is memory.</p>`,
+    hero: 'https://www.vaishali-s.com/cdn/shop/files/VS_L2_i2copy2.jpg?v=1753797090&width=1600',
+    products: [
+      { name: 'Amber Cluster Corded Dress', price: 322000, img: 'https://www.vaishali-s.com/cdn/shop/files/VS_L2_i2copy2.jpg?v=1753797090&width=800', badge: 'New', date: 20250115, sales: 42 },
+      { name: 'Gold Fault Line Draped Gown', price: 285000, img: 'https://www.vaishali-s.com/cdn/shop/files/SAT65.jpg?v=1721307756&width=800', badge: 'New', date: 20250115, sales: 31 },
+      { name: 'Kintsugi Asymmetric Silk Wrap', price: 156000, img: 'https://www.vaishali-s.com/cdn/shop/files/IMG_7953_1.jpg?v=1742817036&width=800', badge: 'New', date: 20250115, sales: 28 },
+      { name: 'Lacquer Seam Murshidabad Sari', price: 98000, img: 'https://www.vaishali-s.com/cdn/shop/files/SAT23.jpg?v=1721305009&width=800', badge: 'New', date: 20250115, sales: 19 }
+    ]
+  },
+  'padma-bridal': {
+    title: '2024 Bridal: Padma Couture Collection — Jaipur',
+    type: '2024 Bridal · Padma Couture',
+    season: 'Bridal Couture · Presented in Jaipur',
+    quote: '"The lotus rises through still water, unblemished."',
+    description: `<p>Presented in the pink city of Jaipur, the Padma Couture Collection draws from the lotus — symbol of purity, grace, and transcendence across South Asian traditions. Crimson and ivory silks carry hand-embroidered motifs from Rajasthani craft communities, each piece shaped to honour the wearer as much as the work.</p>`,
+    hero: 'https://www.vaishali-s.com/cdn/shop/files/IMG_7953_1.jpg?v=1742817036&width=1600',
+    products: []
+  },
+  'satori': {
+    title: '2024 F/W: Satori — Paris Haute-Couture Week',
+    type: '2024 F/W · Paris Haute-Couture',
+    season: 'Haute Couture · Presented in Paris',
+    quote: '"In stillness, the fabric speaks."',
+    description: `<p>Satori — the Zen concept of sudden awakening — found form in architecture draped against the body. This collection was conceived in moments of silence between the noise of the world, in the space where craft becomes contemplation.</p><p>Each garment is a pause. Chanderi and Maheshwar cotton held in structural drapes that ask you to stop long enough to understand them. Presented at Paris Haute-Couture Week to the sound of a single bell.</p>`,
+    hero: 'https://www.vaishali-s.com/cdn/shop/files/SAT09.jpg?v=1721300228&width=1600',
+    products: [
+      { name: 'Asymmetrical Corded Trousers', price: 46000, img: 'https://www.vaishali-s.com/cdn/shop/files/SAT09.jpg?v=1721300228&width=800', date: 20240615, sales: 87 },
+      { name: 'Asymmetrical Pants', price: 101500, img: 'https://www.vaishali-s.com/cdn/shop/files/DSC_4066_1.jpg?v=1730959242&width=800', date: 20240615, sales: 65 },
+      { name: 'Satori Void Draped Gown', price: 178000, img: 'https://www.vaishali-s.com/cdn/shop/files/IMG_4201.jpg?v=1721305390&width=800', date: 20240615, sales: 44 },
+      { name: 'Contemplation Structured Coat', price: 245000, img: 'https://www.vaishali-s.com/cdn/shop/files/SAT65.jpg?v=1721307756&width=800', date: 20240615, sales: 22 }
+    ]
+  },
+  'i-am-nature': {
+    title: '2024 S/S: I Am Nature — Paris Haute Couture Week',
+    type: '2024 S/S · Paris Haute Couture',
+    season: 'Haute Couture · Presented in Paris',
+    quote: '"The forest does not ask to be beautiful."',
+    description: `<p>This collection returned to the earth — to moss, root, and tide. Botanical forms emerge from hand-embroidered surfaces; pleated silks ripple like water catching afternoon light. I Am Nature declares that craft rooted in the land cannot be separate from it.</p><p>The silhouettes moved like trees in wind — rooted, fluid, alive. The greens are not trend. They are a position on the world.</p>`,
+    hero: 'https://www.vaishali-s.com/cdn/shop/files/IMG_7953_1.jpg?v=1742817036&width=1600',
+    products: [
+      { name: 'Botanical Weave Column Dress', price: 134000, img: 'https://www.vaishali-s.com/cdn/shop/files/DSC_4066_1.jpg?v=1730959242&width=800', date: 20240115, sales: 55 },
+      { name: 'Verdant Draped Kurta Set', price: 67000, img: 'https://www.vaishali-s.com/cdn/shop/files/IMG_7953_1.jpg?v=1742817036&width=800', date: 20240115, sales: 73 },
+      { name: 'Natural Form Gown', price: 223000, img: 'https://www.vaishali-s.com/cdn/shop/files/VS_L2_i2copy2.jpg?v=1753797090&width=800', date: 20240115, sales: 38 },
+      { name: 'Forest Floor Silk Sari', price: 118000, img: 'https://www.vaishali-s.com/cdn/shop/files/IMG_4201.jpg?v=1721305390&width=800', date: 20240115, sales: 49 }
+    ]
+  },
+  'abyss': {
+    title: '2023 S/S: Abyss — Paris Haute-Couture Week',
+    type: '2023 S/S · Paris Haute-Couture',
+    season: 'Haute Couture · Presented in Paris',
+    quote: '"Below the surface, everything is still."',
+    description: `<p>Abyss descended into deep ocean silence — into the pressure of still water and the luminescence of creatures that need no light to survive. Dark grounds hold architectural textile structures that move like currents; weightless yet dense with generations of craft knowledge.</p><p>Each piece required over 400 hours of handwork from weavers across three states, coordinated around the natural rhythm of craft — not the deadlines of fashion.</p>`,
+    hero: 'https://www.vaishali-s.com/cdn/shop/files/IMG_8543.jpg?v=1724929953&width=1600',
+    products: [
+      { name: 'Abyss Deep Draped Gown', price: 195000, img: 'https://www.vaishali-s.com/cdn/shop/files/IMG_8543.jpg?v=1724929953&width=800', date: 20230115, sales: 61 },
+      { name: 'Oceanic Structured Cape Coat', price: 268000, img: 'https://www.vaishali-s.com/cdn/shop/files/SAT09.jpg?v=1721300228&width=800', date: 20230115, sales: 33 },
+      { name: 'Depth Chanderi Sari', price: 89000, img: 'https://www.vaishali-s.com/cdn/shop/files/SAT23.jpg?v=1721305009&width=800', date: 20230115, sales: 52 },
+      { name: 'Abyss Column Kurta', price: 54000, img: 'https://www.vaishali-s.com/cdn/shop/files/IMG_8543.jpg?v=1724929953&width=800', date: 20230115, sales: 78 }
+    ]
+  },
+  'ancestral-threads': {
+    title: '2023 S/S: Ancestral Threads — Milan Ready to Wear',
+    type: '2023 S/S · Ready to Wear',
+    season: 'Ready to Wear · Presented in Milan',
+    quote: '"Every thread is a conversation with someone who came before."',
+    description: `<p>Ancestral Threads traveled to Milan with a collection that wore its craft heritage openly — not as exotic reference, but as its own confident language. Each piece is a collaboration between weavers from Odisha, Tamil Nadu, and Andhra Pradesh, translated into silhouettes that hold their own on any global stage.</p>`,
+    hero: 'https://www.vaishali-s.com/cdn/shop/files/SAT23.jpg?v=1721305009&width=1600',
+    products: [
+      { name: 'Ancestral Blue Fan Silk Dress', price: 212000, img: 'https://www.vaishali-s.com/cdn/shop/files/SAT23.jpg?v=1721305009&width=800', date: 20230801, sales: 29 },
+      { name: 'Milan Structured Cape', price: 168000, img: 'https://www.vaishali-s.com/cdn/shop/files/IMG_8543.jpg?v=1724929953&width=800', date: 20230801, sales: 21 }
+    ]
+  },
+  'rutwa': {
+    title: '2022 F/W 22: Rutwa — Paris Haute-Couture Week',
+    type: '2022 F/W · Paris Haute-Couture',
+    season: 'Haute Couture · Presented in Paris',
+    quote: '"Rutwa: the energy that moves through all living things."',
+    description: `<p>Rutwa drew from the invisible forces that animate the natural world — the pull of tide, the lean of a plant toward light, the circularity of seasons. Fuchsia and magenta silks spiralled around the body in configurations that suggested movement even in stillness.</p>`,
+    hero: 'https://www.vaishali-s.com/cdn/shop/files/SAT65.jpg?v=1721307756&width=1600',
+    products: []
+  },
+  'breath': {
+    title: '2021 F/W: Breath — Paris Haute-Couture',
+    type: '2021 F/W · Paris Haute-Couture',
+    season: 'Haute Couture · Presented in Paris',
+    quote: '"The first act of life. The last. Everything between."',
+    description: `<p>Breath was conceived during a year of global stillness, when the world was forced to pause and remember what it meant to inhabit a body. The collection's organic, petal-like forms and weightless organzas captured the relief of air — of openness, of being present in the only moment that exists.</p>`,
+    hero: 'https://www.vaishali-s.com/cdn/shop/files/IMG_4201.jpg?v=1721305390&width=1600',
+    products: []
+  }
+};
+
+/* ── CURRENCY ──────────────────────────────────────── */
+const rates = { INR:1, AED:0.044, USD:0.012, GBP:0.0095, SAR:0.045, EUR:0.011, AUD:0.019 };
+const symbols = { INR:'Rs. ', AED:'AED ', USD:'$ ', GBP:'£', SAR:'SAR ', EUR:'€', AUD:'A$ ' };
+let currentCurrency = 'INR';
+
+function toggleCurrency(e){ e.stopPropagation(); document.getElementById('currencyPicker').classList.toggle('open') }
+function setCurrency(code, symbol){
+  currentCurrency = code;
+  document.getElementById('currencyCode').textContent = code;
+  const mfc = document.getElementById('menuCurrency');
+  if(mfc) mfc.textContent = code + ' ' + symbol;
+  document.querySelectorAll('.currency-option').forEach(el => el.classList.toggle('active', el.textContent.trim() === code));
+  document.getElementById('currencyPicker').classList.remove('open');
+  renderProducts();
+}
+document.addEventListener('click', () => { const p = document.getElementById('currencyPicker'); if(p) p.classList.remove('open') });
+
+function formatPrice(baseINR){
+  const val = baseINR * rates[currentCurrency];
+  const sym = symbols[currentCurrency];
+  const fmt = currentCurrency === 'INR'
+    ? val.toLocaleString('en-IN', { minimumFractionDigits:2, maximumFractionDigits:2 })
+    : val.toLocaleString('en-US', { minimumFractionDigits:2, maximumFractionDigits:2 });
+  return { sym, fmt };
+}
+
+/* ── NAV ──────────────────────────────────────────── */
+const menuPanel = document.getElementById('menuPanel');
+const menuScrim  = document.getElementById('menuScrim');
+const mainNav    = document.getElementById('mainNav');
+const hero       = document.getElementById('collHero');
+
+function toggleNav(){
+  const open = !menuPanel.classList.contains('open');
+  menuPanel.classList.toggle('open', open);
+  menuScrim.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function toggleGroup(id){
+  const grp = document.getElementById(id);
+  const sub = grp.querySelector('.menu-sub');
+  const head = grp.querySelector('.menu-group-head');
+  const isOpen = sub.classList.contains('open');
+  document.querySelectorAll('.menu-sub.open').forEach(s => s.classList.remove('open'));
+  document.querySelectorAll('.menu-group-head.active').forEach(h => h.classList.remove('active'));
+  if(!isOpen){ sub.classList.add('open'); head.classList.add('active') }
+}
+window.addEventListener('scroll', () => {
+  const heroHeight = hero.offsetHeight;
+  const pastHero = window.scrollY > heroHeight - 80;
+  mainNav.classList.toggle('on-hero', !pastHero);
+  mainNav.classList.toggle('scrolled', window.scrollY > 40);
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  document.getElementById('scrollProgress').style.width = pct + '%';
+}, { passive: true });
+
+/* ── PRODUCTS ─────────────────────────────────────── */
+let collectionData = null;
+
+function renderProducts(){
+  if(!collectionData || !collectionData.products.length) return;
+  const sort = document.getElementById('sortSelect').value;
+  let products = [...collectionData.products];
+
+  products.sort((a, b) => {
+    switch(sort){
+      case 'az': return a.name.localeCompare(b.name);
+      case 'za': return b.name.localeCompare(a.name);
+      case 'price-asc': return a.price - b.price;
+      case 'price-desc': return b.price - a.price;
+      case 'date-old': return a.date - b.date;
+      case 'date-new': return b.date - a.date;
+      case 'best-selling': return b.sales - a.sales;
+      default: return 0;
+    }
+  });
+
+  const grid = document.getElementById('collProducts');
+  grid.innerHTML = products.map(p => {
+    const { sym, fmt } = formatPrice(p.price);
+    const badge = p.badge ? `<div class="coll-badge">${p.badge}</div>` : '';
+    return `
+    <div class="coll-card">
+      <div class="coll-img-wrap">
+        <img class="coll-img" src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'">
+        ${badge}
+        <div class="coll-quick">View Product</div>
+      </div>
+      <div class="coll-info">
+        <p class="coll-name">${p.name}</p>
+        <p class="coll-price"><span class="coll-price-sym">${sym}</span>${fmt}</p>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('collCount').textContent = products.length + ' product' + (products.length === 1 ? '' : 's');
+}
+
+/* ── INIT ─────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(window.location.search);
+  const id = params.get('c') || 'kintsugi';
+  const coll = collections[id] || collections['kintsugi'];
+  collectionData = coll;
+
+  document.title = coll.title + ' — VAISHALI S';
+  document.getElementById('heroImg').src = coll.hero;
+  document.getElementById('heroImg').alt = coll.title;
+  document.getElementById('heroType').textContent = coll.type;
+  document.getElementById('heroTitle').textContent = coll.title;
+  document.getElementById('heroSeason').textContent = coll.season;
+  document.getElementById('breadcrumbCur').textContent = coll.title.split(':')[0].trim();
+  document.getElementById('collQuote').textContent = coll.quote;
+  document.getElementById('collDescription').innerHTML = coll.description;
+
+  if(coll.products.length > 0){
+    document.getElementById('productsSection').style.display = '';
+    renderProducts();
+  } else {
+    document.getElementById('enquireSection').style.display = '';
+  }
+});
+</script>
+</body>
+</html>
