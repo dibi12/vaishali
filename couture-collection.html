@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>All Couture — VAISHALI S</title>
+<title>Collections — VAISHALI S</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -97,7 +97,7 @@
   .collection-sub{font-family:var(--sans);font-size:0.7rem;font-weight:300;color:var(--grey);letter-spacing:0.1em}
 
   /* TOOLBAR */
-  .toolbar{padding:18px 64px;background:var(--ivory);border-bottom:0.5px solid var(--stone);display:flex;align-items:center;justify-content:space-between;gap:24px;position:sticky;top:73px;z-index:50}
+  .toolbar{padding:18px 64px;background:var(--ivory);border-bottom:0.5px solid var(--stone);display:flex;align-items:center;justify-content:flex-end;gap:24px;position:sticky;top:73px;z-index:50}
   .filter-pills{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   .filter-pill{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;padding:7px 16px;border:0.5px solid var(--stone);color:var(--grey);background:transparent;cursor:pointer;transition:all 0.25s;white-space:nowrap}
   .filter-pill:hover{border-color:var(--charcoal);color:var(--charcoal)}
@@ -126,6 +126,26 @@
   .product-name{font-family:var(--sans);font-size:0.72rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal);line-height:1.45;margin-bottom:8px}
   .product-price{font-family:var(--serif);font-size:1rem;font-weight:300;color:var(--charcoal)}
   .product-price-sym{font-family:var(--sans);font-size:0.65rem;font-weight:300;color:var(--grey)}
+
+  /* COLLECTIONS TILES */
+  .collections-tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--stone)}
+  .collection-tile{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:3/4;background:var(--charcoal);text-decoration:none;display:block}
+  .collection-tile-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.4s var(--ease-luxury);opacity:0.85}
+  .collection-tile:hover .collection-tile-img{transform:scale(1.07);opacity:1}
+  .collection-tile-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(11,9,7,0.85) 0%,rgba(11,9,7,0.18) 55%,transparent 100%)}
+  .collection-tile-label{position:absolute;bottom:0;left:0;right:0;padding:18px 14px}
+  .collection-tile-season{font-family:var(--sans);font-size:0.47rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:5px}
+  .collection-tile-name{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;line-height:1.45;color:white}
+  .collection-tile.new-coll::after{content:'NEW';position:absolute;top:12px;left:12px;background:var(--gold);color:white;font-family:var(--sans);font-size:0.46rem;font-weight:500;letter-spacing:0.14em;padding:3px 8px;z-index:2}
+  .collection-tile.active-coll{outline:2.5px solid var(--gold);outline-offset:-3px}
+  .active-filter-band{padding:18px 64px;background:var(--ivory-sub);border-bottom:0.5px solid var(--stone);display:none;align-items:center;gap:16px}
+  .active-filter-band.visible{display:flex}
+  .active-filter-label{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--charcoal)}
+  .active-filter-clear{font-family:var(--sans);font-size:0.58rem;font-weight:400;letter-spacing:0.1em;color:var(--gold);cursor:pointer;background:none;border:none;padding:0;transition:opacity 0.3s}
+  .active-filter-clear:hover{opacity:0.7}
+  @media(max-width:1100px){.collections-tiles{grid-template-columns:repeat(4,1fr)}}
+  @media(max-width:800px){.collections-tiles{grid-template-columns:repeat(3,1fr)}.active-filter-band{padding:14px 24px}}
+  @media(max-width:520px){.collections-tiles{grid-template-columns:repeat(2,1fr)}}
 
   /* EMPTY STATE */
   .empty-state{display:none;text-align:center;padding:80px 40px;color:var(--grey)}
@@ -295,30 +315,140 @@
 <nav class="breadcrumb" aria-label="Breadcrumb">
   <a href="vaishali-home-preview.html">Home</a>
   <span class="bc-sep">—</span>
-  <a href="couture-collection.html">Collections</a>
-  <span class="bc-sep">—</span>
-  <span class="bc-cur">All Couture</span>
+  <span class="bc-cur">Collections</span>
 </nav>
 
 <!-- COLLECTION HEADER -->
 <div class="collection-header">
-  <h1 class="collection-title">All Couture</h1>
-  <p class="collection-sub">Paris Haute Couture · Handwoven Textiles · Indian Craft Heritage</p>
+  <h1 class="collection-title">All Collections</h1>
+  <p class="collection-sub">Paris Haute Couture · Handwoven Textiles · Indian Craft Heritage · 2021 – 2026</p>
+</div>
+
+<!-- COLLECTIONS TILES -->
+<div class="collections-tiles" id="collectionsTiles">
+
+  <a class="collection-tile new-coll" data-filter="anahata" onclick="tileFilter('anahata','2026 Bridal — Anahata',this);return false" href="javascript:void(0)">
+    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/SAT09.jpg?v=1721300228&width=600" alt="Anahata Bridal 2026" onerror="this.style.display='none'">
+    <div class="collection-tile-overlay"></div>
+    <div class="collection-tile-label">
+      <div class="collection-tile-season">New In 2026 · White Bridal</div>
+      <div class="collection-tile-name">Anahata<br>BBFW Showcase</div>
+    </div>
+  </a>
+
+  <a class="collection-tile new-coll" data-filter="festive-menswear" onclick="tileFilter('festive-menswear','2025 F/W — Festive Menswear',this);return false" href="javascript:void(0)">
+    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/DSC_4066_1.jpg?v=1730959242&width=600" alt="Festive Menswear 2025" onerror="this.style.display='none'">
+    <div class="collection-tile-overlay"></div>
+    <div class="collection-tile-label">
+      <div class="collection-tile-season">New In 2025 F/W · Menswear</div>
+      <div class="collection-tile-name">Festive Menswear<br>Showcase</div>
+    </div>
+  </a>
+
+  <a class="collection-tile new-coll" data-filter="kintsugi-pret" onclick="tileFilter('kintsugi-pret','2025 F/W — Kintsugi Prêt',this);return false" href="javascript:void(0)">
+    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/IMG_4201.jpg?v=1721305390&width=600" alt="Kintsugi Pret 2025" onerror="this.style.display='none'">
+    <div class="collection-tile-overlay"></div>
+    <div class="collection-tile-label">
+      <div class="collection-tile-season">2025 F/W · Kintsugi</div>
+      <div class="collection-tile-name">Kintsugi<br>Prêt-à-Porter Line</div>
+    </div>
+  </a>
+
+  <a class="collection-tile new-coll" data-filter="naad-bridal" onclick="tileFilter('naad-bridal','2025 Bridal — Naad',this);return false" href="javascript:void(0)">
+    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/SAT65.jpg?v=1721307756&width=600" alt="Naad Bridal 2025" onerror="this.style.display='none'">
+    <div class="collection-tile-overlay"></div>
+    <div class="collection-tile-label">
+      <div class="collection-tile-season">2025 Bridal · Naad Couture</div>
+      <div class="collection-tile-name">Naad<br>Couture Showcase</div>
+    </div>
+  </a>
+
+  <a class="collection-tile" data-filter="kintsugi" onclick="tileFilter('kintsugi','2025 F/W — Kintsugi Paris',this);return false" href="javascript:void(0)">
+    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/VS_L2_i2copy2.jpg?v=1753797090&width=600" alt="Kintsugi Paris 2025" onerror="this.style.display='none'">
+    <div class="collection-tile-overlay"></div>
+    <div class="collection-tile-label">
+      <div class="collection-tile-season">2025 F/W · Kintsugi</div>
+      <div class="collection-tile-name">Kintsugi<br>Paris Haute Couture Week</div>
+    </div>
+  </a>
+
+  <a class="collection-tile" data-filter="padma-bridal" onclick="tileFilter('padma-bridal','2024 Bridal — Padma',this);return false" href="javascript:void(0)">
+    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/IMG_7953_1.jpg?v=1742817036&width=600" alt="Padma Bridal 2024" onerror="this.style.display='none'">
+    <div class="collection-tile-overlay"></div>
+    <div class="collection-tile-label">
+      <div class="collection-tile-season">2024 Bridal · Padma Couture</div>
+      <div class="collection-tile-name">Padma Couture<br>Collection — Jaipur</div>
+    </div>
+  </a>
+
+  <a class="collection-tile" data-filter="satori" onclick="tileFilter('satori','2024 F/W — Satori Paris',this);return false" href="javascript:void(0)">
+    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/SAT09.jpg?v=1721300228&width=600" alt="Satori Paris 2024" onerror="this.style.display='none'">
+    <div class="collection-tile-overlay"></div>
+    <div class="collection-tile-label">
+      <div class="collection-tile-season">2024 F/W · Satori</div>
+      <div class="collection-tile-name">Satori<br>Paris Haute-Couture Week</div>
+    </div>
+  </a>
+
+  <a class="collection-tile" data-filter="i-am-nature" onclick="tileFilter('i-am-nature','2024 S/S — I Am Nature Paris',this);return false" href="javascript:void(0)">
+    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/IMG_7953_1.jpg?v=1742817036&width=600" alt="I Am Nature 2024" onerror="this.style.display='none'">
+    <div class="collection-tile-overlay"></div>
+    <div class="collection-tile-label">
+      <div class="collection-tile-season">2024 S/S · I Am Nature</div>
+      <div class="collection-tile-name">I Am Nature<br>Paris Haute Couture Week</div>
+    </div>
+  </a>
+
+  <a class="collection-tile" data-filter="abyss" onclick="tileFilter('abyss','2023 S/S — Abyss Paris',this);return false" href="javascript:void(0)">
+    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/IMG_8543.jpg?v=1724929953&width=600" alt="Abyss Paris 2023" onerror="this.style.display='none'">
+    <div class="collection-tile-overlay"></div>
+    <div class="collection-tile-label">
+      <div class="collection-tile-season">2023 S/S · Abyss</div>
+      <div class="collection-tile-name">Abyss<br>Paris Haute-Couture Week</div>
+    </div>
+  </a>
+
+  <a class="collection-tile" data-filter="ancestral-threads" onclick="tileFilter('ancestral-threads','2023 S/S — Ancestral Threads',this);return false" href="javascript:void(0)">
+    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/SAT23.jpg?v=1721305009&width=600" alt="Ancestral Threads 2023" onerror="this.style.display='none'">
+    <div class="collection-tile-overlay"></div>
+    <div class="collection-tile-label">
+      <div class="collection-tile-season">2023 S/S · Ready to Wear</div>
+      <div class="collection-tile-name">Ancestral Threads<br>Milan Ready to Wear</div>
+    </div>
+  </a>
+
+  <a class="collection-tile" data-filter="rutwa" onclick="tileFilter('rutwa','2022 F/W — Rutwa Paris',this);return false" href="javascript:void(0)">
+    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/SAT65.jpg?v=1721307756&width=600" alt="Rutwa Paris 2022" onerror="this.style.display='none'">
+    <div class="collection-tile-overlay"></div>
+    <div class="collection-tile-label">
+      <div class="collection-tile-season">2022 F/W · Rutwa</div>
+      <div class="collection-tile-name">Rutwa<br>Paris Haute-Couture Week</div>
+    </div>
+  </a>
+
+  <a class="collection-tile" data-filter="breath" onclick="tileFilter('breath','2021 F/W — Breath Paris',this);return false" href="javascript:void(0)">
+    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/IMG_4201.jpg?v=1721305390&width=600" alt="Breath Paris 2021" onerror="this.style.display='none'">
+    <div class="collection-tile-overlay"></div>
+    <div class="collection-tile-label">
+      <div class="collection-tile-season">2021 F/W · Breath</div>
+      <div class="collection-tile-name">Breath<br>Paris Haute-Couture</div>
+    </div>
+  </a>
+
+</div>
+
+<!-- ACTIVE FILTER BAND -->
+<div class="active-filter-band" id="activeFilterBand">
+  <span class="active-filter-label" id="activeFilterLabel"></span>
+  <button class="active-filter-clear" onclick="clearTileFilter()">Clear ×</button>
 </div>
 
 <!-- TOOLBAR -->
-<div class="toolbar">
-  <div class="filter-pills">
-    <button class="filter-pill active" onclick="filterProducts('all',this)">All</button>
-    <button class="filter-pill" onclick="filterProducts('kintsugi',this)">Kintsugi — F/W 2025</button>
-    <button class="filter-pill" onclick="filterProducts('satori',this)">Satori — F/W 2024</button>
-    <button class="filter-pill" onclick="filterProducts('i-am-nature',this)">I Am Nature — S/S 2024</button>
-    <button class="filter-pill" onclick="filterProducts('abyss',this)">Abyss — S/S 2023</button>
-  </div>
+<div class="toolbar" id="productsSection">
   <div class="toolbar-right">
-    <span class="product-count" id="productCount">16 products</span>
+    <span class="product-count" id="productCount">24 products</span>
     <div class="sort-wrap">
-      <select class="sort-select" id="sortSelect" onchange="sortProducts(this.value)" aria-label="Sort products">
+      <select class="sort-select" id="sortSelect" onchange="renderGrid()" aria-label="Sort products">
         <option value="featured">Featured</option>
         <option value="best-selling">Best Selling</option>
         <option value="az">Alphabetically, A-Z</option>
@@ -537,6 +667,110 @@
       </div>
     </div>
 
+    <!-- ANAHATA BRIDAL 2026 -->
+    <div class="product-card" data-collection="anahata" data-name="Anahata Ivory Draped Veil Gown" data-price="485000" data-date="20260115" data-sales="8">
+      <div class="product-img-wrap">
+        <img class="product-img" src="https://www.vaishali-s.com/cdn/shop/files/SAT09.jpg?v=1721300228&width=800" alt="Anahata Ivory Draped Veil Gown" loading="lazy" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'">
+        <div class="product-badge">New</div>
+        <div class="product-quick">View Product</div>
+      </div>
+      <div class="product-info">
+        <p class="product-collection">Anahata — Bridal 2026</p>
+        <p class="product-name">Anahata Ivory Draped Veil Gown</p>
+        <p class="product-price"><span class="product-price-sym">Rs. </span>485,000.00</p>
+      </div>
+    </div>
+
+    <div class="product-card" data-collection="anahata" data-name="Crystal Bridal Cape Ensemble" data-price="342000" data-date="20260115" data-sales="5">
+      <div class="product-img-wrap">
+        <img class="product-img" src="https://www.vaishali-s.com/cdn/shop/files/SAT23.jpg?v=1721305009&width=800" alt="Crystal Bridal Cape Ensemble" loading="lazy" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'">
+        <div class="product-badge">New</div>
+        <div class="product-quick">View Product</div>
+      </div>
+      <div class="product-info">
+        <p class="product-collection">Anahata — Bridal 2026</p>
+        <p class="product-name">Crystal Bridal Cape Ensemble</p>
+        <p class="product-price"><span class="product-price-sym">Rs. </span>342,000.00</p>
+      </div>
+    </div>
+
+    <!-- KINTSUGI PRET F/W 2025 -->
+    <div class="product-card" data-collection="kintsugi-pret" data-name="Kintsugi Pret Draped Jacket" data-price="115000" data-date="20251201" data-sales="14">
+      <div class="product-img-wrap">
+        <img class="product-img" src="https://www.vaishali-s.com/cdn/shop/files/IMG_7953_1.jpg?v=1742817036&width=800" alt="Kintsugi Pret Draped Jacket" loading="lazy" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'">
+        <div class="product-badge">New</div>
+        <div class="product-quick">View Product</div>
+      </div>
+      <div class="product-info">
+        <p class="product-collection">Kintsugi Prêt — F/W 2025</p>
+        <p class="product-name">Kintsugi Pret Draped Jacket</p>
+        <p class="product-price"><span class="product-price-sym">Rs. </span>115,000.00</p>
+      </div>
+    </div>
+
+    <div class="product-card" data-collection="kintsugi-pret" data-name="Gold Seam Pleated Trouser Set" data-price="78000" data-date="20251201" data-sales="22">
+      <div class="product-img-wrap">
+        <img class="product-img" src="https://www.vaishali-s.com/cdn/shop/files/DSC_4066_1.jpg?v=1730959242&width=800" alt="Gold Seam Pleated Trouser Set" loading="lazy" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'">
+        <div class="product-badge">New</div>
+        <div class="product-quick">View Product</div>
+      </div>
+      <div class="product-info">
+        <p class="product-collection">Kintsugi Prêt — F/W 2025</p>
+        <p class="product-name">Gold Seam Pleated Trouser Set</p>
+        <p class="product-price"><span class="product-price-sym">Rs. </span>78,000.00</p>
+      </div>
+    </div>
+
+    <!-- NAAD BRIDAL 2025 -->
+    <div class="product-card" data-collection="naad-bridal" data-name="Naad Crimson Bridal Lehenga" data-price="545000" data-date="20250801" data-sales="6">
+      <div class="product-img-wrap">
+        <img class="product-img" src="https://www.vaishali-s.com/cdn/shop/files/SAT65.jpg?v=1721307756&width=800" alt="Naad Crimson Bridal Lehenga" loading="lazy" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'">
+        <div class="product-quick">View Product</div>
+      </div>
+      <div class="product-info">
+        <p class="product-collection">Naad — Bridal 2025</p>
+        <p class="product-name">Naad Crimson Bridal Lehenga</p>
+        <p class="product-price"><span class="product-price-sym">Rs. </span>545,000.00</p>
+      </div>
+    </div>
+
+    <div class="product-card" data-collection="naad-bridal" data-name="Naad Floral Embroidered Sari" data-price="298000" data-date="20250801" data-sales="11">
+      <div class="product-img-wrap">
+        <img class="product-img" src="https://www.vaishali-s.com/cdn/shop/files/VS_L2_i2copy2.jpg?v=1753797090&width=800" alt="Naad Floral Embroidered Sari" loading="lazy" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'">
+        <div class="product-quick">View Product</div>
+      </div>
+      <div class="product-info">
+        <p class="product-collection">Naad — Bridal 2025</p>
+        <p class="product-name">Naad Floral Embroidered Sari</p>
+        <p class="product-price"><span class="product-price-sym">Rs. </span>298,000.00</p>
+      </div>
+    </div>
+
+    <!-- ANCESTRAL THREADS S/S 2023 -->
+    <div class="product-card" data-collection="ancestral-threads" data-name="Ancestral Blue Fan Silk Dress" data-price="212000" data-date="20230801" data-sales="29">
+      <div class="product-img-wrap">
+        <img class="product-img" src="https://www.vaishali-s.com/cdn/shop/files/SAT23.jpg?v=1721305009&width=800" alt="Ancestral Blue Fan Silk Dress" loading="lazy" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'">
+        <div class="product-quick">View Product</div>
+      </div>
+      <div class="product-info">
+        <p class="product-collection">Ancestral Threads — S/S 2023</p>
+        <p class="product-name">Ancestral Blue Fan Silk Dress</p>
+        <p class="product-price"><span class="product-price-sym">Rs. </span>212,000.00</p>
+      </div>
+    </div>
+
+    <div class="product-card" data-collection="ancestral-threads" data-name="Milan Structured Cape" data-price="168000" data-date="20230801" data-sales="21">
+      <div class="product-img-wrap">
+        <img class="product-img" src="https://www.vaishali-s.com/cdn/shop/files/IMG_8543.jpg?v=1724929953&width=800" alt="Milan Structured Cape" loading="lazy" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'">
+        <div class="product-quick">View Product</div>
+      </div>
+      <div class="product-info">
+        <p class="product-collection">Ancestral Threads — S/S 2023</p>
+        <p class="product-name">Milan Structured Cape</p>
+        <p class="product-price"><span class="product-price-sym">Rs. </span>168,000.00</p>
+      </div>
+    </div>
+
   </div>
 
   <div class="empty-state" id="emptyState">
@@ -657,14 +891,23 @@
   /* ── FILTER & SORT ────────────────────────────────── */
   let activeFilter='all';
 
-  function filterProducts(collection, btn){
+  function tileFilter(collection, label, tile){
     activeFilter=collection;
-    document.querySelectorAll('.filter-pill').forEach(p=>p.classList.remove('active'));
-    btn.classList.add('active');
+    /* highlight tile */
+    document.querySelectorAll('.collection-tile').forEach(t=>t.classList.remove('active-coll'));
+    tile.classList.add('active-coll');
+    /* show active band */
+    document.getElementById('activeFilterLabel').textContent=label;
+    document.getElementById('activeFilterBand').classList.add('visible');
+    /* scroll to products */
+    document.getElementById('productsSection').scrollIntoView({behavior:'smooth',block:'start'});
     renderGrid();
   }
 
-  function sortProducts(val){
+  function clearTileFilter(){
+    activeFilter='all';
+    document.querySelectorAll('.collection-tile').forEach(t=>t.classList.remove('active-coll'));
+    document.getElementById('activeFilterBand').classList.remove('visible');
     renderGrid();
   }
 
@@ -673,13 +916,11 @@
     const cards=Array.from(grid.querySelectorAll('.product-card'));
     const sort=document.getElementById('sortSelect').value;
 
-    /* filter */
     let visible=cards.filter(c=>{
       if(activeFilter==='all')return true;
       return c.dataset.collection===activeFilter;
     });
 
-    /* sort */
     visible.sort((a,b)=>{
       switch(sort){
         case 'az': return a.dataset.name.localeCompare(b.dataset.name);
@@ -689,24 +930,25 @@
         case 'date-old': return parseInt(a.dataset.date)-parseInt(b.dataset.date);
         case 'date-new': return parseInt(b.dataset.date)-parseInt(a.dataset.date);
         case 'best-selling': return parseInt(b.dataset.sales)-parseInt(a.dataset.sales);
-        default: return 0; /* featured — keep original order */
+        default: return 0;
       }
     });
 
-    /* hide all, then show visible in sorted order */
     cards.forEach(c=>{c.style.display='none';c.style.order=''});
     visible.forEach((c,i)=>{c.style.display='';c.style.order=i});
 
-    /* fix borders for last row */
     const cols=window.innerWidth>900?4:2;
     cards.forEach(c=>c.classList.remove('no-border-bottom'));
-    const lastRowStart=Math.floor((visible.length-1)/cols)*cols;
-    visible.slice(lastRowStart).forEach(c=>c.classList.add('no-border-bottom'));
+    if(visible.length>0){
+      const lastRowStart=Math.floor((visible.length-1)/cols)*cols;
+      visible.slice(lastRowStart).forEach(c=>c.classList.add('no-border-bottom'));
+    }
 
-    /* count */
     document.getElementById('productCount').textContent=visible.length+' product'+(visible.length===1?'':'s');
     document.getElementById('emptyState').classList.toggle('visible',visible.length===0);
   }
+
+  document.addEventListener('DOMContentLoaded', renderGrid);
 </script>
 </body>
 </html>
