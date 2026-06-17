@@ -2046,23 +2046,22 @@
   .cred-label{font-family:var(--sans);font-size:0.57rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:rgba(244,238,227,0.5);line-height:1.6}
 
   /* ── FOUNDER INTRO (home, directly after hero) ───────────── */
-  .founder-intro{background:var(--muted-black);color:var(--ivory);padding:128px 96px;display:grid;grid-template-columns:5fr 7fr;gap:90px;align-items:center;position:relative;overflow:hidden}
-  .founder-intro::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(184,151,90,0.55),transparent)}
+  .founder-intro{background:var(--ivory-sub);color:var(--charcoal);padding:128px 96px;display:grid;grid-template-columns:5fr 7fr;gap:90px;align-items:center;position:relative;overflow:hidden;border-top:0.5px solid var(--stone)}
   .fi-portrait{position:relative}
-  .fi-portrait-inner{position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;background:#1b1814}
-  .fi-portrait-inner img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;transition:transform 1.8s var(--ease-luxury);filter:saturate(0.96)}
+  .fi-portrait-inner{position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;background:var(--stone)}
+  .fi-portrait-inner img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;transition:transform 1.8s var(--ease-luxury)}
   .founder-intro:hover .fi-portrait-inner img{transform:scale(1.045)}
-  .fi-portrait-frame{position:absolute;inset:13px;border:0.5px solid rgba(184,151,90,0.42);pointer-events:none;z-index:2}
-  .fi-portrait-cap{margin-top:20px;font-family:var(--sans);font-size:0.54rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:rgba(244,238,227,0.4)}
+  .fi-portrait-frame{position:absolute;inset:13px;border:0.5px solid rgba(184,151,90,0.5);pointer-events:none;z-index:2}
+  .fi-portrait-cap{margin-top:20px;font-family:var(--sans);font-size:0.54rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:var(--grey)}
   .fi-eyebrow{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:26px}
-  .fi-name{font-family:var(--serif);font-size:clamp(2rem,3.6vw,3.2rem);font-weight:300;line-height:1.1;letter-spacing:0.01em;color:var(--ivory);margin-bottom:26px}
-  .fi-name em{font-style:italic;color:var(--gold)}
-  .fi-bio{font-family:var(--sans);font-size:0.84rem;font-weight:300;line-height:1.95;color:rgba(244,238,227,0.64);max-width:560px}
-  .fi-bio strong{color:var(--ivory);font-weight:400}
-  .fi-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:30px 36px;margin-top:48px;padding-top:38px;border-top:0.5px solid rgba(244,238,227,0.13)}
+  .fi-quote{font-family:var(--serif);font-size:clamp(1.7rem,2.9vw,2.7rem);font-weight:300;font-style:italic;line-height:1.32;letter-spacing:0.01em;color:var(--charcoal);margin-bottom:24px}
+  .fi-attribution{font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--charcoal);padding-top:22px;border-top:0.5px solid var(--stone);margin-bottom:24px}
+  .fi-bio{font-family:var(--sans);font-size:0.84rem;font-weight:300;line-height:1.95;color:var(--grey);max-width:560px}
+  .fi-bio strong{color:var(--charcoal);font-weight:400}
+  .fi-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:30px 36px;margin-top:48px;padding-top:38px;border-top:0.5px solid var(--stone)}
   .fi-stat-num{font-family:var(--serif);font-size:1.75rem;font-weight:300;font-style:italic;color:var(--gold);line-height:1;margin-bottom:9px}
-  .fi-stat-label{font-family:var(--sans);font-size:0.55rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:rgba(244,238,227,0.52);line-height:1.65}
-  .fi-link{display:inline-flex;align-items:center;gap:11px;margin-top:46px;font-family:var(--sans);font-size:0.64rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--ivory);text-decoration:none;border-bottom:0.5px solid var(--gold);padding-bottom:6px;transition:gap 0.35s var(--ease-luxury),color 0.3s}
+  .fi-stat-label{font-family:var(--sans);font-size:0.55rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;color:var(--grey);line-height:1.65}
+  .fi-link{display:inline-flex;align-items:center;gap:11px;margin-top:46px;font-family:var(--sans);font-size:0.64rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--charcoal);text-decoration:none;border-bottom:0.5px solid var(--gold);padding-bottom:6px;transition:gap 0.35s var(--ease-luxury),color 0.3s}
   .fi-link svg{width:16px;height:9px;stroke:currentColor;stroke-width:1.4;fill:none}
   .fi-link:hover{gap:19px;color:var(--gold)}
   @media(max-width:900px){
@@ -2410,14 +2409,16 @@
     <p class="fi-portrait-cap">Vaishali Shadangule · Mumbai</p>
   </div>
   <div class="fi-content reveal reveal-delay-1">
-    <p class="fi-eyebrow">The House of Vaishali S</p>
-    <h2 class="fi-name">Weaving India's loom into<br>the language of <em>haute couture.</em></h2>
+    <p class="fi-eyebrow">The Founder</p>
+    <blockquote class="fi-quote">"I design from observation,<br>not imagination."</blockquote>
+    <p class="fi-attribution">Vaishali Shadangule — Founder &amp; Creative Director</p>
     <p class="fi-bio">
-      Vaishali Shadangule builds couture not from a sketch, but from the loom — in
-      direct collaboration with India's rural weaving communities. Over eighteen years
-      she has carried the handwoven textile from village workshops to the world's most
-      rarefied runways, becoming the <strong>first Indian designer to present on the
-      Paris Haute Couture calendar</strong> and to open a permanent flagship in Paris.
+      For over eighteen years, Vaishali Shadangule has built couture not from a sketch, but
+      from the loom — in direct conversation with India's rural weaving communities in
+      Murshidabad, Maheshwar, and Chanderi. Her designs resist the pressure to invent;
+      instead they listen — to the land, the loom, and the women who wear them. In doing so
+      she became the <strong>first Indian designer to present on the Paris Haute Couture
+      calendar</strong> and to open a permanent flagship in Paris.
     </p>
     <div class="fi-stats">
       <div class="reveal-item">
@@ -2544,29 +2545,6 @@
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- FOUNDER STORY -->
-<section class="founder">
-  <div class="founder-img-wrap reveal">
-    <div class="founder-img-inner">
-      <img src="https://www.vaishali-s.com/cdn/shop/files/Vaishali-Sadangule-Naina.co-DSC_9819-Enhanced-NR.jpg?v=1721286945&width=1200"
-        alt="Vaishali Shadangule — Founder &amp; Creative Director" loading="lazy"
-        onerror="this.style.display='none'">
-    </div>
-  </div>
-  <div class="reveal reveal-delay-1">
-    <p class="founder-eyebrow">The Founder</p>
-    <blockquote class="founder-quote">
-      "I design from observation,<br>not imagination."
-    </blockquote>
-    <p class="founder-attribution">Vaishali Shadangule — Founder &amp; Creative Director</p>
-    <p class="founder-bio">
-      Vaishali Shadangule has spent over eighteen years at the intersection of Indian handloom tradition and the haute couture lexicon. Born from conversations with weavers in Murshidabad, Maheshwar, and Chanderi, her designs resist the pressure to invent. Instead, they listen — to the land, the loom, and the women who wear them.
-    </p>
-    <br>
-    <a href="philosophy.html" class="text-link">Our Philosophy</a>
   </div>
 </section>
 
