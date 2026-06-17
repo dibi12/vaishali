@@ -2036,6 +2036,74 @@
     0%{transform:translateY(0)}
     100%{transform:translateY(-100%)}
   }
+
+  /* ── CREDENTIALS BAR ──────────────────────────────────────── */
+  .credentials{background:var(--charcoal);padding:40px 96px}
+  .credentials-inner{display:flex;align-items:flex-start;justify-content:space-between}
+  .cred-item{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;flex:1;padding:0 20px;border-right:0.5px solid rgba(244,238,227,0.1)}
+  .cred-item:last-child{border-right:none}
+  .cred-num{font-family:var(--serif);font-size:1.8rem;font-weight:300;font-style:italic;color:var(--gold);line-height:1}
+  .cred-label{font-family:var(--sans);font-size:0.57rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:rgba(244,238,227,0.5);line-height:1.6}
+
+  /* ── FOUNDER STORY ────────────────────────────────────────── */
+  .founder{padding:140px 96px;display:grid;grid-template-columns:5fr 7fr;gap:80px;align-items:center;background:var(--ivory-sub);border-top:0.5px solid var(--stone)}
+  .founder-img-wrap{position:relative}
+  .founder-img-inner{width:100%;aspect-ratio:3/4;background:var(--stone);position:relative;overflow:hidden}
+  .founder-img-inner img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+  .founder-eyebrow{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:28px}
+  .founder-quote{font-family:var(--serif);font-size:clamp(1.7rem,2.8vw,2.6rem);font-weight:300;font-style:italic;line-height:1.4;color:var(--charcoal);margin-bottom:28px}
+  .founder-attribution{font-family:var(--sans);font-size:0.68rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--charcoal);padding-top:24px;border-top:0.5px solid var(--stone);margin-bottom:24px}
+  .founder-bio{font-family:var(--sans);font-size:0.88rem;font-weight:300;line-height:1.9;color:var(--grey)}
+
+  /* ── MADE-TO-ORDER ────────────────────────────────────────── */
+  .mto{background:var(--muted-black);padding:140px 0}
+  .mto-inner{padding:0 96px}
+  .mto-header{text-align:center;margin-bottom:80px}
+  .mto-eyebrow{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  .mto-title{font-family:var(--serif);font-size:clamp(2.2rem,4.5vw,3.8rem);font-weight:300;color:var(--ivory);line-height:1.15;margin-bottom:20px}
+  .mto-sub{font-family:var(--sans);font-size:0.88rem;font-weight:300;color:rgba(244,238,227,0.45);max-width:480px;margin:0 auto;line-height:1.8}
+  .mto-steps{display:grid;grid-template-columns:repeat(4,1fr);border-top:0.5px solid rgba(244,238,227,0.08);margin-bottom:64px}
+  .mto-step{padding:48px 36px;border-right:0.5px solid rgba(244,238,227,0.08)}
+  .mto-step:last-child{border-right:none}
+  .mto-step-num{font-family:var(--serif);font-size:0.85rem;font-weight:300;color:rgba(184,151,90,0.5);letter-spacing:0.1em;margin-bottom:20px;display:block}
+  .mto-step-title{font-family:var(--serif);font-size:1.4rem;font-weight:300;color:var(--ivory);margin-bottom:12px}
+  .mto-step-body{font-family:var(--sans);font-size:0.78rem;font-weight:300;line-height:1.85;color:rgba(244,238,227,0.4)}
+  .mto-cta-wrap{text-align:center}
+  .mto-cta-btn{display:inline-block;font-family:var(--sans);font-size:0.68rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--charcoal);background:var(--gold);text-decoration:none;padding:18px 52px;transition:background 0.3s}
+  .mto-cta-btn:hover{background:#c9a96a}
+
+  /* ── PRESS ────────────────────────────────────────────────── */
+  .press{padding:96px 0;background:var(--ivory);border-top:0.5px solid var(--stone)}
+  .press-inner{padding:0 96px}
+  .press-eyebrow{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.25em;text-transform:uppercase;color:var(--grey);text-align:center;margin-bottom:52px}
+  .press-logos{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:36px 60px;margin-bottom:64px}
+  .press-logo-name{font-family:var(--serif);font-size:1.2rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:var(--stone);transition:color 0.3s;cursor:default}
+  .press-logo-name:hover{color:var(--charcoal)}
+  .press-articles{display:grid;grid-template-columns:repeat(3,1fr);border-top:0.5px solid var(--stone)}
+  .press-article{padding:36px 40px;border-right:0.5px solid var(--stone)}
+  .press-article:last-child{border-right:none}
+  .press-article-pub{font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+  .press-article-title{font-family:var(--serif);font-size:1.15rem;font-weight:300;line-height:1.45;color:var(--charcoal);margin-bottom:12px}
+  .press-article-date{font-family:var(--sans);font-size:0.62rem;font-weight:300;letter-spacing:0.1em;color:var(--grey)}
+
+  /* ── WHATSAPP FLOAT ──────────────────────────────────────── */
+  .wa-float{position:fixed;bottom:32px;right:32px;width:50px;height:50px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,0.3);z-index:800;text-decoration:none;transition:transform 0.3s var(--ease-luxury),box-shadow 0.3s}
+  .wa-float:hover{transform:scale(1.1);box-shadow:0 8px 32px rgba(37,211,102,0.45)}
+  .wa-float svg{width:24px;height:24px;fill:#fff}
+
+  /* ── MOBILE STICKY CTA ───────────────────────────────────── */
+  .mobile-book-cta{display:none}
+  @media(max-width:768px){
+    .mobile-book-cta{display:flex;align-items:center;justify-content:center;position:fixed;bottom:0;left:0;right:0;height:52px;background:var(--charcoal);z-index:700}
+    .mobile-book-cta a{font-family:var(--sans);font-size:0.68rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--ivory);text-decoration:none}
+    .wa-float{bottom:68px}
+  }
+
+  /* ── NAV BOOK BTN ─────────────────────────────────────────── */
+  .nav-book-btn{display:inline-flex;align-items:center;font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:8px 18px;border:0.5px solid rgba(244,238,227,0.55);color:rgba(244,238,227,0.9);background:transparent;text-decoration:none;transition:all 0.3s;white-space:nowrap}
+  .nav-book-btn:hover{background:rgba(244,238,227,0.1)}
+  nav.scrolled .nav-book-btn{border-color:rgba(26,23,18,0.35);color:var(--charcoal)}
+  nav.scrolled .nav-book-btn:hover{background:var(--charcoal);color:var(--ivory);border-color:var(--charcoal)}
 </style>
 </head>
 <body>
@@ -2102,78 +2170,75 @@
   </div>
 
   <div class="menu-panel-body">
-    <!-- SHOP -->
-    <div class="menu-group" id="grp-shop">
-      <button class="menu-group-head" onclick="toggleGroup('grp-shop')">
-        Shop
+    <!-- NEW ARRIVALS -->
+    <div class="menu-group">
+      <a class="menu-flat" href="https://www.vaishali-s.com/collections/new-in-2026-white-bridal-anahata-bbfw-showcase">New Arrivals</a>
+    </div>
+
+    <!-- COLLECTIONS -->
+    <div class="menu-group" id="grp-collections">
+      <button class="menu-group-head" onclick="toggleGroup('grp-collections')">
+        Collections
         <svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1 L7 5 L3 9"/></svg>
       </button>
       <div class="menu-sub">
         <div class="menu-sub-inner">
-          <p class="menu-sub-title">By Collection</p>
-          <a href="https://www.vaishali-s.com/collections/new-in-2026-white-bridal-anahata-bbfw-showcase">New In 2026 White Bridal: Anahata — BBFW Showcase</a>
-          <a href="https://www.vaishali-s.com/collections/2025-f-w-festive-menswear-showcase">New In 2025 F/W: Festive Menswear Showcase</a>
-          <a href="https://www.vaishali-s.com/collections/kintsugi-f-w-25">2025 F/W Kintsugi: Prêt-à-porter Line</a>
-          <a href="https://www.vaishali-s.com/collections/2025-bridal-couture-showcase-naad">2025 Bridal: Naad Couture Showcase</a>
-          <a href="https://www.vaishali-s.com/collections/kintsugi-f-w-25">2025 F/W: Kintsugi — Paris Haute Couture Week</a>
-          <a href="https://www.vaishali-s.com/collections/jaipur-bridal-collection-2024">2024 Bridal: Padmá Couture Collection — Jaipur</a>
-          <a href="https://www.vaishali-s.com/collections/satori">2024 F/W: Satori — Paris Haute-Couture Week</a>
-          <a href="https://www.vaishali-s.com/collections/i-am-nature">2024 S/S: I Am Nature — Paris Haute Couture Week</a>
-          <a href="https://www.vaishali-s.com/collections/abyss">2023 S/S: Abyss — Paris Haute Couture Week</a>
-          <a href="https://www.vaishali-s.com/collections/ancestral-threads">2023 S/S: Ancestral Threads — Milan Ready To Wear</a>
-          <a href="https://www.vaishali-s.com/collections/rutwa">2022 F/W: Rutwa — Paris Haute-Couture Week</a>
-          <a href="https://www.vaishali-s.com/collections/breath">2021 F/W: Breath — Paris Haute-Couture Week</a>
-
-          <p class="menu-sub-title">By Type</p>
-          <a href="https://www.vaishali-s.com/collections/tops">Tops</a>
-          <a href="https://www.vaishali-s.com/collections/blouse">Blouse</a>
-          <a href="https://www.vaishali-s.com/collections/bottoms">Bottoms</a>
+          <p class="menu-sub-title">Couture</p>
+          <a href="https://www.vaishali-s.com/collections/kintsugi-f-w-25">Kintsugi — F/W 2025</a>
+          <a href="https://www.vaishali-s.com/collections/satori">Satori — F/W 2024</a>
+          <a href="https://www.vaishali-s.com/collections/i-am-nature">I Am Nature — S/S 2024</a>
+          <a href="https://www.vaishali-s.com/collections/all-couture">All Couture</a>
+          <p class="menu-sub-title">Bridal</p>
+          <a href="https://www.vaishali-s.com/collections/2025-bridal-couture-showcase-naad">Naad — Bridal 2025</a>
+          <a href="https://www.vaishali-s.com/collections/jaipur-bridal-collection-2024">Padmá — Bridal 2024</a>
+          <a href="https://www.vaishali-s.com/collections/ivory-bride">Ivory Bride</a>
+          <p class="menu-sub-title">Ready-to-Wear</p>
           <a href="https://www.vaishali-s.com/collections/dresses">Dresses</a>
           <a href="https://www.vaishali-s.com/collections/jackets-capes">Jackets &amp; Capes</a>
+          <a href="https://www.vaishali-s.com/collections/tops">Tops</a>
           <a href="https://www.vaishali-s.com/collections/sarees">Sarees</a>
-          <a href="https://www.vaishali-s.com/collections/sets">Sets</a>
           <a href="https://www.vaishali-s.com/collections/all">All Clothing</a>
-          <a href="https://www.vaishali-s.com/collections/all-couture">All Couture</a>
-
-          <p class="menu-sub-title">Accessories</p>
-          <a href="https://www.vaishali-s.com/collections/accessories">All Accessories</a>
-          <a href="https://www.vaishali-s.com/collections/bags">Bags</a>
-          <a href="https://www.vaishali-s.com/collections/belts">Belts</a>
-          <a href="https://www.vaishali-s.com/collections/collars">Collars</a>
-
-          <p class="menu-sub-title">Featured</p>
-          <a href="https://www.vaishali-s.com/collections/all">Celebrities in Vaishali S</a>
-          <a href="https://www.vaishali-s.com/collections/all">Signature Styles</a>
-          <a href="https://www.vaishali-s.com/collections/ivory-bride">Ivory Bride</a>
         </div>
       </div>
     </div>
 
-    <!-- HOME DECOR -->
+    <!-- READY-TO-WEAR -->
     <div class="menu-group">
-      <a class="menu-flat" href="https://www.vaishali-s.com/collections/vaishali-s-art-deco">Home Decor</a>
+      <a class="menu-flat" href="https://www.vaishali-s.com/collections/all">Ready-to-Wear</a>
     </div>
 
-    <!-- ABOUT US -->
-    <div class="menu-group" id="grp-about">
-      <button class="menu-group-head" onclick="toggleGroup('grp-about')">
-        About Us
+    <!-- COUTURE -->
+    <div class="menu-group">
+      <a class="menu-flat" href="https://www.vaishali-s.com/collections/all-couture">Couture</a>
+    </div>
+
+    <!-- MADE TO ORDER -->
+    <div class="menu-group">
+      <a class="menu-flat" href="made-to-order.html">Made To Order</a>
+    </div>
+
+    <!-- OUR CRAFT -->
+    <div class="menu-group">
+      <a class="menu-flat" href="our-craft.html">Our Craft</a>
+    </div>
+
+    <!-- JOURNAL -->
+    <div class="menu-group">
+      <a class="menu-flat" href="https://www.vaishali-s.com/blogs/news">Journal</a>
+    </div>
+
+    <!-- STORES -->
+    <div class="menu-group" id="grp-stores">
+      <button class="menu-group-head" onclick="toggleGroup('grp-stores')">
+        Stores
         <svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1 L7 5 L3 9"/></svg>
       </button>
       <div class="menu-sub">
         <div class="menu-sub-inner">
-          <a href="philosophy.html">Our Philosophy</a>
-          <a href="mumbai-store.html">Our Flagship Store: Mumbai</a>
-          <a href="paris-store.html">Our Flagship Store: Paris</a>
-          <a href="https://www.vaishali-s.com/pages/customer-service">Policy and Customer Service</a>
-          <a href="https://www.vaishali-s.com/pages/contact-us">Contact Us</a>
+          <a href="paris-store.html">Paris Flagship — 188 Blvd Saint-Germain</a>
+          <a href="mumbai-store.html">Mumbai Atelier — Kala Ghoda, Fort</a>
         </div>
       </div>
-    </div>
-
-    <!-- NEWS -->
-    <div class="menu-group">
-      <a class="menu-flat" href="https://www.vaishali-s.com/blogs/news">News</a>
     </div>
   </div>
 
@@ -2216,6 +2281,7 @@
   </div>
 
   <div class="nav-right">
+    <a class="nav-book-btn" href="mumbai-store.html#appointment">Book Appointment</a>
     <a class="nav-link" href="https://www.vaishali-s.com/blogs/news" style="text-decoration:none">News</a>
     <div class="currency-picker" id="currencyPicker">
       <button class="currency-btn" onclick="toggleCurrency(event)" aria-label="Select currency">
@@ -2300,6 +2366,32 @@
   </div>
 </section>
 
+
+<!-- CREDENTIALS BAR -->
+<div class="credentials">
+  <div class="credentials-inner">
+    <div class="cred-item">
+      <span class="cred-num">First</span>
+      <span class="cred-label">Indian Designer on the<br>Paris Couture Calendar</span>
+    </div>
+    <div class="cred-item">
+      <span class="cred-num">Paris</span>
+      <span class="cred-label">Flagship Boutique<br>Saint-Germain</span>
+    </div>
+    <div class="cred-item">
+      <span class="cred-num">Mumbai</span>
+      <span class="cred-label">Flagship Atelier<br>Kala Ghoda</span>
+    </div>
+    <div class="cred-item">
+      <span class="cred-num">18+</span>
+      <span class="cred-label">Years of Practice<br>&amp; Heritage</span>
+    </div>
+    <div class="cred-item">
+      <span class="cred-num">12+</span>
+      <span class="cred-label">Weaving Communities<br>in Partnership</span>
+    </div>
+  </div>
+</div>
 
 <!-- TIER 02: EDITORIAL IMAGE JOURNEY -->
 <div class="editorial-strip">
@@ -2397,6 +2489,29 @@
         </div>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- FOUNDER STORY -->
+<section class="founder">
+  <div class="founder-img-wrap reveal">
+    <div class="founder-img-inner">
+      <img src="https://www.vaishali-s.com/cdn/shop/files/Vaishali-Sadangule-Naina.co-DSC_9819-Enhanced-NR.jpg?v=1721286945&width=1200"
+        alt="Vaishali Shadangule — Founder &amp; Creative Director" loading="lazy"
+        onerror="this.style.display='none'">
+    </div>
+  </div>
+  <div class="reveal reveal-delay-1">
+    <p class="founder-eyebrow">The Founder</p>
+    <blockquote class="founder-quote">
+      "I design from observation,<br>not imagination."
+    </blockquote>
+    <p class="founder-attribution">Vaishali Shadangule — Founder &amp; Creative Director</p>
+    <p class="founder-bio">
+      Vaishali Shadangule has spent over eighteen years at the intersection of Indian handloom tradition and the haute couture lexicon. Born from conversations with weavers in Murshidabad, Maheshwar, and Chanderi, her designs resist the pressure to invent. Instead, they listen — to the land, the loom, and the women who wear them.
+    </p>
+    <br>
+    <a href="philosophy.html" class="text-link">Our Philosophy</a>
   </div>
 </section>
 
@@ -2736,6 +2851,42 @@
   </div>
 </section>
 
+<!-- MADE-TO-ORDER -->
+<section class="mto">
+  <div class="mto-inner">
+    <div class="mto-header reveal">
+      <p class="mto-eyebrow">The Process</p>
+      <h2 class="mto-title">Made Once.<br><em>Made For You.</em></h2>
+      <p class="mto-sub">Each piece is conceived and crafted for a single wearer. No inventory. No compromise.</p>
+    </div>
+    <div class="mto-steps reveal">
+      <div class="mto-step">
+        <span class="mto-step-num">01</span>
+        <h3 class="mto-step-title">Consultation</h3>
+        <p class="mto-step-body">A private appointment — in Mumbai, Paris, or virtually — to understand your vision, occasion, and how you wish to be dressed.</p>
+      </div>
+      <div class="mto-step">
+        <span class="mto-step-num">02</span>
+        <h3 class="mto-step-title">Fabric Selection</h3>
+        <p class="mto-step-body">We present our textile archive — handwoven silks from Murshidabad, natural fibres and experimental weaves developed exclusively for the house.</p>
+      </div>
+      <div class="mto-step">
+        <span class="mto-step-num">03</span>
+        <h3 class="mto-step-title">Crafting</h3>
+        <p class="mto-step-body">The garment is built by our atelier team — draped, cut, and sewn to your measurements over several weeks of meticulous handwork.</p>
+      </div>
+      <div class="mto-step">
+        <span class="mto-step-num">04</span>
+        <h3 class="mto-step-title">Worldwide Delivery</h3>
+        <p class="mto-step-body">Your piece arrives secured and insured, accompanied by a textile provenance card and care instructions from the atelier.</p>
+      </div>
+    </div>
+    <div class="mto-cta-wrap reveal">
+      <a href="mumbai-store.html#appointment" class="mto-cta-btn">Book Consultation</a>
+    </div>
+  </div>
+</section>
+
 <!-- TIER 10: RUNWAY THEATER -->
 <div class="runway">
   <div class="runway-bg"></div>
@@ -2778,6 +2929,38 @@
   </div>
 </div>
 
+<!-- PRESS -->
+<section class="press">
+  <div class="press-inner reveal">
+    <p class="press-eyebrow">As Seen In</p>
+    <div class="press-logos">
+      <span class="press-logo-name">Vogue India</span>
+      <span class="press-logo-name">Harper's Bazaar</span>
+      <span class="press-logo-name">Femina</span>
+      <span class="press-logo-name">Elle India</span>
+      <span class="press-logo-name">Grazia</span>
+      <span class="press-logo-name">Cosmopolitan</span>
+    </div>
+    <div class="press-articles">
+      <div class="press-article">
+        <p class="press-article-pub">Grazia</p>
+        <h3 class="press-article-title">Vaishali Shadangule's Paris Diary</h3>
+        <p class="press-article-date">November 2024</p>
+      </div>
+      <div class="press-article">
+        <p class="press-article-pub">Femina</p>
+        <h3 class="press-article-title">Couture and Heritage — The August Issue</h3>
+        <p class="press-article-date">August 2024</p>
+      </div>
+      <div class="press-article">
+        <p class="press-article-pub">Harper's Bazaar</p>
+        <h3 class="press-article-title">India's Most Exciting Couture Export</h3>
+        <p class="press-article-date">January 2024</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- TIER 12: ENTER THE WORLD -->
 <section class="world">
   <div class="world-inner">
@@ -2797,6 +2980,16 @@
     </div>
   </div>
 </section>
+
+<!-- WHATSAPP FLOAT -->
+<a class="wa-float" href="https://wa.me/919321569218" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- MOBILE STICKY CTA -->
+<div class="mobile-book-cta">
+  <a href="mumbai-store.html#appointment">Book Appointment</a>
+</div>
 
 <!-- FOOTER -->
 <footer>

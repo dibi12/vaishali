@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Craft — VAISHALI S</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --ivory:#F4EEE3;--ivory-sub:#ECE3D4;--champagne:#E6DAC6;--stone:#DAD0BF;
+    --charcoal:#1A1712;--muted-black:#0B0907;--grey:#7C7261;
+    --gold:#B8975A;--gold-dim:rgba(184,151,90,0.6);--gold-trace:rgba(184,151,90,0.14);
+    --serif:"Cormorant Garamond",serif;--sans:"Inter",sans-serif;
+    --ease-luxury:cubic-bezier(0.25,1,0.5,1);
+  }
+  html{scroll-behavior:smooth;font-size:16px}
+  body{background:linear-gradient(180deg,var(--ivory) 0%,var(--ivory-sub) 100%);background-attachment:fixed;color:var(--charcoal);font-family:var(--sans);font-weight:300;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+
+  .scroll-progress{position:fixed;top:0;left:0;height:1.5px;background:linear-gradient(90deg,var(--gold),var(--gold-dim));z-index:9000;width:0%;transition:width 0.1s linear}
+  .page-curtain{position:fixed;inset:0;background:var(--muted-black);z-index:9999;pointer-events:none;animation:curtainLift 1s var(--ease-luxury) 0.05s both}
+  @keyframes curtainLift{0%{transform:translateY(0)}100%{transform:translateY(-100%)}}
+
+  /* MENU */
+  .menu-scrim{position:fixed;inset:0;background:rgba(11,9,7,0.45);z-index:299;opacity:0;pointer-events:none;transition:opacity 0.5s}
+  .menu-scrim.open{opacity:1;pointer-events:all}
+  aside.menu-panel{position:fixed;top:0;left:0;bottom:0;width:min(420px,88vw);background:var(--ivory);z-index:300;transform:translateX(-100%);transition:transform 0.65s var(--ease-luxury);display:flex;flex-direction:column}
+  aside.menu-panel.open{transform:translateX(0)}
+  .menu-panel-head{display:flex;align-items:center;justify-content:space-between;padding:28px 34px 24px;border-bottom:0.5px solid rgba(26,23,18,0.06)}
+  .menu-close{display:flex;align-items:center;gap:10px;background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--charcoal);opacity:0.6;transition:opacity 0.3s}
+  .menu-close:hover{opacity:1}
+  .menu-close svg{width:13px;height:13px;stroke:currentColor;stroke-width:1.4;fill:none}
+  .menu-panel-logo svg{height:18px;width:auto;overflow:visible}
+  .menu-panel-body{flex:1;overflow-y:auto;padding:18px 0 28px}
+  .menu-group{border-bottom:0.5px solid rgba(26,23,18,0.06)}
+  .menu-group-head{width:100%;display:flex;align-items:center;justify-content:space-between;padding:22px 34px;background:none;border:none;cursor:pointer;font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--charcoal);text-align:left;transition:color 0.3s,padding-left 0.4s var(--ease-luxury)}
+  .menu-group-head:hover{color:var(--gold);padding-left:40px}
+  .menu-group-head .chev{width:10px;height:10px;stroke:currentColor;stroke-width:1.2;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform 0.4s var(--ease-luxury);flex-shrink:0}
+  .menu-group-head.active .chev{transform:rotate(90deg)}
+  .menu-sub{max-height:0;overflow:hidden;transition:max-height 0.5s var(--ease-luxury)}
+  .menu-sub.open{max-height:800px}
+  .menu-sub-inner{padding:8px 34px 24px;display:flex;flex-direction:column;gap:2px}
+  .menu-sub-inner a{font-family:var(--sans);font-size:0.7rem;font-weight:400;letter-spacing:0.1em;color:var(--grey);text-decoration:none;padding:7px 0;border-bottom:0.5px solid rgba(26,23,18,0.04);transition:color 0.3s,padding-left 0.3s}
+  .menu-sub-inner a:hover{color:var(--charcoal);padding-left:6px}
+  .menu-sub-title{font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin:16px 0 8px}
+  .menu-flat{display:block;width:100%;padding:22px 34px;font-family:var(--serif);font-size:1.5rem;font-weight:300;color:var(--charcoal);text-decoration:none;border:none;background:none;text-align:left;cursor:pointer;transition:color 0.3s,padding-left 0.4s var(--ease-luxury)}
+  .menu-flat:hover{color:var(--gold);padding-left:40px}
+  .menu-panel-foot{padding:24px 34px;border-top:0.5px solid rgba(26,23,18,0.06)}
+  .menu-foot-link{display:block;font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--charcoal);text-decoration:none;padding:8px 0;opacity:0.6;transition:opacity 0.3s}
+  .menu-foot-link:hover{opacity:1}
+  .menu-foot-meta{display:flex;align-items:center;justify-content:space-between;margin-top:18px;padding-top:18px;border-top:0.5px solid rgba(26,23,18,0.06)}
+  .menu-foot-socials{display:flex;gap:18px}
+  .menu-foot-socials a{font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color 0.3s}
+  .menu-foot-socials a:hover{color:var(--gold)}
+  .menu-foot-currency{font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.16em;color:var(--charcoal)}
+
+  /* CURRENCY */
+  .currency-picker{position:relative}
+  .currency-btn{display:flex;align-items:center;gap:5px;background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:0.68rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:inherit;opacity:0.7;transition:opacity 0.3s;padding:4px 0}
+  .currency-btn:hover{opacity:1}
+  .currency-chevron{width:8px;height:5px;stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:transform 0.3s var(--ease-luxury)}
+  .currency-picker.open .currency-chevron{transform:rotate(180deg)}
+  .currency-dropdown{position:absolute;top:calc(100% + 14px);right:0;background:var(--ivory);border:0.5px solid var(--stone);min-width:88px;display:none;flex-direction:column;z-index:500;box-shadow:0 8px 40px rgba(0,0,0,0.08)}
+  .currency-picker.open .currency-dropdown{display:flex}
+  .currency-option{font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:11px 18px;cursor:pointer;color:var(--charcoal);transition:background 0.2s}
+  .currency-option:hover{background:var(--champagne)}
+  .currency-option.active{color:var(--gold)}
+
+  /* NAV */
+  nav#mainNav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:24px 64px;background:transparent;transition:padding 0.4s var(--ease-luxury),background 0.5s}
+  nav#mainNav.scrolled{background:rgba(253,251,247,0.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);padding:18px 64px;border-bottom:0.5px solid rgba(28,28,28,0.08)}
+  .nav-left,.nav-right{display:flex;align-items:center;gap:28px;color:var(--ivory);text-shadow:0 1px 8px rgba(0,0,0,0.55)}
+  .nav-center{position:absolute;left:50%;transform:translateX(-50%);color:var(--ivory);text-shadow:0 1px 8px rgba(0,0,0,0.55)}
+  nav#mainNav.scrolled .nav-left,nav#mainNav.scrolled .nav-right,nav#mainNav.scrolled .nav-center{color:var(--charcoal);text-shadow:none}
+  .nav-link{font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:inherit;text-decoration:none;opacity:0.82;transition:opacity 0.3s}
+  .nav-link:hover{opacity:1}
+  .nav-icon-btn{background:none;border:none;cursor:pointer;color:inherit;display:inline-flex;align-items:center;gap:8px;padding:0;font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;opacity:0.85;transition:opacity 0.3s}
+  .nav-icon-btn:hover{opacity:1}
+  .nav-icon-btn svg{width:17px;height:17px;stroke:currentColor;stroke-width:1.3;fill:none}
+  .nav-logo-svg{height:26px;width:auto;display:block;overflow:visible}
+  .logo-word{font-family:var(--serif);fill:currentColor;letter-spacing:0.25em}
+  .nav-book-btn{display:inline-flex;align-items:center;font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;padding:8px 18px;border:0.5px solid rgba(244,238,227,0.55);color:rgba(244,238,227,0.9);background:transparent;text-decoration:none;transition:all 0.3s;white-space:nowrap}
+  .nav-book-btn:hover{background:rgba(244,238,227,0.1)}
+  nav#mainNav.scrolled .nav-book-btn{border-color:rgba(26,23,18,0.35);color:var(--charcoal)}
+  nav#mainNav.scrolled .nav-book-btn:hover{background:var(--charcoal);color:var(--ivory);border-color:var(--charcoal)}
+
+  /* BREADCRUMB */
+  nav.breadcrumb{background:var(--ivory);border-bottom:0.5px solid var(--stone);padding:14px 64px;display:flex;align-items:center;gap:10px}
+  nav.breadcrumb a,.bc-sep,.bc-cur{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase}
+  nav.breadcrumb a{color:var(--grey);text-decoration:none;transition:color 0.3s}
+  nav.breadcrumb a:hover{color:var(--charcoal)}
+  .bc-sep{color:var(--stone)}
+  .bc-cur{color:var(--charcoal)}
+
+  /* REVEAL */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.95s var(--ease-luxury),transform 0.95s var(--ease-luxury)}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  .reveal-d1{transition-delay:0.1s}.reveal-d2{transition-delay:0.22s}.reveal-d3{transition-delay:0.35s}.reveal-d4{transition-delay:0.48s}
+
+  /* SECTION UTILITIES */
+  .eyebrow{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  .text-link{font-family:var(--sans);font-size:0.65rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--charcoal);text-decoration:none;border-bottom:0.5px solid var(--charcoal);padding-bottom:2px;transition:color 0.3s,border-color 0.3s}
+  .text-link:hover{color:var(--gold);border-color:var(--gold)}
+
+  /* HERO */
+  .craft-hero{position:relative;height:100vh;min-height:680px;overflow:hidden;background:var(--muted-black)}
+  .craft-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.65}
+  .craft-hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,9,7,0.5) 0%,rgba(11,9,7,0.1) 40%,rgba(11,9,7,0.0) 55%,rgba(11,9,7,0.8) 100%)}
+  .craft-hero-content{position:absolute;bottom:12%;left:10%;color:var(--ivory)}
+  .craft-hero-label{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.35em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  .craft-hero-title{font-family:var(--serif);font-size:clamp(3.5rem,8vw,7rem);font-weight:300;line-height:0.95;letter-spacing:-0.01em;color:var(--ivory);margin-bottom:28px}
+  .craft-hero-sub{font-family:var(--sans);font-size:0.72rem;font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:rgba(244,238,227,0.55)}
+  .craft-hero-side{position:absolute;top:50%;right:64px;transform:translateY(-50%) rotate(90deg);transform-origin:right center;font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:rgba(244,238,227,0.3)}
+
+  /* INTRO SPLIT */
+  .craft-intro{display:grid;grid-template-columns:5fr 7fr;gap:80px;align-items:center;padding:120px 96px;background:var(--ivory)}
+  .craft-intro-left h2{font-family:var(--serif);font-size:clamp(2.2rem,4vw,3.4rem);font-weight:300;line-height:1.15;letter-spacing:-0.01em;color:var(--charcoal);margin-bottom:32px}
+  .craft-intro-left p{font-family:var(--sans);font-size:0.78rem;font-weight:300;line-height:1.9;color:var(--grey);margin-bottom:20px}
+  .craft-stat-row{display:flex;gap:48px;margin-top:48px;padding-top:40px;border-top:0.5px solid var(--stone)}
+  .craft-stat{display:flex;flex-direction:column;gap:6px}
+  .craft-stat-num{font-family:var(--serif);font-size:2.2rem;font-weight:300;font-style:italic;color:var(--gold);line-height:1}
+  .craft-stat-label{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--grey)}
+  .craft-intro-right{position:relative}
+  .craft-intro-img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+  .craft-intro-caption{font-family:var(--sans);font-size:0.6rem;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--grey);margin-top:14px}
+
+  /* COMMUNITIES BAND */
+  .communities{background:var(--muted-black);padding:100px 0}
+  .communities-inner{padding:0 96px}
+  .communities-header{margin-bottom:72px}
+  .communities-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:300;color:var(--ivory);line-height:1.1;margin-bottom:20px}
+  .communities-body{font-family:var(--sans);font-size:0.78rem;font-weight:300;line-height:1.85;color:rgba(244,238,227,0.55);max-width:540px}
+  .communities-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:0.5px solid rgba(244,238,227,0.08)}
+  .community-card{padding:40px 32px;border-right:0.5px solid rgba(244,238,227,0.08);border-bottom:0.5px solid rgba(244,238,227,0.08)}
+  .community-card:nth-child(4n){border-right:none}
+  .community-card:nth-last-child(-n+4){border-bottom:none}
+  .community-region{font-family:var(--sans);font-size:0.55rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .community-name{font-family:var(--serif);font-size:1.15rem;font-weight:300;color:var(--ivory);margin-bottom:8px;line-height:1.2}
+  .community-craft{font-family:var(--sans);font-size:0.68rem;font-weight:300;color:rgba(244,238,227,0.45);letter-spacing:0.06em;line-height:1.6}
+
+  /* TEXTILE SPOTLIGHT */
+  .textiles{padding:120px 96px;background:var(--ivory-sub)}
+  .textiles-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:64px;padding-bottom:32px;border-bottom:0.5px solid var(--stone)}
+  .textiles-title{font-family:var(--serif);font-size:clamp(2rem,3.5vw,2.8rem);font-weight:300;color:var(--charcoal)}
+  .textiles-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
+  .textile-cell{position:relative;overflow:hidden;background:var(--champagne);aspect-ratio:4/3;cursor:default}
+  .textile-cell-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s var(--ease-luxury)}
+  .textile-cell:hover .textile-cell-img{transform:scale(1.04)}
+  .textile-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(11,9,7,0.82) 100%)}
+  .textile-info{position:absolute;bottom:0;left:0;right:0;padding:32px 36px}
+  .textile-region{font-family:var(--sans);font-size:0.55rem;font-weight:500;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  .textile-name{font-family:var(--serif);font-size:1.6rem;font-weight:300;color:var(--ivory);margin-bottom:8px}
+  .textile-desc{font-family:var(--sans);font-size:0.66rem;font-weight:300;color:rgba(244,238,227,0.65);line-height:1.6;letter-spacing:0.04em}
+
+  /* PROCESS */
+  .craft-process{background:var(--charcoal);padding:120px 0}
+  .process-inner{padding:0 96px}
+  .process-header{margin-bottom:80px}
+  .process-title{font-family:var(--serif);font-size:clamp(2rem,4vw,3.2rem);font-weight:300;color:var(--ivory);line-height:1.1;margin-bottom:16px}
+  .process-sub{font-family:var(--sans);font-size:0.72rem;font-weight:300;color:rgba(244,238,227,0.45);letter-spacing:0.1em}
+  .process-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:0.5px solid rgba(244,238,227,0.08)}
+  .process-step{padding:52px 40px;border-right:0.5px solid rgba(244,238,227,0.08);border-bottom:0.5px solid rgba(244,238,227,0.08)}
+  .process-step:nth-child(3n){border-right:none}
+  .process-step:nth-last-child(-n+3){border-bottom:none}
+  .process-num{font-family:var(--serif);font-size:3.5rem;font-weight:300;font-style:italic;color:rgba(184,151,90,0.18);line-height:1;margin-bottom:20px}
+  .process-step-title{font-family:var(--serif);font-size:1.2rem;font-weight:300;color:var(--ivory);margin-bottom:14px}
+  .process-step-body{font-family:var(--sans);font-size:0.7rem;font-weight:300;color:rgba(244,238,227,0.45);line-height:1.8;letter-spacing:0.04em}
+
+  /* QUOTE BAND */
+  .craft-quote{background:var(--ivory);padding:100px 96px;text-align:center;border-top:0.5px solid var(--stone);border-bottom:0.5px solid var(--stone)}
+  .craft-quote-mark{font-family:var(--serif);font-size:5rem;font-weight:300;color:var(--gold);opacity:0.3;line-height:0.6;display:block;margin-bottom:24px}
+  .craft-quote-text{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;font-style:italic;color:var(--charcoal);line-height:1.3;max-width:860px;margin:0 auto 32px}
+  .craft-quote-attr{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--grey)}
+
+  /* CTA */
+  .craft-cta{background:var(--muted-black);padding:100px 96px;display:flex;align-items:center;justify-content:space-between;gap:64px}
+  .craft-cta-left .eyebrow{color:var(--gold)}
+  .craft-cta-left h2{font-family:var(--serif);font-size:clamp(2rem,3.5vw,3rem);font-weight:300;color:var(--ivory);line-height:1.1;margin-bottom:0}
+  .cta-btn-pair{display:flex;gap:16px;flex-shrink:0}
+  .cta-btn-primary{display:inline-flex;align-items:center;padding:14px 32px;background:var(--gold);color:var(--muted-black);font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:background 0.3s}
+  .cta-btn-primary:hover{background:#c9a86a}
+  .cta-btn-ghost{display:inline-flex;align-items:center;padding:14px 32px;border:0.5px solid rgba(244,238,227,0.3);color:rgba(244,238,227,0.75);font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;text-decoration:none;transition:all 0.3s}
+  .cta-btn-ghost:hover{border-color:rgba(244,238,227,0.7);color:var(--ivory)}
+
+  /* WHATSAPP */
+  .wa-float{position:fixed;bottom:32px;right:32px;width:50px;height:50px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;z-index:600;box-shadow:0 4px 20px rgba(37,211,102,0.35);transition:transform 0.3s var(--ease-luxury),box-shadow 0.3s}
+  .wa-float:hover{transform:scale(1.08);box-shadow:0 6px 28px rgba(37,211,102,0.5)}
+  .wa-float svg{width:26px;height:26px;fill:white}
+  .mobile-book-cta{display:none}
+  @media(max-width:768px){
+    .mobile-book-cta{display:flex;align-items:center;justify-content:center;position:fixed;bottom:0;left:0;right:0;height:52px;background:var(--charcoal);z-index:700;font-family:var(--sans);font-size:0.65rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--ivory);text-decoration:none;border-top:0.5px solid rgba(244,238,227,0.1)}
+    .wa-float{bottom:72px}
+    nav#mainNav{padding:18px 20px}
+    nav#mainNav.scrolled{padding:14px 20px}
+    .craft-hero-content{left:24px}
+    .craft-intro,.textiles,.craft-process .process-inner,.communities-inner,.craft-quote,.craft-cta{padding-left:24px;padding-right:24px}
+    .craft-intro{grid-template-columns:1fr;gap:40px}
+    .communities-grid{grid-template-columns:repeat(2,1fr)}
+    .community-card:nth-child(2n){border-right:none}
+    .community-card:nth-child(4n){border-right:0.5px solid rgba(244,238,227,0.08)}
+    .textiles-grid{grid-template-columns:1fr}
+    .process-steps{grid-template-columns:1fr}
+    .process-step{border-right:none}
+    .craft-cta{flex-direction:column;align-items:flex-start;padding:64px 24px}
+    .cta-btn-pair{flex-direction:column}
+    nav.breadcrumb{padding:14px 24px}
+  }
+
+  /* FOOTER */
+  footer{background:var(--charcoal);color:var(--ivory);padding:80px 96px 40px}
+  .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:64px}
+  .footer-brand{font-family:var(--serif);font-size:1.4rem;font-weight:300;letter-spacing:0.04em;margin-bottom:16px}
+  .footer-tagline{font-family:var(--sans);font-size:0.68rem;font-weight:300;line-height:1.8;color:rgba(244,238,227,0.45);max-width:280px}
+  .footer-col-title{font-family:var(--sans);font-size:0.55rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+  .footer-links{list-style:none}
+  .footer-links li{margin-bottom:12px}
+  .footer-links a{font-family:var(--sans);font-size:0.68rem;font-weight:300;color:rgba(244,238,227,0.55);text-decoration:none;transition:color 0.3s}
+  .footer-links a:hover{color:var(--ivory)}
+  .footer-bottom{display:flex;align-items:center;justify-content:space-between;padding-top:32px;border-top:0.5px solid rgba(244,238,227,0.08)}
+  .footer-copy{font-family:var(--sans);font-size:0.6rem;font-weight:300;color:rgba(244,238,227,0.3);letter-spacing:0.06em}
+  .footer-socials{display:flex;gap:24px}
+  .footer-socials a{font-family:var(--sans);font-size:0.6rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:rgba(244,238,227,0.4);text-decoration:none;transition:color 0.3s}
+  .footer-socials a:hover{color:var(--ivory)}
+</style>
+</head>
+<body>
+
+<div id="scrollProgress" class="scroll-progress"></div>
+<div class="page-curtain" aria-hidden="true"></div>
+
+<!-- MENU SCRIM -->
+<div class="menu-scrim" id="menuScrim" onclick="toggleNav()"></div>
+
+<!-- MENU PANEL -->
+<aside class="menu-panel" id="menuPanel" aria-label="Site navigation">
+  <div class="menu-panel-head">
+    <button class="menu-close" onclick="toggleNav()">
+      <svg viewBox="0 0 13 13" aria-hidden="true"><path d="M1 1 L12 12 M12 1 L1 12"/></svg>
+      Close
+    </button>
+    <div class="menu-panel-logo">
+      <a href="vaishali-home-preview.html" aria-label="Vaishali S — Home" style="color:var(--charcoal)">
+        <svg viewBox="0 0 246 40" xmlns="http://www.w3.org/2000/svg">
+          <text class="logo-word" x="0" y="28" font-size="26">VAISHALI</text>
+          <g transform="translate(200,19) scale(0.9)" fill="#D8492E">
+            <path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(60)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(120)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(180)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(240)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(300)"/>
+          </g>
+          <text class="logo-word" x="218" y="28" font-size="26">S</text>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="menu-panel-body">
+    <div class="menu-group"><a class="menu-flat" href="https://www.vaishali-s.com/collections/new-in-2026-white-bridal-anahata-bbfw-showcase">New Arrivals</a></div>
+    <div class="menu-group" id="grp-collections">
+      <button class="menu-group-head" onclick="toggleGroup('grp-collections')">Collections<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1 L7 5 L3 9"/></svg></button>
+      <div class="menu-sub">
+        <div class="menu-sub-inner">
+          <p class="menu-sub-title">Couture</p>
+          <a href="https://www.vaishali-s.com/collections/kintsugi-f-w-25">Kintsugi — F/W 2025</a>
+          <a href="https://www.vaishali-s.com/collections/satori">Satori — F/W 2024</a>
+          <a href="https://www.vaishali-s.com/collections/i-am-nature">I Am Nature — S/S 2024</a>
+          <a href="https://www.vaishali-s.com/collections/all-couture">All Couture</a>
+          <p class="menu-sub-title">Bridal</p>
+          <a href="https://www.vaishali-s.com/collections/2025-bridal-couture-showcase-naad">Naad — Bridal 2025</a>
+          <a href="https://www.vaishali-s.com/collections/ivory-bride">Ivory Bride</a>
+          <p class="menu-sub-title">Ready-to-Wear</p>
+          <a href="https://www.vaishali-s.com/collections/dresses">Dresses</a>
+          <a href="https://www.vaishali-s.com/collections/tops">Tops</a>
+          <a href="https://www.vaishali-s.com/collections/all">All Clothing</a>
+        </div>
+      </div>
+    </div>
+    <div class="menu-group"><a class="menu-flat" href="https://www.vaishali-s.com/collections/all">Ready-to-Wear</a></div>
+    <div class="menu-group"><a class="menu-flat" href="https://www.vaishali-s.com/collections/all-couture">Couture</a></div>
+    <div class="menu-group"><a class="menu-flat" href="made-to-order.html">Made To Order</a></div>
+    <div class="menu-group"><a class="menu-flat" href="our-craft.html" style="color:var(--gold)">Our Craft</a></div>
+    <div class="menu-group"><a class="menu-flat" href="https://www.vaishali-s.com/blogs/news">Journal</a></div>
+    <div class="menu-group" id="grp-stores">
+      <button class="menu-group-head" onclick="toggleGroup('grp-stores')">Stores<svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M3 1 L7 5 L3 9"/></svg></button>
+      <div class="menu-sub">
+        <div class="menu-sub-inner">
+          <a href="paris-store.html">Paris Flagship — 188 Blvd Saint-Germain</a>
+          <a href="mumbai-store.html">Mumbai Atelier — Kala Ghoda, Fort</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="menu-panel-foot">
+    <a class="menu-foot-link" href="mumbai-store.html#appointment">Book Appointment</a>
+    <a class="menu-foot-link" href="paris-store.html">Find Your Closest Boutique</a>
+    <div class="menu-foot-meta">
+      <div class="menu-foot-socials">
+        <a href="https://www.instagram.com/vaishalisstudio" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.facebook.com/VaishaliShadangule29/" target="_blank" rel="noopener">Facebook</a>
+      </div>
+      <span class="menu-foot-currency" id="menuCurrency">INR ₹</span>
+    </div>
+  </div>
+</aside>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-left">
+    <button class="nav-icon-btn" onclick="toggleNav()" aria-label="Open menu">
+      <svg viewBox="0 0 18 18" aria-hidden="true"><path d="M1 4 H17 M1 9 H17 M1 14 H17"/></svg>
+      Menu
+    </button>
+  </div>
+  <div class="nav-center">
+    <a href="vaishali-home-preview.html" style="text-decoration:none;color:inherit" aria-label="Vaishali S — Home">
+      <svg class="nav-logo-svg" viewBox="0 0 246 40" xmlns="http://www.w3.org/2000/svg">
+        <text class="logo-word" x="0" y="28" font-size="26">VAISHALI</text>
+        <g transform="translate(200,19) scale(0.9)" fill="#D8492E">
+          <path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(60)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(120)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(180)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(240)"/><path d="M0,0 C-3.8,-3.5 -3.8,-12 0,-17.5 C3.8,-12 3.8,-3.5 0,0Z" transform="rotate(300)"/>
+        </g>
+        <text class="logo-word" x="218" y="28" font-size="26">S</text>
+      </svg>
+    </a>
+  </div>
+  <div class="nav-right">
+    <a class="nav-book-btn" href="mumbai-store.html#appointment">Book Appointment</a>
+    <div class="currency-picker" id="currencyPicker">
+      <button class="currency-btn" onclick="toggleCurrency(event)" aria-label="Select currency">
+        <span id="currencyCode">INR</span>
+        <svg class="currency-chevron" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1 L5 5 L9 1"/></svg>
+      </button>
+      <div class="currency-dropdown" id="currencyDropdown">
+        <div class="currency-option active" onclick="setCurrency('INR','₹')">INR</div>
+        <div class="currency-option" onclick="setCurrency('AED','د.إ')">AED</div>
+        <div class="currency-option" onclick="setCurrency('USD','$')">USD</div>
+        <div class="currency-option" onclick="setCurrency('GBP','£')">GBP</div>
+        <div class="currency-option" onclick="setCurrency('SAR','﷼')">SAR</div>
+        <div class="currency-option" onclick="setCurrency('EUR','€')">EUR</div>
+        <div class="currency-option" onclick="setCurrency('AUD','A$')">AUD</div>
+      </div>
+    </div>
+    <button class="nav-icon-btn" onclick="window.open('https://www.vaishali-s.com/account/login','_self')" aria-label="Account">
+      <svg viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="6" r="3.4"/><path d="M2.5 16 C2.5 12 5.5 10.5 9 10.5 C12.5 10.5 15.5 12 15.5 16"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="craft-hero">
+  <img class="craft-hero-img"
+    src="https://www.vaishali-s.com/cdn/shop/files/IMG_7953_1.jpg?v=1742817036&width=2400"
+    alt="Our Craft — Vaishali S Textile Heritage"
+    onerror="this.style.display='none'">
+  <div class="craft-hero-overlay"></div>
+  <div class="craft-hero-content">
+    <p class="craft-hero-label">18 Years · 12+ Communities · One Vision</p>
+    <h1 class="craft-hero-title">Our<br>Craft</h1>
+    <p class="craft-hero-sub">Handwoven Heritage · Indian Textile Traditions</p>
+  </div>
+  <span class="craft-hero-side">Textile Innovation · India</span>
+</section>
+
+<!-- BREADCRUMB -->
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <a href="vaishali-home-preview.html">Home</a>
+  <span class="bc-sep">—</span>
+  <span class="bc-cur">Our Craft</span>
+</nav>
+
+<!-- INTRO SPLIT -->
+<div class="craft-intro">
+  <div class="craft-intro-left reveal">
+    <p class="eyebrow">The Philosophy</p>
+    <h2>Cloth as a carrier of culture, history, and the human hand.</h2>
+    <p>For Vaishali Shadangule, craft is not embellishment — it is the foundation. Every collection begins not with a sketch, but with the loom. Over 18 years, she has travelled India's textile heartlands, building relationships with weavers and artisan communities whose knowledge stretches back generations.</p>
+    <p>The result is a body of work that positions Indian handwoven textiles not as heritage objects but as the material of contemporary couture — on equal footing with the finest European fabrics, and presented on the world's highest stage: the Paris Haute Couture calendar.</p>
+    <a href="paris-couture.html" class="text-link">See the Paris Collections</a>
+    <div class="craft-stat-row">
+      <div class="craft-stat">
+        <span class="craft-stat-num">18+</span>
+        <span class="craft-stat-label">Years of Craft</span>
+      </div>
+      <div class="craft-stat">
+        <span class="craft-stat-num">12+</span>
+        <span class="craft-stat-label">Weaving Communities</span>
+      </div>
+      <div class="craft-stat">
+        <span class="craft-stat-num">1st</span>
+        <span class="craft-stat-label">Indian on Paris Couture Calendar</span>
+      </div>
+    </div>
+  </div>
+  <div class="craft-intro-right reveal reveal-d2">
+    <img class="craft-intro-img"
+      src="https://www.vaishali-s.com/cdn/shop/files/DSC_4066_1.jpg?v=1730959242&width=1080"
+      alt="Vaishali S craft process"
+      onerror="this.style.background:var(--champagne)">
+    <p class="craft-intro-caption">Artisan weaving at one of our partner communities — Murshidabad, West Bengal</p>
+  </div>
+</div>
+
+<!-- COMMUNITIES -->
+<div class="communities">
+  <div class="communities-inner">
+    <div class="communities-header reveal">
+      <p class="eyebrow" style="color:var(--gold)">The Communities</p>
+      <h2 class="communities-title">12+ Weaving Communities<br>Across India</h2>
+      <p class="communities-body">Each collection is built around a specific textile region. Vaishali works directly with master weavers, bypassing intermediaries to ensure fair compensation, creative collaboration, and the preservation of techniques at risk of being lost.</p>
+    </div>
+    <div class="communities-grid">
+      <div class="community-card reveal">
+        <p class="community-region">West Bengal</p>
+        <p class="community-name">Murshidabad Silk</p>
+        <p class="community-craft">Fine mulberry silk handwoven on traditional pit looms. Known for its luminous drape and extraordinary lightness — the defining textile of the Kintsugi collection.</p>
+      </div>
+      <div class="community-card reveal reveal-d1">
+        <p class="community-region">Uttar Pradesh</p>
+        <p class="community-name">Varanasi Zari</p>
+        <p class="community-craft">Gold and silver brocade weavers whose craft traces to Mughal court traditions. Each metre of zari fabric can take a master weaver up to three weeks to complete.</p>
+      </div>
+      <div class="community-card reveal reveal-d2">
+        <p class="community-region">Madhya Pradesh</p>
+        <p class="community-name">Maheshwar Cotton</p>
+        <p class="community-craft">Handwoven cotton and silk blends from the Narmada riverbanks. Distinguished by their reversible weave, subtle border patterns, and natural dye heritage.</p>
+      </div>
+      <div class="community-card reveal reveal-d3">
+        <p class="community-region">Madhya Pradesh</p>
+        <p class="community-name">Chanderi Natural Fibre</p>
+        <p class="community-craft">Ultra-sheer handwoven fabric blending silk and cotton, originally commissioned for Mughal royalty. Its translucency and gossamer weight make it ideal for layered couture silhouettes.</p>
+      </div>
+      <div class="community-card reveal">
+        <p class="community-region">Andhra Pradesh</p>
+        <p class="community-name">Pochampally Ikat</p>
+        <p class="community-craft">Resist-dyed warp-and-weft ikat with geometric precision. The dyeing and weaving process is inseparable — pattern emerges only when the threads align perfectly on the loom.</p>
+      </div>
+      <div class="community-card reveal reveal-d1">
+        <p class="community-region">Rajasthan</p>
+        <p class="community-name">Kota Doria</p>
+        <p class="community-craft">Exceptionally fine cotton-silk check weave from Kota district. The square check (khat) motif is woven with such precision it requires years of training to master.</p>
+      </div>
+      <div class="community-card reveal reveal-d2">
+        <p class="community-region">Odisha</p>
+        <p class="community-name">Sambalpuri Ikat</p>
+        <p class="community-craft">Tribal textile tradition using vegetable dyes and bandha (tie-dye) resist technique. Patterns carry cosmological symbolism — lotus, conch shell, temple spire — woven into the cloth itself.</p>
+      </div>
+      <div class="community-card reveal reveal-d3">
+        <p class="community-region">Tamil Nadu</p>
+        <p class="community-name">Kanchipuram Silk</p>
+        <p class="community-craft">Heavy mulberry silk with zari borders, woven on a three-shuttle loom. The body, border, and pallu (end panel) are woven separately then joined — a technique unique to Kanchipuram.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TEXTILE SPOTLIGHT -->
+<div class="textiles">
+  <div class="textiles-header reveal">
+    <h2 class="textiles-title">Signature Textiles</h2>
+    <a href="https://www.vaishali-s.com/collections/all" class="text-link">Shop by Fabric</a>
+  </div>
+  <div class="textiles-grid">
+    <div class="textile-cell reveal">
+      <img class="textile-cell-img"
+        src="https://www.vaishali-s.com/cdn/shop/files/SAT09.jpg?v=1721300228&width=1432"
+        alt="Murshidabad Silk"
+        loading="lazy"
+        onerror="this.style.display='none'">
+      <div class="textile-overlay"></div>
+      <div class="textile-info">
+        <p class="textile-region">West Bengal</p>
+        <p class="textile-name">Murshidabad Silk</p>
+        <p class="textile-desc">Handwoven on pit looms by master weavers. The luminous drape and near-weightlessness define the Kintsugi collection's floating silhouettes.</p>
+      </div>
+    </div>
+    <div class="textile-cell reveal reveal-d1">
+      <img class="textile-cell-img"
+        src="https://www.vaishali-s.com/cdn/shop/files/SAT65.jpg?v=1721307756&width=1432"
+        alt="Gold Zari Weave"
+        loading="lazy"
+        onerror="this.style.display='none'">
+      <div class="textile-overlay"></div>
+      <div class="textile-info">
+        <p class="textile-region">Varanasi, Uttar Pradesh</p>
+        <p class="textile-name">Gold Zari Weave</p>
+        <p class="textile-desc">Real gold thread woven into silk on Banarasi handlooms. A single metre can require three weeks of continuous work by a master weaver.</p>
+      </div>
+    </div>
+    <div class="textile-cell reveal reveal-d2">
+      <img class="textile-cell-img"
+        src="https://www.vaishali-s.com/cdn/shop/files/IMG_8543.jpg?v=1724929953&width=1432"
+        alt="Maheshwar Cotton"
+        loading="lazy"
+        onerror="this.style.display='none'">
+      <div class="textile-overlay"></div>
+      <div class="textile-info">
+        <p class="textile-region">Madhya Pradesh</p>
+        <p class="textile-name">Maheshwar Cotton</p>
+        <p class="textile-desc">Reversible handwoven cotton from the Narmada riverbank town of Maheshwar. Naturally dyed, breathable, and uniquely Indian in its structured drape.</p>
+      </div>
+    </div>
+    <div class="textile-cell reveal reveal-d3">
+      <img class="textile-cell-img"
+        src="https://www.vaishali-s.com/cdn/shop/files/DSC_4066_1.jpg?v=1730959242&width=1432"
+        alt="Natural Fibre — Chanderi"
+        loading="lazy"
+        onerror="this.style.display='none'">
+      <div class="textile-overlay"></div>
+      <div class="textile-info">
+        <p class="textile-region">Chanderi, Madhya Pradesh</p>
+        <p class="textile-name">Natural Fibre — Chanderi</p>
+        <p class="textile-desc">Ultra-sheer gossamer cloth originally reserved for Mughal royalty. Its transparency and softness make it ideal for multi-layered couture construction.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<div class="craft-process">
+  <div class="process-inner">
+    <div class="process-header reveal">
+      <p class="eyebrow" style="color:var(--gold)">How We Work</p>
+      <h2 class="process-title">From loom to look.</h2>
+      <p class="process-sub">Each garment begins with the weaver, not the designer.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step reveal">
+        <p class="process-num">01</p>
+        <p class="process-step-title">Community Research</p>
+        <p class="process-step-body">Vaishali visits textile communities in person — studying local techniques, understanding the constraints of each loom, and listening to what the weavers want to create. No brief is issued before this phase.</p>
+      </div>
+      <div class="process-step reveal reveal-d1">
+        <p class="process-num">02</p>
+        <p class="process-step-title">Co-Creation</p>
+        <p class="process-step-body">Design emerges through dialogue. Weavers propose thread combinations, densities, and border motifs. Vaishali develops the silhouette around what the fabric wants to be — not what the sketch demands.</p>
+      </div>
+      <div class="process-step reveal reveal-d2">
+        <p class="process-num">03</p>
+        <p class="process-step-title">Handweaving</p>
+        <p class="process-step-body">Every metre is woven by hand. Production timelines are dictated by the weaver's pace and the complexity of the structure. We do not accelerate this process. Some fabrics take months to produce.</p>
+      </div>
+      <div class="process-step reveal reveal-d3">
+        <p class="process-num">04</p>
+        <p class="process-step-title">Atelier Construction</p>
+        <p class="process-step-body">Fabric arrives at our Mumbai atelier, where master tailors and embroiderers interpret Vaishali's construction sketches. Each garment is assembled by hand, with zero machine sewing on couture pieces.</p>
+      </div>
+      <div class="process-step reveal">
+        <p class="process-num">05</p>
+        <p class="process-step-title">Finishing & Quality</p>
+        <p class="process-step-body">Every finished garment is inspected against a 40-point quality checklist. Hand-finishing — edge-rolling, French seams, interior embroidery — is completed before a single garment leaves the atelier.</p>
+      </div>
+      <div class="process-step reveal reveal-d1">
+        <p class="process-num">06</p>
+        <p class="process-step-title">The World Stage</p>
+        <p class="process-step-body">Completed collections travel to Paris, where they are presented at Haute Couture Week — making Vaishali S the first Indian label on the official Paris couture calendar. The craft of India, on the global stage.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- QUOTE -->
+<div class="craft-quote">
+  <span class="craft-quote-mark">"</span>
+  <p class="craft-quote-text reveal">I design from observation, not imagination. The cloth teaches me what it wants to become.</p>
+  <p class="craft-quote-attr reveal reveal-d1">— Vaishali Shadangule, Founder &amp; Creative Director</p>
+</div>
+
+<!-- CTA -->
+<div class="craft-cta">
+  <div class="craft-cta-left reveal">
+    <p class="eyebrow">Experience the Craft</p>
+    <h2>Visit our ateliers in<br>Mumbai &amp; Paris.</h2>
+  </div>
+  <div class="cta-btn-pair reveal reveal-d2">
+    <a href="mumbai-store.html#appointment" class="cta-btn-primary">Book an Appointment</a>
+    <a href="made-to-order.html" class="cta-btn-ghost">Made to Order</a>
+  </div>
+</div>
+
+<!-- WHATSAPP -->
+<a class="wa-float" href="https://wa.me/919321569218" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- MOBILE STICKY CTA -->
+<a class="mobile-book-cta" href="mumbai-store.html#appointment">Book Appointment</a>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Vaishali S</div>
+      <p class="footer-tagline">A luxury fashion house rooted in handwoven couture, Indian craft heritage, and the global haute couture stage. Mumbai · Paris.</p>
+    </div>
+    <div>
+      <p class="footer-col-title">The House</p>
+      <ul class="footer-links">
+        <li><a href="philosophy.html">Our Philosophy</a></li>
+        <li><a href="our-craft.html">Our Craft</a></li>
+        <li><a href="made-to-order.html">Made to Order</a></li>
+        <li><a href="paris-couture.html">Paris Couture</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Stores</p>
+      <ul class="footer-links">
+        <li><a href="paris-store.html">Paris Flagship</a></li>
+        <li><a href="mumbai-store.html">Mumbai Atelier</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="footer-col-title">Contact</p>
+      <ul class="footer-links">
+        <li><a href="mailto:vaishaliscoutureparis@gmail.com">Paris Office</a></li>
+        <li><a href="mailto:vaishalis.sstudio1@gmail.com">Mumbai Atelier</a></li>
+        <li><a href="mumbai-store.html#appointment">Book Appointment</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 Vaishali S Couture. All rights reserved.</p>
+    <div class="footer-socials">
+      <a href="https://www.instagram.com/vaishalisstudio" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/VaishaliShadangule29/" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.youtube.com/channel/UCNEG_LqIyj1hyNL-gSMmGWw" target="_blank" rel="noopener">YouTube</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const menuPanel=document.getElementById('menuPanel');
+  const menuScrim=document.getElementById('menuScrim');
+  function toggleCurrency(e){e.stopPropagation();document.getElementById('currencyPicker').classList.toggle('open')}
+  function setCurrency(code,symbol){
+    document.getElementById('currencyCode').textContent=code;
+    const mfc=document.getElementById('menuCurrency');
+    if(mfc)mfc.textContent=code+' '+symbol;
+    document.querySelectorAll('.currency-option').forEach(el=>{el.classList.toggle('active',el.textContent.trim()===code)});
+    document.getElementById('currencyPicker').classList.remove('open');
+  }
+  document.addEventListener('click',function(){const p=document.getElementById('currencyPicker');if(p)p.classList.remove('open')});
+  function toggleNav(){
+    const open=!menuPanel.classList.contains('open');
+    menuPanel.classList.toggle('open',open);
+    menuScrim.classList.toggle('open',open);
+    document.body.style.overflow=open?'hidden':'';
+  }
+  function toggleGroup(id){
+    const grp=document.getElementById(id);
+    const sub=grp.querySelector('.menu-sub');
+    const head=grp.querySelector('.menu-group-head');
+    const isOpen=sub.classList.contains('open');
+    document.querySelectorAll('.menu-sub.open').forEach(s=>s.classList.remove('open'));
+    document.querySelectorAll('.menu-group-head.active').forEach(h=>h.classList.remove('active'));
+    if(!isOpen){sub.classList.add('open');head.classList.add('active')}
+  }
+  window.addEventListener('scroll',()=>{
+    const nav=document.getElementById('mainNav');
+    nav.classList.toggle('scrolled',window.scrollY>60);
+    const pct=window.scrollY/(document.body.scrollHeight-window.innerHeight)*100;
+    document.getElementById('scrollProgress').style.width=pct+'%';
+  },{passive:true});
+  const revealEls=document.querySelectorAll('.reveal');
+  const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:0.12});
+  revealEls.forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
