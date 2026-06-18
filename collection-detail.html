@@ -128,20 +128,27 @@
   .sort-chevron{position:absolute;right:4px;top:50%;transform:translateY(-50%);pointer-events:none;stroke:rgba(244,238,227,0.8);stroke-width:1.5;fill:none}
 
   /* PRODUCT GRID */
-  .coll-grid{padding:0 64px 80px;background:white}
-  .coll-products{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
-  .coll-card{cursor:pointer;padding-bottom:0;transition:background 0.3s;display:block;text-decoration:none;color:inherit}
-  .coll-card:hover{background:var(--ivory-sub)}
-  .coll-img-wrap{position:relative;overflow:hidden;background:var(--champagne);aspect-ratio:3/4}
-  .coll-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.3s var(--ease-luxury)}
-  .coll-card:hover .coll-img{transform:scale(1.06)}
-  .coll-quick{position:absolute;bottom:0;left:0;right:0;background:rgba(26,23,18,0.88);color:var(--ivory);font-family:var(--sans);font-size:0.56rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;text-align:center;padding:12px;opacity:0;transform:translateY(100%);transition:opacity 0.3s var(--ease-luxury),transform 0.3s var(--ease-luxury)}
+  .coll-grid{padding:54px 64px 96px;background:white}
+  .coll-products{display:grid;grid-template-columns:repeat(4,1fr);gap:44px 30px}
+  .coll-card{cursor:pointer;display:block;text-decoration:none;color:inherit;transition:transform 0.75s var(--ease-luxury);will-change:transform}
+  .coll-card:hover{transform:translateY(-10px)}
+  .coll-img-wrap{position:relative;overflow:hidden;background:var(--champagne);aspect-ratio:3/4;transition:box-shadow 0.75s var(--ease-luxury)}
+  .coll-card:hover .coll-img-wrap{box-shadow:0 36px 64px -32px rgba(26,23,18,0.45)}
+  .coll-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 2.1s var(--ease-luxury),opacity 1s var(--ease-luxury);backface-visibility:hidden}
+  .coll-img-2{opacity:0}
+  .coll-card:hover .coll-img{transform:scale(1.08)}
+  .coll-card.has-alt:hover .coll-img-1{opacity:0}
+  .coll-card.has-alt:hover .coll-img-2{opacity:1}
+  .coll-img-wrap::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to top,rgba(11,9,7,0.46) 0%,rgba(11,9,7,0.05) 44%,transparent 72%);opacity:0;transition:opacity 0.75s var(--ease-luxury)}
+  .coll-card:hover .coll-img-wrap::after{opacity:1}
+  .coll-quick{position:absolute;left:16px;right:16px;bottom:16px;z-index:3;background:rgba(244,238,227,0.96);color:var(--charcoal);font-family:var(--sans);font-size:0.55rem;font-weight:600;letter-spacing:0.28em;text-transform:uppercase;text-align:center;padding:14px;opacity:0;transform:translateY(18px);transition:opacity 0.55s var(--ease-luxury),transform 0.55s var(--ease-luxury),letter-spacing 0.55s var(--ease-luxury);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
   .coll-card:hover .coll-quick{opacity:1;transform:translateY(0)}
-  .coll-badge{position:absolute;top:14px;left:14px;background:var(--gold);color:white;font-family:var(--sans);font-size:0.5rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:4px 10px;z-index:1}
-  .coll-info{padding:20px 4px 28px}
-  .coll-name{font-family:var(--sans);font-size:0.68rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--charcoal);line-height:1.4;margin-bottom:8px}
-  .coll-price{font-family:var(--serif);font-size:1.05rem;font-weight:300;color:var(--charcoal)}
-  .coll-price-sym{font-family:var(--sans);font-size:0.65rem;font-weight:300;color:var(--grey)}
+  .coll-badge{position:absolute;top:14px;left:14px;z-index:3;background:var(--gold);color:white;font-family:var(--sans);font-size:0.5rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:4px 10px}
+  .coll-info{padding:22px 6px 2px;text-align:center}
+  .coll-name{font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--charcoal);line-height:1.45;margin-bottom:10px;transition:color 0.45s var(--ease-luxury)}
+  .coll-card:hover .coll-name{color:var(--gold)}
+  .coll-price{font-family:var(--serif);font-size:1.12rem;font-weight:400;color:var(--charcoal)}
+  .coll-price-sym{font-family:var(--sans);font-size:0.66rem;font-weight:300;color:var(--grey)}
 
   /* ENQUIRE (empty collections) */
   .coll-enquire{padding:80px 96px;background:white;text-align:center}
@@ -428,6 +435,7 @@
   </div>
 </footer>
 
+<script src="catalog.js"></script>
 <script>
 /* ── COLLECTION DATA ──────────────────────────────────────── */
 const collections = {
@@ -671,10 +679,13 @@ function renderProducts(){
     const { sym, fmt } = formatPrice(p.price);
     const badge = p.badge ? `<div class="coll-badge">${p.badge}</div>` : '';
     const slug = p.name.toLowerCase().replace(/[—–]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'');
+    const alt = (typeof CATALOG !== 'undefined' && CATALOG[slug] && CATALOG[slug].img2) ? CATALOG[slug].img2 : '';
+    const altImg = alt ? `<img class="coll-img coll-img-2" src="${alt}" alt="" onerror="this.style.display='none'">` : '';
     return `
-    <a class="coll-card" href="product.html?p=${slug}">
+    <a class="coll-card${alt ? ' has-alt' : ''}" href="product.html?p=${slug}">
       <div class="coll-img-wrap">
-        <img class="coll-img" src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'">
+        <img class="coll-img coll-img-1" src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'">
+        ${altImg}
         ${badge}
         <div class="coll-quick">View Product</div>
       </div>
