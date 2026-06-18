@@ -116,14 +116,20 @@
   .product-card{cursor:pointer;border-right:0.5px solid var(--stone);border-bottom:0.5px solid var(--stone);padding-bottom:32px}
   .product-card:nth-child(4n){border-right:none}
   .product-img-wrap{position:relative;overflow:hidden;background:var(--champagne);aspect-ratio:3/4;margin-bottom:0}
-  .product-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s var(--ease-luxury)}
-  .product-card:hover .product-img{transform:scale(1.05)}
-  .product-quick{position:absolute;bottom:0;left:0;right:0;background:var(--charcoal);color:var(--ivory);font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;text-align:center;padding:13px;opacity:0;transform:translateY(100%);transition:opacity 0.35s var(--ease-luxury),transform 0.35s var(--ease-luxury)}
+  .product-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 2.1s var(--ease-luxury),opacity 1s var(--ease-luxury);backface-visibility:hidden}
+  .product-img-2{opacity:0}
+  .product-card:hover .product-img{transform:scale(1.07)}
+  .product-card.has-alt:hover .product-img-1{opacity:0}
+  .product-card.has-alt:hover .product-img-2{opacity:1}
+  .product-img-wrap::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to top,rgba(11,9,7,0.46) 0%,rgba(11,9,7,0.05) 44%,transparent 72%);opacity:0;transition:opacity 0.75s var(--ease-luxury)}
+  .product-card:hover .product-img-wrap::after{opacity:1}
+  .product-quick{position:absolute;left:16px;right:16px;bottom:16px;z-index:3;background:rgba(244,238,227,0.96);color:var(--charcoal);font-family:var(--sans);font-size:0.55rem;font-weight:600;letter-spacing:0.26em;text-transform:uppercase;text-align:center;padding:14px;opacity:0;transform:translateY(18px);transition:opacity 0.55s var(--ease-luxury),transform 0.55s var(--ease-luxury);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
   .product-card:hover .product-quick{opacity:1;transform:translateY(0)}
-  .product-badge{position:absolute;top:14px;left:14px;background:var(--gold);color:white;font-family:var(--sans);font-size:0.52rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:4px 10px}
+  .product-badge{position:absolute;top:14px;left:14px;z-index:3;background:var(--gold);color:white;font-family:var(--sans);font-size:0.52rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:4px 10px}
   .product-info{padding:18px 18px 0}
   .product-collection{font-family:var(--sans);font-size:0.55rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
-  .product-name{font-family:var(--sans);font-size:0.72rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal);line-height:1.45;margin-bottom:8px}
+  .product-name{font-family:var(--sans);font-size:0.72rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal);line-height:1.45;margin-bottom:8px;transition:color 0.45s var(--ease-luxury)}
+  .product-card:hover .product-name{color:var(--gold)}
   .product-price{font-family:var(--serif);font-size:1rem;font-weight:300;color:var(--charcoal)}
   .product-price-sym{font-family:var(--sans);font-size:0.65rem;font-weight:300;color:var(--grey)}
 
@@ -959,14 +965,26 @@
   function wireProductCards(){
     document.querySelectorAll('#productGrid .product-card').forEach(card=>{
       card.style.cursor='pointer';
-      card.addEventListener('click',()=>{
-        window.location.href='product.html?p='+slugify(card.dataset.name);
-      });
+      const slug=slugify(card.dataset.name);
+      card.addEventListener('click',()=>{ window.location.href='product.html?p='+slug; });
+      /* premium crossfade: stack the secondary image from the catalog */
+      const c=(typeof CATALOG!=='undefined')?CATALOG[slug]:null;
+      const primary=card.querySelector('.product-img');
+      if(primary) primary.classList.add('product-img-1');
+      if(c && c.img2 && primary){
+        const img2=document.createElement('img');
+        img2.className='product-img product-img-2';
+        img2.src=c.img2; img2.alt='';
+        img2.onerror=function(){this.style.display='none'};
+        primary.after(img2);
+        card.classList.add('has-alt');
+      }
     });
   }
 
   document.addEventListener('DOMContentLoaded', ()=>{ renderGrid(); wireProductCards(); });
 </script>
+<script src="catalog.js"></script>
 <script src="cart.js"></script>
 </body>
 </html>
