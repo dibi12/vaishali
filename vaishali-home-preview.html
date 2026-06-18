@@ -258,6 +258,27 @@
   .reveal-delay-2{transition-delay:0.2s}
   .reveal-delay-3{transition-delay:0.35s}
 
+  /* ── CAMPAIGN FEATURE (replaces the strip) ───────────────── */
+  .campaign-feature{display:grid;grid-template-columns:1.15fr 1fr;min-height:78vh;background:var(--ivory)}
+  .cf-media{position:relative;overflow:hidden;background:var(--champagne)}
+  .cf-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 2.4s var(--ease-luxury)}
+  .campaign-feature:hover .cf-media img{transform:scale(1.05)}
+  .cf-media-tag{position:absolute;left:34px;bottom:34px;z-index:2;font-family:var(--sans);font-size:0.56rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:rgba(255,255,255,0.92);text-shadow:0 1px 14px rgba(0,0,0,0.5)}
+  .cf-text{display:flex;flex-direction:column;justify-content:center;padding:96px 96px}
+  .cf-eyebrow{font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.38em;text-transform:uppercase;color:var(--gold);margin-bottom:26px}
+  .cf-title{font-family:var(--serif);font-size:clamp(2.4rem,4.4vw,4rem);font-weight:300;line-height:1.05;letter-spacing:0.01em;color:var(--charcoal);margin-bottom:26px}
+  .cf-title em{font-style:italic;color:var(--gold)}
+  .cf-rule{width:52px;height:1px;background:var(--gold);opacity:0.8;margin-bottom:30px}
+  .cf-body{font-family:var(--sans);font-size:0.88rem;font-weight:300;line-height:1.95;color:#574f43;max-width:440px;margin-bottom:42px}
+  .cf-cta{display:inline-flex;align-items:center;gap:13px;align-self:flex-start;font-family:var(--sans);font-size:0.64rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--ivory);background:var(--charcoal);text-decoration:none;padding:16px 38px;transition:background 0.35s,gap 0.35s var(--ease-luxury)}
+  .cf-cta svg{width:16px;height:9px;stroke:currentColor;stroke-width:1.4;fill:none}
+  .cf-cta:hover{background:var(--muted-black);gap:20px}
+  @media(max-width:900px){
+    .campaign-feature{grid-template-columns:1fr}
+    .cf-media{min-height:58vh}
+    .cf-text{padding:56px 28px}
+  }
+
   /* ── EDITORIAL STRIP ─────────────────────────────────────── */
   .editorial-strip{
     padding:0;
@@ -2449,60 +2470,25 @@
   </div>
 </section>
 
-<!-- TIER 02: EDITORIAL IMAGE JOURNEY -->
-<div class="editorial-strip">
-<div class="editorial-header reveal">
-  <h2 class="editorial-header-title">The Campaign</h2>
-  <span class="editorial-header-meta">Kintsugi · F/W 2025 · Paris Haute Couture</span>
-</div>
-  <div class="strip-track" id="stripTrack">
-    <div class="strip-item">
-      <div class="img-stub" style="height:100%">
-        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
-          src="https://www.vaishali-s.com/cdn/shop/files/VS_L2_i2copy2.jpg?v=1753797090&width=1432"
-          alt="Kintsugi Campaign" loading="lazy"
-          onerror="this.style.display='none'">
-      </div>
-      <span class="strip-caption">Kintsugi — F/W 2025</span>
-    </div>
-    <div class="strip-item">
-      <div class="img-stub" style="height:100%">
-        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
-          src="https://www.vaishali-s.com/cdn/shop/files/SAT09.jpg?v=1721300228&width=1080"
-          alt="Satori Collection" loading="lazy"
-          onerror="this.style.display='none'">
-      </div>
-      <span class="strip-caption">Satori — F/W 2024</span>
-    </div>
-    <div class="strip-item">
-      <div class="img-stub" style="height:100%">
-        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
-          src="https://www.vaishali-s.com/cdn/shop/files/IMG_7953_1.jpg?v=1742817036&width=1080"
-          alt="Signature Craftsmanship" loading="lazy"
-          onerror="this.style.display='none'">
-      </div>
-      <span class="strip-caption">Craftsmanship Detail</span>
-    </div>
-    <div class="strip-item">
-      <div class="img-stub" style="height:100%">
-        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
-          src="https://www.vaishali-s.com/cdn/shop/files/SAT65.jpg?v=1721307756&width=1080"
-          alt="Rib Mini Gold" loading="lazy"
-          onerror="this.style.display='none'">
-      </div>
-      <span class="strip-caption">Runway Editorial</span>
-    </div>
-    <div class="strip-item">
-      <div class="img-stub" style="height:100%">
-        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
-          src="https://www.vaishali-s.com/cdn/shop/files/DSC_4066_1.jpg?v=1730959242&width=2400"
-          alt="Bridal Couture" loading="lazy"
-          onerror="this.style.display='none'">
-      </div>
-      <span class="strip-caption">Bridal Couture</span>
-    </div>
+<!-- TIER 02: CAMPAIGN FEATURE -->
+<section class="campaign-feature reveal">
+  <div class="cf-media">
+    <img src="https://www.vaishali-s.com/cdn/shop/files/VS_L2_i2copy2.jpg?v=1753797090&width=1600"
+      alt="Kintsugi — F/W 2025 Campaign"
+      onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'">
+    <span class="cf-media-tag">Paris Haute Couture Week</span>
   </div>
-</div>
+  <div class="cf-text">
+    <p class="cf-eyebrow">The F/W 2025 Campaign</p>
+    <h2 class="cf-title">Kintsugi —<br>beauty in the <em>break.</em></h2>
+    <div class="cf-rule"></div>
+    <p class="cf-body">Broken seashells, mended in gold. Handwoven silk-by-silk and Murshidabad silks shaped into draped, corded silhouettes — imperfection reimagined as renewal. The season's defining collection.</p>
+    <a class="cf-cta" href="collection-detail.html?c=kintsugi-pret">
+      Discover the Collection
+      <svg viewBox="0 0 16 9" aria-hidden="true"><path d="M1 4.5 H15 M11 1 L15 4.5 L11 8"/></svg>
+    </a>
+  </div>
+</section>
 
 <!-- TIER 03: THE HOUSE OF VAISHALI -->
 <section>
