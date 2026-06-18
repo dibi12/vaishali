@@ -113,19 +113,19 @@
   .coll-description p:last-child{margin-bottom:0}
   .coll-description em{font-family:var(--serif);font-style:italic;font-weight:400;font-size:1.06rem;color:var(--charcoal);letter-spacing:0.01em}
 
-  /* PRODUCT SECTION — toolbar (charcoal accent band) */
-  .coll-sort-bar{padding:20px 64px;background:var(--charcoal);display:flex;align-items:center;justify-content:space-between;position:sticky;top:73px;z-index:40}
+  /* PRODUCT SECTION — toolbar (understated, light) */
+  .coll-sort-bar{padding:24px 64px;background:rgba(255,255,255,0.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-top:0.5px solid var(--stone);border-bottom:0.5px solid var(--stone);display:flex;align-items:center;justify-content:space-between;position:sticky;top:73px;z-index:40}
   .coll-bar-left{display:flex;align-items:center;gap:28px}
-  .coll-count{font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:rgba(244,238,227,0.85)}
-  .coll-count b{color:var(--gold);font-weight:600}
-  .coll-size-guide{font-family:var(--sans);font-size:0.56rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:rgba(244,238,227,0.5);text-decoration:none;border-bottom:0.5px solid rgba(244,238,227,0.25);padding-bottom:3px;transition:color 0.3s,border-color 0.3s}
-  .coll-size-guide:hover{color:var(--ivory);border-color:var(--gold)}
+  .coll-count{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--grey)}
+  .coll-count b{color:var(--charcoal);font-weight:600}
+  .coll-size-guide{font-family:var(--sans);font-size:0.56rem;font-weight:400;letter-spacing:0.18em;text-transform:uppercase;color:var(--grey);text-decoration:none;border-bottom:0.5px solid var(--stone);padding-bottom:3px;transition:color 0.3s,border-color 0.3s}
+  .coll-size-guide:hover{color:var(--charcoal);border-color:var(--gold)}
   .sort-wrap{position:relative;display:flex;align-items:center}
-  .sort-label{font-family:var(--sans);font-size:0.55rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:rgba(244,238,227,0.5);margin-right:14px}
-  .sort-select{appearance:none;-webkit-appearance:none;background:transparent;border:none;border-bottom:0.5px solid rgba(244,238,227,0.45);padding:7px 26px 7px 2px;font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--ivory);cursor:pointer;outline:none;transition:border-color 0.2s}
+  .sort-label{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--grey);margin-right:14px}
+  .sort-select{appearance:none;-webkit-appearance:none;background:transparent;border:none;border-bottom:0.5px solid var(--charcoal);padding:7px 26px 7px 2px;font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--charcoal);cursor:pointer;outline:none;transition:border-color 0.2s}
   .sort-select:hover{border-color:var(--gold)}
-  .sort-select option{background:var(--charcoal);color:var(--ivory)}
-  .sort-chevron{position:absolute;right:4px;top:50%;transform:translateY(-50%);pointer-events:none;stroke:rgba(244,238,227,0.8);stroke-width:1.5;fill:none}
+  .sort-select option{background:#fff;color:var(--charcoal)}
+  .sort-chevron{position:absolute;right:4px;top:50%;transform:translateY(-50%);pointer-events:none;stroke:var(--charcoal);stroke-width:1.5;fill:none}
 
   /* PRODUCT GRID */
   .coll-grid{padding:54px 64px 96px;background:white}
