@@ -2048,7 +2048,7 @@
   /* ── FOUNDER INTRO (home, directly after hero) ───────────── */
   .founder-intro{background:var(--ivory-sub);color:var(--charcoal);padding:128px 96px;display:grid;grid-template-columns:5fr 7fr;gap:90px;align-items:center;position:relative;overflow:hidden;border-top:0.5px solid var(--stone)}
   .fi-portrait{position:relative}
-  .fi-portrait-inner{position:relative;width:100%;aspect-ratio:4/5;overflow:hidden;background:var(--stone)}
+  .fi-portrait-inner{position:relative;display:block;cursor:pointer;width:100%;aspect-ratio:4/5;overflow:hidden;background:var(--stone)}
   .fi-portrait-inner img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;transition:transform 1.8s var(--ease-luxury)}
   .founder-intro:hover .fi-portrait-inner img{transform:scale(1.045)}
   .fi-portrait-frame{position:absolute;inset:13px;border:0.5px solid rgba(184,151,90,0.5);pointer-events:none;z-index:2}
@@ -2399,14 +2399,14 @@
 <!-- FOUNDER INTRO -->
 <section class="founder-intro">
   <div class="fi-portrait reveal">
-    <div class="fi-portrait-inner">
+    <a class="fi-portrait-inner" href="about-vaishali.html" aria-label="Read about Vaishali Shadangule">
       <div class="fi-portrait-frame"></div>
       <img src="images/vaishali-founder.jpg"
         alt="Vaishali Shadangule — Founder &amp; Creative Director"
         loading="lazy"
         onerror="this.onerror=null;this.src='https://www.vaishali-s.com/cdn/shop/files/Vaishali-Sadangule-Naina.co-DSC_9819-Enhanced-NR.jpg?v=1721286945&width=1200'">
-    </div>
-    <p class="fi-portrait-cap">Vaishali Shadangule · Mumbai</p>
+    </a>
+    <a class="fi-portrait-cap" href="about-vaishali.html" style="text-decoration:none;display:inline-block">Vaishali Shadangule · Mumbai</a>
   </div>
   <div class="fi-content reveal reveal-delay-1">
     <p class="fi-eyebrow">The Founder</p>
@@ -2442,8 +2442,8 @@
         <div class="fi-stat-label">Weaving Communities<br>in Partnership</div>
       </div>
     </div>
-    <a href="philosophy.html" class="fi-link">
-      Discover Her Story
+    <a href="about-vaishali.html" class="fi-link">
+      More About Vaishali
       <svg viewBox="0 0 16 9" aria-hidden="true"><path d="M1 4.5 H15 M11 1 L15 4.5 L11 8"/></svg>
     </a>
   </div>
