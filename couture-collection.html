@@ -92,35 +92,45 @@
   .bc-cur{color:var(--charcoal)}
 
   /* PAGE HEADER */
-  .collection-header{padding:56px 64px 32px;border-bottom:0.5px solid var(--stone)}
-  .collection-title{font-family:var(--serif);font-size:clamp(2.4rem,5vw,4rem);font-weight:300;letter-spacing:-0.01em;color:var(--charcoal);margin-bottom:12px}
-  .collection-sub{font-family:var(--sans);font-size:0.7rem;font-weight:300;color:var(--grey);letter-spacing:0.1em}
+  .collection-header{padding:78px 64px 6px;text-align:center;background:#fff}
+  .collection-eyebrow{font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+  .collection-title{font-family:var(--serif);font-size:clamp(2.6rem,5vw,4.4rem);font-weight:300;letter-spacing:0.01em;color:var(--charcoal);margin-bottom:18px}
+  .collection-sub{font-family:var(--sans);font-size:0.7rem;font-weight:300;color:var(--grey);letter-spacing:0.13em;max-width:560px;margin:0 auto;line-height:1.7}
 
-  /* TOOLBAR */
-  .toolbar{height:64px;padding:0 64px;background:var(--charcoal);display:flex;align-items:center;justify-content:space-between;position:sticky;top:73px;z-index:50}
-  .tb-count{font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:rgba(244,238,227,0.82)}
-  .tb-count b{color:var(--gold);font-weight:600}
-  /* custom sort dropdown */
-  .vs-sort{position:relative;height:100%}
-  .vs-sort-btn{display:flex;align-items:center;gap:13px;height:100%;background:none;border:none;cursor:pointer;font-family:var(--sans)}
-  .vs-sort-btn .lbl{font-size:0.55rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:rgba(244,238,227,0.45)}
-  .vs-sort-btn .cur{font-size:0.64rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--ivory);min-width:118px;text-align:left}
-  .vs-sort-btn .chev{width:10px;height:6px;stroke:var(--gold);stroke-width:1.6;fill:none;transition:transform 0.4s var(--ease-luxury);flex-shrink:0}
+  /* COLLECTION TABS (text, luxury category nav) */
+  .collection-tabs-wrap{padding:46px 48px 0;display:flex;justify-content:center;background:#fff}
+  .collection-tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:2px 36px;max-width:1120px}
+  .coll-tab{position:relative;background:none;border:none;cursor:pointer;font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--grey);padding:10px 0;transition:color 0.3s;white-space:nowrap}
+  .coll-tab:hover{color:var(--charcoal)}
+  .coll-tab.active{color:var(--charcoal)}
+  .coll-tab::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1px;background:var(--charcoal);transform:scaleX(0);transition:transform 0.4s var(--ease-luxury)}
+  .coll-tab.active::after{transform:scaleX(1)}
+
+  /* TOOLBAR (understated, light, sticky) */
+  .toolbar{padding:24px 64px;display:flex;align-items:center;justify-content:space-between;border-top:0.5px solid var(--stone);border-bottom:0.5px solid var(--stone);position:sticky;top:73px;background:rgba(255,255,255,0.92);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);z-index:50}
+  .tb-count{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--grey)}
+  .tb-count b{color:var(--charcoal);font-weight:600}
+  .vs-sort{position:relative}
+  .vs-sort-btn{display:flex;align-items:center;gap:10px;background:none;border:none;cursor:pointer;font-family:var(--sans);padding:4px 0}
+  .vs-sort-btn .lbl{font-size:0.6rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--grey)}
+  .vs-sort-btn .cur{font-size:0.6rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--charcoal)}
+  .vs-sort-btn .chev{width:9px;height:6px;stroke:var(--charcoal);stroke-width:1.6;fill:none;transition:transform 0.4s var(--ease-luxury);flex-shrink:0}
   .vs-sort.open .vs-sort-btn .chev{transform:rotate(180deg)}
-  .vs-sort-menu{position:absolute;top:calc(100% - 2px);right:0;min-width:262px;background:var(--ivory);border:0.5px solid var(--stone);box-shadow:0 28px 64px -22px rgba(11,9,7,0.55);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity 0.4s var(--ease-luxury),transform 0.4s var(--ease-luxury),visibility 0.4s;z-index:60;padding:10px 0}
+  .vs-sort-menu{position:absolute;top:calc(100% + 16px);right:0;min-width:240px;background:var(--ivory);border:0.5px solid var(--stone);box-shadow:0 28px 64px -22px rgba(11,9,7,0.3);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity 0.4s var(--ease-luxury),transform 0.4s var(--ease-luxury),visibility 0.4s;z-index:60;padding:8px 0}
   .vs-sort.open .vs-sort-menu{opacity:1;visibility:visible;transform:translateY(0)}
-  .vs-sort-opt{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;background:none;border:none;cursor:pointer;text-align:left;padding:13px 24px;font-family:var(--sans);font-size:0.63rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:var(--grey);transition:color 0.25s,background 0.25s,padding-left 0.3s var(--ease-luxury)}
-  .vs-sort-opt:hover{color:var(--charcoal);background:var(--ivory-sub);padding-left:30px}
+  .vs-sort-opt{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;background:none;border:none;cursor:pointer;text-align:left;padding:12px 22px;font-family:var(--sans);font-size:0.62rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:var(--grey);transition:color 0.25s,background 0.25s}
+  .vs-sort-opt:hover{color:var(--charcoal);background:var(--ivory-sub)}
   .vs-sort-opt.active{color:var(--charcoal)}
   .vs-sort-opt::after{content:"";width:5px;height:5px;border-radius:50%;background:transparent;flex-shrink:0;transition:background 0.25s}
   .vs-sort-opt.active::after{background:var(--gold)}
 
   /* PRODUCT GRID */
-  .product-grid-wrap{padding:40px 64px 80px}
-  .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
-  .product-card{cursor:pointer;border-right:0.5px solid var(--stone);border-bottom:0.5px solid var(--stone);padding-bottom:32px}
-  .product-card:nth-child(4n){border-right:none}
-  .product-img-wrap{position:relative;overflow:hidden;background:var(--champagne);aspect-ratio:3/4;margin-bottom:0}
+  .product-grid-wrap{padding:64px 64px 104px;background:#fff}
+  .product-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:64px 36px}
+  .product-card{cursor:pointer;display:block;text-decoration:none;color:inherit;transition:transform 0.75s var(--ease-luxury);will-change:transform}
+  .product-card:hover{transform:translateY(-10px)}
+  .product-img-wrap{position:relative;overflow:hidden;background:var(--champagne);aspect-ratio:3/4;margin-bottom:0;transition:box-shadow 0.75s var(--ease-luxury)}
+  .product-card:hover .product-img-wrap{box-shadow:0 36px 64px -32px rgba(26,23,18,0.42)}
   .product-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 2.1s var(--ease-luxury),opacity 1s var(--ease-luxury);backface-visibility:hidden}
   .product-img-2{opacity:0}
   .product-card:hover .product-img{transform:scale(1.07)}
@@ -131,32 +141,15 @@
   .product-quick{position:absolute;left:16px;right:16px;bottom:16px;z-index:3;background:rgba(244,238,227,0.96);color:var(--charcoal);font-family:var(--sans);font-size:0.55rem;font-weight:600;letter-spacing:0.26em;text-transform:uppercase;text-align:center;padding:14px;opacity:0;transform:translateY(18px);transition:opacity 0.55s var(--ease-luxury),transform 0.55s var(--ease-luxury);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
   .product-card:hover .product-quick{opacity:1;transform:translateY(0)}
   .product-badge{position:absolute;top:14px;left:14px;z-index:3;background:var(--gold);color:white;font-family:var(--sans);font-size:0.52rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;padding:4px 10px}
-  .product-info{padding:18px 18px 0}
-  .product-collection{font-family:var(--sans);font-size:0.55rem;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
-  .product-name{font-family:var(--sans);font-size:0.72rem;font-weight:400;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal);line-height:1.45;margin-bottom:8px;transition:color 0.45s var(--ease-luxury)}
+  .product-info{padding:24px 6px 0;text-align:center}
+  .product-collection{font-family:var(--sans);font-size:0.5rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:9px;opacity:0.9}
+  .product-name{font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--charcoal);line-height:1.45;margin-bottom:10px;transition:color 0.45s var(--ease-luxury)}
   .product-card:hover .product-name{color:var(--gold)}
-  .product-price{font-family:var(--serif);font-size:1rem;font-weight:300;color:var(--charcoal)}
-  .product-price-sym{font-family:var(--sans);font-size:0.65rem;font-weight:300;color:var(--grey)}
+  .product-price{font-family:var(--serif);font-size:1.12rem;font-weight:400;color:var(--charcoal)}
+  .product-price-sym{font-family:var(--sans);font-size:0.66rem;font-weight:300;color:var(--grey)}
 
-  /* COLLECTIONS TILES */
-  .collections-tiles{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--stone)}
-  .collection-tile{position:relative;overflow:hidden;cursor:pointer;aspect-ratio:3/4;background:var(--charcoal);text-decoration:none;display:block}
-  .collection-tile-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.4s var(--ease-luxury);opacity:0.85}
-  .collection-tile:hover .collection-tile-img{transform:scale(1.07);opacity:1}
-  .collection-tile-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(11,9,7,0.85) 0%,rgba(11,9,7,0.18) 55%,transparent 100%)}
-  .collection-tile-label{position:absolute;bottom:0;left:0;right:0;padding:18px 14px}
-  .collection-tile-season{font-family:var(--sans);font-size:0.47rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:5px}
-  .collection-tile-name{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;line-height:1.45;color:white}
-  .collection-tile.new-coll::after{content:'NEW';position:absolute;top:12px;left:12px;background:var(--gold);color:white;font-family:var(--sans);font-size:0.46rem;font-weight:500;letter-spacing:0.14em;padding:3px 8px;z-index:2}
-  .collection-tile.active-coll{outline:2.5px solid var(--gold);outline-offset:-3px}
-  .active-filter-band{padding:18px 64px;background:var(--ivory-sub);border-bottom:0.5px solid var(--stone);display:none;align-items:center;gap:16px}
-  .active-filter-band.visible{display:flex}
-  .active-filter-label{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--charcoal)}
-  .active-filter-clear{font-family:var(--sans);font-size:0.58rem;font-weight:400;letter-spacing:0.1em;color:var(--gold);cursor:pointer;background:none;border:none;padding:0;transition:opacity 0.3s}
-  .active-filter-clear:hover{opacity:0.7}
-  @media(max-width:1100px){.collections-tiles{grid-template-columns:repeat(4,1fr)}}
-  @media(max-width:800px){.collections-tiles{grid-template-columns:repeat(3,1fr)}.active-filter-band{padding:14px 24px}}
-  @media(max-width:520px){.collections-tiles{grid-template-columns:repeat(2,1fr)}}
+  /* TABLET / MOBILE GRID */
+  @media(max-width:1100px){.product-grid{grid-template-columns:repeat(3,1fr);gap:52px 28px}}
 
   /* EMPTY STATE */
   .empty-state{display:none;text-align:center;padding:80px 40px;color:var(--grey)}
@@ -187,13 +180,13 @@
   .footer-socials a:hover{color:var(--ivory)}
 
   @media(max-width:900px){
-    .product-grid{grid-template-columns:repeat(2,1fr)}
-    .product-card:nth-child(4n){border-right:0.5px solid var(--stone)}
-    .product-card:nth-child(2n){border-right:none}
-    .toolbar{height:56px;padding:0 24px;top:64px}
+    .product-grid{grid-template-columns:repeat(2,1fr);gap:40px 20px}
+    .toolbar{padding:18px 24px;top:64px}
     .vs-sort-btn .lbl{display:none}
-    .product-grid-wrap{padding:24px 16px 60px}
-    .collection-header{padding:40px 24px 24px}
+    .product-grid-wrap{padding:40px 24px 70px}
+    .collection-header{padding:52px 24px 4px}
+    .collection-tabs-wrap{padding:32px 20px 0}
+    .collection-tabs{gap:0 22px}
     nav.breadcrumb{padding:12px 24px;margin-top:64px}
   }
   @media(max-width:768px){
@@ -336,127 +329,24 @@
 
 <!-- COLLECTION HEADER -->
 <div class="collection-header">
-  <h1 class="collection-title">All Collections</h1>
-  <p class="collection-sub">Paris Haute Couture · Handwoven Textiles · Indian Craft Heritage · 2021 – 2026</p>
+  <p class="collection-eyebrow">Maison Vaishali S</p>
+  <h1 class="collection-title">The Couture Collections</h1>
+  <p class="collection-sub">Handwoven on the loom, presented on the Paris Haute Couture calendar. Explore the maison by season.</p>
 </div>
 
-<!-- COLLECTIONS TILES -->
-<div class="collections-tiles" id="collectionsTiles">
-
-  <a class="collection-tile new-coll" data-filter="anahata" href="collection-detail.html?c=anahata">
-    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/SAT09.jpg?v=1721300228&width=600" alt="Anahata Bridal 2026" onerror="this.style.display='none'">
-    <div class="collection-tile-overlay"></div>
-    <div class="collection-tile-label">
-      <div class="collection-tile-season">New In 2026 · White Bridal</div>
-      <div class="collection-tile-name">Anahata<br>BBFW Showcase</div>
-    </div>
-  </a>
-
-  <a class="collection-tile new-coll" data-filter="festive-menswear" href="collection-detail.html?c=festive-menswear">
-    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/DSC_4066_1.jpg?v=1730959242&width=600" alt="Festive Menswear 2025" onerror="this.style.display='none'">
-    <div class="collection-tile-overlay"></div>
-    <div class="collection-tile-label">
-      <div class="collection-tile-season">New In 2025 F/W · Menswear</div>
-      <div class="collection-tile-name">Festive Menswear<br>Showcase</div>
-    </div>
-  </a>
-
-  <a class="collection-tile new-coll" data-filter="kintsugi-pret" href="collection-detail.html?c=kintsugi-pret">
-    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/IMG_4201.jpg?v=1721305390&width=600" alt="Kintsugi Pret 2025" onerror="this.style.display='none'">
-    <div class="collection-tile-overlay"></div>
-    <div class="collection-tile-label">
-      <div class="collection-tile-season">2025 F/W · Kintsugi</div>
-      <div class="collection-tile-name">Kintsugi<br>Prêt-à-Porter Line</div>
-    </div>
-  </a>
-
-  <a class="collection-tile new-coll" data-filter="naad-bridal" href="collection-detail.html?c=naad-bridal">
-    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/SAT65.jpg?v=1721307756&width=600" alt="Naad Bridal 2025" onerror="this.style.display='none'">
-    <div class="collection-tile-overlay"></div>
-    <div class="collection-tile-label">
-      <div class="collection-tile-season">2025 Bridal · Naad Couture</div>
-      <div class="collection-tile-name">Naad<br>Couture Showcase</div>
-    </div>
-  </a>
-
-  <a class="collection-tile" data-filter="kintsugi" href="collection-detail.html?c=kintsugi">
-    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/VS_L2_i2copy2.jpg?v=1753797090&width=600" alt="Kintsugi Paris 2025" onerror="this.style.display='none'">
-    <div class="collection-tile-overlay"></div>
-    <div class="collection-tile-label">
-      <div class="collection-tile-season">2025 F/W · Kintsugi</div>
-      <div class="collection-tile-name">Kintsugi<br>Paris Haute Couture Week</div>
-    </div>
-  </a>
-
-  <a class="collection-tile" data-filter="padma-bridal" href="collection-detail.html?c=padma-bridal">
-    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/IMG_7953_1.jpg?v=1742817036&width=600" alt="Padma Bridal 2024" onerror="this.style.display='none'">
-    <div class="collection-tile-overlay"></div>
-    <div class="collection-tile-label">
-      <div class="collection-tile-season">2024 Bridal · Padma Couture</div>
-      <div class="collection-tile-name">Padma Couture<br>Collection — Jaipur</div>
-    </div>
-  </a>
-
-  <a class="collection-tile" data-filter="satori" href="collection-detail.html?c=satori">
-    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/SAT09.jpg?v=1721300228&width=600" alt="Satori Paris 2024" onerror="this.style.display='none'">
-    <div class="collection-tile-overlay"></div>
-    <div class="collection-tile-label">
-      <div class="collection-tile-season">2024 F/W · Satori</div>
-      <div class="collection-tile-name">Satori<br>Paris Haute-Couture Week</div>
-    </div>
-  </a>
-
-  <a class="collection-tile" data-filter="i-am-nature" href="collection-detail.html?c=i-am-nature">
-    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/IMG_7953_1.jpg?v=1742817036&width=600" alt="I Am Nature 2024" onerror="this.style.display='none'">
-    <div class="collection-tile-overlay"></div>
-    <div class="collection-tile-label">
-      <div class="collection-tile-season">2024 S/S · I Am Nature</div>
-      <div class="collection-tile-name">I Am Nature<br>Paris Haute Couture Week</div>
-    </div>
-  </a>
-
-  <a class="collection-tile" data-filter="abyss" href="collection-detail.html?c=abyss">
-    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/IMG_8543.jpg?v=1724929953&width=600" alt="Abyss Paris 2023" onerror="this.style.display='none'">
-    <div class="collection-tile-overlay"></div>
-    <div class="collection-tile-label">
-      <div class="collection-tile-season">2023 S/S · Abyss</div>
-      <div class="collection-tile-name">Abyss<br>Paris Haute-Couture Week</div>
-    </div>
-  </a>
-
-  <a class="collection-tile" data-filter="ancestral-threads" href="collection-detail.html?c=ancestral-threads">
-    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/SAT23.jpg?v=1721305009&width=600" alt="Ancestral Threads 2023" onerror="this.style.display='none'">
-    <div class="collection-tile-overlay"></div>
-    <div class="collection-tile-label">
-      <div class="collection-tile-season">2023 S/S · Ready to Wear</div>
-      <div class="collection-tile-name">Ancestral Threads<br>Milan Ready to Wear</div>
-    </div>
-  </a>
-
-  <a class="collection-tile" data-filter="rutwa" href="collection-detail.html?c=rutwa">
-    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/SAT65.jpg?v=1721307756&width=600" alt="Rutwa Paris 2022" onerror="this.style.display='none'">
-    <div class="collection-tile-overlay"></div>
-    <div class="collection-tile-label">
-      <div class="collection-tile-season">2022 F/W · Rutwa</div>
-      <div class="collection-tile-name">Rutwa<br>Paris Haute-Couture Week</div>
-    </div>
-  </a>
-
-  <a class="collection-tile" data-filter="breath" href="collection-detail.html?c=breath">
-    <img class="collection-tile-img" src="https://www.vaishali-s.com/cdn/shop/files/IMG_4201.jpg?v=1721305390&width=600" alt="Breath Paris 2021" onerror="this.style.display='none'">
-    <div class="collection-tile-overlay"></div>
-    <div class="collection-tile-label">
-      <div class="collection-tile-season">2021 F/W · Breath</div>
-      <div class="collection-tile-name">Breath<br>Paris Haute-Couture</div>
-    </div>
-  </a>
-
-</div>
-
-<!-- ACTIVE FILTER BAND -->
-<div class="active-filter-band" id="activeFilterBand">
-  <span class="active-filter-label" id="activeFilterLabel"></span>
-  <button class="active-filter-clear" onclick="clearTileFilter()">Clear ×</button>
+<!-- COLLECTION TABS -->
+<div class="collection-tabs-wrap">
+  <div class="collection-tabs" id="collectionTabs">
+    <button class="coll-tab active" data-filter="all" onclick="filterByTab('all',this)">All</button>
+    <button class="coll-tab" data-filter="anahata" onclick="filterByTab('anahata',this)">Anahata Bridal</button>
+    <button class="coll-tab" data-filter="kintsugi-pret" onclick="filterByTab('kintsugi-pret',this)">Kintsugi Prêt</button>
+    <button class="coll-tab" data-filter="kintsugi" onclick="filterByTab('kintsugi',this)">Kintsugi Paris</button>
+    <button class="coll-tab" data-filter="naad-bridal" onclick="filterByTab('naad-bridal',this)">Naad Bridal</button>
+    <button class="coll-tab" data-filter="satori" onclick="filterByTab('satori',this)">Satori</button>
+    <button class="coll-tab" data-filter="i-am-nature" onclick="filterByTab('i-am-nature',this)">I Am Nature</button>
+    <button class="coll-tab" data-filter="abyss" onclick="filterByTab('abyss',this)">Abyss</button>
+    <button class="coll-tab" data-filter="ancestral-threads" onclick="filterByTab('ancestral-threads',this)">Ancestral Threads</button>
+  </div>
 </div>
 
 <!-- TOOLBAR -->
@@ -906,26 +796,13 @@
     document.getElementById('scrollProgress').style.width=pct+'%';
   },{passive:true});
 
-  /* ── FILTER & SORT ────────────────────────────────── */
+  /* ── COLLECTION TABS (filter) ─────────────────────── */
   let activeFilter='all';
 
-  function tileFilter(collection, label, tile){
-    activeFilter=collection;
-    /* highlight tile */
-    document.querySelectorAll('.collection-tile').forEach(t=>t.classList.remove('active-coll'));
-    tile.classList.add('active-coll');
-    /* show active band */
-    document.getElementById('activeFilterLabel').textContent=label;
-    document.getElementById('activeFilterBand').classList.add('visible');
-    /* scroll to products */
-    document.getElementById('productsSection').scrollIntoView({behavior:'smooth',block:'start'});
-    renderGrid();
-  }
-
-  function clearTileFilter(){
-    activeFilter='all';
-    document.querySelectorAll('.collection-tile').forEach(t=>t.classList.remove('active-coll'));
-    document.getElementById('activeFilterBand').classList.remove('visible');
+  function filterByTab(filter, btn){
+    activeFilter=filter;
+    document.querySelectorAll('.coll-tab').forEach(t=>t.classList.remove('active'));
+    btn.classList.add('active');
     renderGrid();
   }
 
