@@ -97,18 +97,23 @@
   .collection-sub{font-family:var(--sans);font-size:0.7rem;font-weight:300;color:var(--grey);letter-spacing:0.1em}
 
   /* TOOLBAR */
-  .toolbar{padding:18px 64px;background:var(--ivory);border-bottom:0.5px solid var(--stone);display:flex;align-items:center;justify-content:flex-end;gap:24px;position:sticky;top:73px;z-index:50}
-  .filter-pills{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-  .filter-pill{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;padding:7px 16px;border:0.5px solid var(--stone);color:var(--grey);background:transparent;cursor:pointer;transition:all 0.25s;white-space:nowrap}
-  .filter-pill:hover{border-color:var(--charcoal);color:var(--charcoal)}
-  .filter-pill.active{background:var(--charcoal);color:var(--ivory);border-color:var(--charcoal)}
-  .toolbar-right{display:flex;align-items:center;gap:20px;flex-shrink:0}
-  .product-count{font-family:var(--sans);font-size:0.62rem;font-weight:300;color:var(--grey);letter-spacing:0.1em;white-space:nowrap}
-  .sort-wrap{position:relative}
-  .sort-label{font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--grey);margin-right:4px}
-  .sort-select{appearance:none;-webkit-appearance:none;background:var(--ivory);border:0.5px solid var(--stone);padding:8px 32px 8px 14px;font-family:var(--sans);font-size:0.65rem;font-weight:400;letter-spacing:0.1em;color:var(--charcoal);cursor:pointer;outline:none;transition:border-color 0.2s;min-width:180px}
-  .sort-select:focus{border-color:var(--charcoal)}
-  .sort-chevron{position:absolute;right:10px;top:50%;transform:translateY(-50%);pointer-events:none;stroke:var(--grey);stroke-width:1.5;fill:none}
+  .toolbar{height:64px;padding:0 64px;background:var(--charcoal);display:flex;align-items:center;justify-content:space-between;position:sticky;top:73px;z-index:50}
+  .tb-count{font-family:var(--sans);font-size:0.62rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:rgba(244,238,227,0.82)}
+  .tb-count b{color:var(--gold);font-weight:600}
+  /* custom sort dropdown */
+  .vs-sort{position:relative;height:100%}
+  .vs-sort-btn{display:flex;align-items:center;gap:13px;height:100%;background:none;border:none;cursor:pointer;font-family:var(--sans)}
+  .vs-sort-btn .lbl{font-size:0.55rem;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:rgba(244,238,227,0.45)}
+  .vs-sort-btn .cur{font-size:0.64rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:var(--ivory);min-width:118px;text-align:left}
+  .vs-sort-btn .chev{width:10px;height:6px;stroke:var(--gold);stroke-width:1.6;fill:none;transition:transform 0.4s var(--ease-luxury);flex-shrink:0}
+  .vs-sort.open .vs-sort-btn .chev{transform:rotate(180deg)}
+  .vs-sort-menu{position:absolute;top:calc(100% - 2px);right:0;min-width:262px;background:var(--ivory);border:0.5px solid var(--stone);box-shadow:0 28px 64px -22px rgba(11,9,7,0.55);opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity 0.4s var(--ease-luxury),transform 0.4s var(--ease-luxury),visibility 0.4s;z-index:60;padding:10px 0}
+  .vs-sort.open .vs-sort-menu{opacity:1;visibility:visible;transform:translateY(0)}
+  .vs-sort-opt{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;background:none;border:none;cursor:pointer;text-align:left;padding:13px 24px;font-family:var(--sans);font-size:0.63rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:var(--grey);transition:color 0.25s,background 0.25s,padding-left 0.3s var(--ease-luxury)}
+  .vs-sort-opt:hover{color:var(--charcoal);background:var(--ivory-sub);padding-left:30px}
+  .vs-sort-opt.active{color:var(--charcoal)}
+  .vs-sort-opt::after{content:"";width:5px;height:5px;border-radius:50%;background:transparent;flex-shrink:0;transition:background 0.25s}
+  .vs-sort-opt.active::after{background:var(--gold)}
 
   /* PRODUCT GRID */
   .product-grid-wrap{padding:40px 64px 80px}
@@ -185,7 +190,8 @@
     .product-grid{grid-template-columns:repeat(2,1fr)}
     .product-card:nth-child(4n){border-right:0.5px solid var(--stone)}
     .product-card:nth-child(2n){border-right:none}
-    .toolbar{padding:14px 24px;flex-direction:column;align-items:flex-start;gap:12px;top:64px}
+    .toolbar{height:56px;padding:0 24px;top:64px}
+    .vs-sort-btn .lbl{display:none}
     .product-grid-wrap{padding:24px 16px 60px}
     .collection-header{padding:40px 24px 24px}
     nav.breadcrumb{padding:12px 24px;margin-top:64px}
@@ -455,20 +461,22 @@
 
 <!-- TOOLBAR -->
 <div class="toolbar" id="productsSection">
-  <div class="toolbar-right">
-    <span class="product-count" id="productCount">24 products</span>
-    <div class="sort-wrap">
-      <select class="sort-select" id="sortSelect" onchange="renderGrid()" aria-label="Sort products">
-        <option value="featured">Featured</option>
-        <option value="best-selling">Best Selling</option>
-        <option value="az">Alphabetically, A-Z</option>
-        <option value="za">Alphabetically, Z-A</option>
-        <option value="price-asc">Price, Low to High</option>
-        <option value="price-desc">Price, High to Low</option>
-        <option value="date-old">Date, Old to New</option>
-        <option value="date-new">Date, New to Old</option>
-      </select>
-      <svg class="sort-chevron" width="10" height="6" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1 L5 5 L9 1"/></svg>
+  <span class="tb-count" id="productCount"><b>24</b> Pieces</span>
+  <div class="vs-sort" id="vsSort">
+    <button class="vs-sort-btn" onclick="toggleSort(event)" aria-label="Sort products">
+      <span class="lbl">Sort by</span>
+      <span class="cur" id="sortCurrent">Featured</span>
+      <svg class="chev" viewBox="0 0 10 6" aria-hidden="true"><path d="M1 1 L5 5 L9 1"/></svg>
+    </button>
+    <div class="vs-sort-menu" role="listbox">
+      <button class="vs-sort-opt active" data-val="featured" onclick="pickSort(this)">Featured</button>
+      <button class="vs-sort-opt" data-val="best-selling" onclick="pickSort(this)">Best Selling</button>
+      <button class="vs-sort-opt" data-val="az" onclick="pickSort(this)">Alphabetically, A–Z</button>
+      <button class="vs-sort-opt" data-val="za" onclick="pickSort(this)">Alphabetically, Z–A</button>
+      <button class="vs-sort-opt" data-val="price-asc" onclick="pickSort(this)">Price, Low to High</button>
+      <button class="vs-sort-opt" data-val="price-desc" onclick="pickSort(this)">Price, High to Low</button>
+      <button class="vs-sort-opt" data-val="date-old" onclick="pickSort(this)">Date, Old to New</button>
+      <button class="vs-sort-opt" data-val="date-new" onclick="pickSort(this)">Date, New to Old</button>
     </div>
   </div>
 </div>
@@ -921,10 +929,23 @@
     renderGrid();
   }
 
+  /* ── CUSTOM SORT DROPDOWN ─────────────────────────── */
+  let sortValue='featured';
+  function toggleSort(e){e.stopPropagation();document.getElementById('vsSort').classList.toggle('open');}
+  function pickSort(btn){
+    sortValue=btn.dataset.val;
+    document.querySelectorAll('.vs-sort-opt').forEach(o=>o.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('sortCurrent').textContent=btn.textContent.trim();
+    document.getElementById('vsSort').classList.remove('open');
+    renderGrid();
+  }
+  document.addEventListener('click',()=>{const s=document.getElementById('vsSort');if(s)s.classList.remove('open');});
+
   function renderGrid(){
     const grid=document.getElementById('productGrid');
     const cards=Array.from(grid.querySelectorAll('.product-card'));
-    const sort=document.getElementById('sortSelect').value;
+    const sort=sortValue;
 
     let visible=cards.filter(c=>{
       if(activeFilter==='all')return true;
@@ -954,7 +975,7 @@
       visible.slice(lastRowStart).forEach(c=>c.classList.add('no-border-bottom'));
     }
 
-    document.getElementById('productCount').textContent=visible.length+' product'+(visible.length===1?'':'s');
+    document.getElementById('productCount').innerHTML='<b>'+visible.length+'</b> '+(visible.length===1?'Piece':'Pieces');
     document.getElementById('emptyState').classList.toggle('visible',visible.length===0);
   }
 
