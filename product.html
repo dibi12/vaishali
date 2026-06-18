@@ -157,15 +157,24 @@
   .pdp-related-head{text-align:center;margin-bottom:48px}
   .pdp-related-eyebrow{font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
   .pdp-related-title{font-family:var(--serif);font-size:clamp(1.6rem,3vw,2.4rem);font-weight:300;color:var(--charcoal)}
-  .related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:0.5px solid var(--stone);border-left:0.5px solid var(--stone)}
-  .related-card{cursor:pointer;border-right:0.5px solid var(--stone);border-bottom:0.5px solid var(--stone);background:white;transition:background 0.3s;text-decoration:none;display:block}
-  .related-card:hover{background:white}
-  .related-img{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--champagne)}
-  .related-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s var(--ease-luxury)}
-  .related-card:hover .related-img img{transform:scale(1.05)}
-  .related-info{padding:18px}
-  .related-name{font-family:var(--sans);font-size:0.66rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:var(--charcoal);margin-bottom:6px;line-height:1.4}
-  .related-price{font-family:var(--serif);font-size:0.95rem;font-weight:300;color:var(--charcoal)}
+  .related-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px 30px}
+  .related-card{cursor:pointer;background:transparent;text-decoration:none;display:block;transition:transform 0.75s var(--ease-luxury);will-change:transform}
+  .related-card:hover{transform:translateY(-10px)}
+  .related-img{position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--champagne);transition:box-shadow 0.75s var(--ease-luxury)}
+  .related-card:hover .related-img{box-shadow:0 36px 64px -32px rgba(26,23,18,0.45)}
+  .related-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform 2.1s var(--ease-luxury),opacity 1s var(--ease-luxury);backface-visibility:hidden}
+  .related-img .related-img-2{opacity:0}
+  .related-card:hover .related-img img{transform:scale(1.08)}
+  .related-card.has-alt:hover .related-img-1{opacity:0}
+  .related-card.has-alt:hover .related-img-2{opacity:1}
+  .related-img::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(to top,rgba(11,9,7,0.46) 0%,rgba(11,9,7,0.05) 44%,transparent 72%);opacity:0;transition:opacity 0.75s var(--ease-luxury)}
+  .related-card:hover .related-img::after{opacity:1}
+  .related-quick{position:absolute;left:14px;right:14px;bottom:14px;z-index:3;background:rgba(244,238,227,0.96);color:var(--charcoal);font-family:var(--sans);font-size:0.52rem;font-weight:600;letter-spacing:0.26em;text-transform:uppercase;text-align:center;padding:12px;opacity:0;transform:translateY(16px);transition:opacity 0.55s var(--ease-luxury),transform 0.55s var(--ease-luxury);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px)}
+  .related-card:hover .related-quick{opacity:1;transform:translateY(0)}
+  .related-info{padding:20px 6px 0;text-align:center}
+  .related-name{font-family:var(--sans);font-size:0.64rem;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;color:var(--charcoal);margin-bottom:8px;line-height:1.45;transition:color 0.45s var(--ease-luxury)}
+  .related-card:hover .related-name{color:var(--gold)}
+  .related-price{font-family:var(--serif);font-size:1.05rem;font-weight:400;color:var(--charcoal)}
 
   /* CART DRAWER */
   .cart-scrim{position:fixed;inset:0;background:rgba(11,9,7,0.5);z-index:799;opacity:0;pointer-events:none;transition:opacity 0.5s}
@@ -739,14 +748,21 @@ document.addEventListener('DOMContentLoaded', () => {
     .filter(([slug, prod]) => prod.collection === p.collection && slug !== id)
     .slice(0, 4);
   const grid = document.getElementById('relatedGrid');
-  grid.innerHTML = related.map(([slug, prod]) => `
-    <a class="related-card" href="product.html?p=${slug}">
-      <div class="related-img"><img src="${prod.img}" alt="${prod.name}" loading="lazy" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'"></div>
+  grid.innerHTML = related.map(([slug, prod]) => {
+    const alt = prod.img2 ? `<img class="related-img-2" src="${prod.img2}" alt="" onerror="this.style.display='none'">` : '';
+    return `
+    <a class="related-card${prod.img2 ? ' has-alt' : ''}" href="product.html?p=${slug}">
+      <div class="related-img">
+        <img class="related-img-1" src="${prod.img}" alt="${prod.name}" loading="lazy" onerror="this.parentElement.style.background='var(--charcoal)';this.style.display='none'">
+        ${alt}
+        <div class="related-quick">View Product</div>
+      </div>
       <div class="related-info">
         <p class="related-name">${prod.name}</p>
         <p class="related-price" data-price="${prod.price}">${fmtMoney(prod.price)}</p>
       </div>
-    </a>`).join('');
+    </a>`;
+  }).join('');
   if(!related.length){ document.querySelector('.pdp-related').style.display = 'none'; }
 
   // open first accordion height
