@@ -172,7 +172,7 @@
   }
   .hero-img-placeholder{
     position:absolute;inset:0;
-    background:linear-gradient(160deg,#16140f 0%,#211d18 50%,#16140f 100%);
+    background:linear-gradient(160deg,#ECE3D4 0%,#D9C9B0 55%,#C2AE8E 100%);
   }
   @keyframes heroReveal{
     to{opacity:1;transform:scale(1)}
@@ -415,7 +415,7 @@
   }
 
   /* ── CRAFTSMANSHIP ───────────────────────────────────────── */
-  .craft{background:var(--charcoal)}
+  .craft{background:#2b2118}
   .craft .section-inner{padding:0 96px}
   .craft-header{
     display:flex;
@@ -697,66 +697,56 @@
 
   /* ── CELEBRITY ARCHIVE ───────────────────────────────────── */
   .celebrity-wrap{
-    padding:0;
-    overflow:hidden;
+    padding:104px 64px 110px;
+    background:#fff;
+    text-align:center;
   }
-  .celebrity-header{
-    padding:100px 96px 60px;
-  }
+  .celebrity-header{margin-bottom:48px}
+  .celebrity-eyebrow{font-family:var(--sans);font-size:0.58rem;font-weight:500;letter-spacing:0.34em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
   .celebrity-title{
     font-family:var(--serif);
-    font-size:clamp(2rem,3.5vw,3.5rem);
+    font-size:clamp(2rem,3.6vw,3rem);
     font-weight:300;
-    font-style:italic;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
     color:var(--charcoal);
+    margin-bottom:34px;
   }
+  .celebrity-viewall{
+    display:inline-flex;align-items:center;
+    font-family:var(--sans);font-size:0.6rem;font-weight:500;letter-spacing:0.24em;text-transform:uppercase;
+    color:var(--charcoal);text-decoration:none;
+    border:0.5px solid var(--charcoal);padding:13px 38px;transition:all 0.35s;
+  }
+  .celebrity-viewall:hover{background:var(--charcoal);color:var(--ivory)}
   .celebrity-grid{
     display:grid;
-    grid-template-columns:repeat(5,1fr);
-    gap:3px;
+    grid-template-columns:repeat(4,1fr);
+    gap:48px 30px;
+    max-width:1280px;margin:0 auto;
   }
   .celeb-item{
-    position:relative;
-    overflow:hidden;
-    background:var(--stone);
+    display:block;text-decoration:none;color:inherit;cursor:pointer;
+    transition:transform 0.7s var(--ease-luxury);
   }
-  .celeb-item:nth-child(1){grid-row:1/3}
-  .celeb-item:nth-child(4){grid-row:1/3}
+  .celeb-item:hover{transform:translateY(-9px)}
+  .celeb-img-wrap{position:relative;overflow:hidden;background:var(--champagne);aspect-ratio:3/4;margin-bottom:22px;transition:box-shadow 0.7s var(--ease-luxury)}
+  .celeb-item:hover .celeb-img-wrap{box-shadow:0 32px 58px -30px rgba(26,23,18,0.42)}
   .celeb-img{
-    width:100%;
-    aspect-ratio:2/3;
-    object-fit:cover;
-    display:block;
-    transition:transform 1.2s var(--ease-luxury);
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;display:block;
+    transition:transform 1.9s var(--ease-luxury);
   }
-  .celeb-item:nth-child(1) .celeb-img,
-  .celeb-item:nth-child(4) .celeb-img{
-    height:100%;aspect-ratio:unset;
-  }
-  .celeb-item:hover .celeb-img{transform:scale(1.04)}
-  .celeb-info{
-    position:absolute;bottom:0;left:0;right:0;
-    padding:24px 20px;
-    background:linear-gradient(to top,rgba(10,10,10,0.7),transparent);
-    opacity:0;
-    transform:translateY(4px);
-    transition:opacity 0.4s,transform 0.4s var(--ease-luxury);
-  }
-  .celeb-item:hover .celeb-info{opacity:1;transform:translateY(0)}
+  .celeb-item:hover .celeb-img{transform:scale(1.07)}
   .celeb-name{
-    font-family:var(--serif);
-    font-size:1rem;
-    font-weight:400;
-    color:#fff;
-  }
-  .celeb-event{
     font-family:var(--sans);
-    font-size:0.6rem;
-    font-weight:400;
-    letter-spacing:0.15em;
-    text-transform:uppercase;
-    color:rgba(255,255,255,0.5);
+    font-size:0.66rem;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--charcoal);line-height:1.5;margin-bottom:9px;
+    transition:color 0.4s;
   }
+  .celeb-item:hover .celeb-name{color:var(--gold)}
+  .celeb-price{font-family:var(--serif);font-size:1.05rem;font-weight:400;color:var(--charcoal)}
+  .celeb-price-sym{font-family:var(--sans);font-size:0.62rem;font-weight:300;color:var(--grey)}
 
   /* ── FLAGSHIP DESTINATIONS ───────────────────────────────── */
   .flagship-grid{
@@ -1132,8 +1122,8 @@
     .exhibit-card{border-right:none;border-bottom:0.5px solid var(--stone)}
     .exhibit-card:last-child{border-bottom:none}
     .timeline-item{grid-template-columns:100px 1fr;gap:24px}
-    .celebrity-grid{grid-template-columns:repeat(3,1fr)}
-    .celeb-item:nth-child(1),.celeb-item:nth-child(4){grid-row:auto}
+    .celebrity-wrap{padding:72px 24px 80px}
+    .celebrity-grid{grid-template-columns:repeat(2,1fr);gap:36px 20px}
     .flagship-grid{grid-template-columns:1fr}
     .flagship-item{height:480px}
     .journal-grid{grid-template-columns:1fr}
@@ -2050,10 +2040,10 @@
   /* ── PAGE ENTRY CURTAIN ──────────────────────────────────── */
   .page-curtain{
     position:fixed;inset:0;
-    background:var(--muted-black);
+    background:var(--ivory);
     z-index:9999;
     pointer-events:none;
-    animation:curtainLift 1s var(--ease-luxury) 0.05s both;
+    animation:curtainLift 0.8s var(--ease-luxury) 0.05s both;
   }
   @keyframes curtainLift{
     0%{transform:translateY(0)}
@@ -2674,7 +2664,6 @@
           src="https://www.vaishali-s.com/cdn/shop/files/VS_L2_i2copy2.jpg?v=1753797090&width=1432"
           alt="Kintsugi Collection" loading="lazy"
           onerror="this.style.display='none'">
-        <img class="exhibit-card-img" style="position:absolute;inset:0" src="" alt="" aria-hidden="true">
       </div>
       <p class="exhibit-card-season" style="margin-top:28px">F/W 2025 — Paris</p>
       <h3 class="exhibit-card-name">Kintsugi</h3>
@@ -2752,74 +2741,46 @@
   </div>
 </div>
 
-<!-- TIER 08: CELEBRITY ARCHIVE -->
+<!-- TIER 08: CELEBRITIES IN VAISHALI S -->
 <div class="celebrity-wrap">
-  <div class="celebrity-header">
-    <h2 class="celebrity-title reveal">
-      Worn on the<br>world's stage.
-    </h2>
+  <div class="celebrity-header reveal">
+    <p class="celebrity-eyebrow">Worn on the World's Stage</p>
+    <h2 class="celebrity-title">Celebrities in Vaishali S</h2>
+    <a href="couture-collection.html" class="celebrity-viewall">View All</a>
   </div>
   <div class="celebrity-grid reveal">
-    <div class="celeb-item">
-      <div class="img-stub" style="height:500px">
-        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
-          src="https://www.vaishali-s.com/cdn/shop/products/338579601_1007654976886922_3359989117594359408_n.jpg?v=1722606528&width=1080"
-          alt="Celebrity in Vaishali S" loading="lazy"
-          onerror="this.style.display='none'">
+    <a class="celeb-item" href="couture-collection.html">
+      <div class="celeb-img-wrap">
+        <img class="celeb-img" src="https://www.vaishali-s.com/cdn/shop/products/338579601_1007654976886922_3359989117594359408_n.jpg?v=1722606528&width=900"
+          alt="Metallic Silk Silver Saree &amp; Bandeau Blouse" loading="lazy" onerror="this.parentElement.style.background='var(--champagne)';this.style.display='none'">
       </div>
-      <div class="celeb-info">
-        <div class="celeb-name">Hanna Khan</div>
-        <div class="celeb-event">Couture</div>
+      <p class="celeb-name">Metallic Silk Silver Saree &amp; Bandeau Blouse</p>
+      <p class="celeb-price"><span class="celeb-price-sym">from Rs. </span>86,500.00</p>
+    </a>
+    <a class="celeb-item" href="couture-collection.html">
+      <div class="celeb-img-wrap">
+        <img class="celeb-img" src="https://www.vaishali-s.com/cdn/shop/files/Snapinsta.app_349056187_1005242213976279_1797461544541384154_n_1080.jpg?v=1721303443&width=900"
+          alt="Contrast Corded Silk Saree" loading="lazy" onerror="this.parentElement.style.background='var(--champagne)';this.style.display='none'">
       </div>
-    </div>
-    <div class="celeb-item">
-      <div class="img-stub" style="aspect-ratio:2/3">
-        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
-          src="https://www.vaishali-s.com/cdn/shop/files/Snapinsta.app_349056187_1005242213976279_1797461544541384154_n_1080.jpg?v=1721303443&width=1080"
-          alt="Celebrity in Vaishali S" loading="lazy"
-          onerror="this.style.display='none'">
+      <p class="celeb-name">Contrast Corded Silk Saree</p>
+      <p class="celeb-price"><span class="celeb-price-sym">Rs. </span>102,500.00</p>
+    </a>
+    <a class="celeb-item" href="couture-collection.html">
+      <div class="celeb-img-wrap">
+        <img class="celeb-img" src="https://www.vaishali-s.com/cdn/shop/files/DF1F47C4-0DA2-41D0-9F62-81B550CAD1EC.jpg?v=1720790178&width=900"
+          alt="Metallic Green Saree with Blouse" loading="lazy" onerror="this.parentElement.style.background='var(--champagne)';this.style.display='none'">
       </div>
-      <div class="celeb-info">
-        <div class="celeb-name">Genelia Deshmukh</div>
-        <div class="celeb-event">Editorial</div>
+      <p class="celeb-name">Metallic Green Saree with Blouse</p>
+      <p class="celeb-price"><span class="celeb-price-sym">from Rs. </span>83,000.00</p>
+    </a>
+    <a class="celeb-item" href="couture-collection.html">
+      <div class="celeb-img-wrap">
+        <img class="celeb-img" src="https://www.vaishali-s.com/cdn/shop/files/Snapinsta.app_350727302_1959962171017717_2673830937052789318_n_1080.jpg?v=1721308299&width=900"
+          alt="Metallic Silk Purple Saree" loading="lazy" onerror="this.parentElement.style.background='var(--champagne)';this.style.display='none'">
       </div>
-    </div>
-    <div class="celeb-item">
-      <div class="img-stub" style="aspect-ratio:2/3">
-        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
-          src="https://www.vaishali-s.com/cdn/shop/files/DF1F47C4-0DA2-41D0-9F62-81B550CAD1EC.jpg?v=1720790178&width=1080"
-          alt="Celebrity in Vaishali S" loading="lazy"
-          onerror="this.style.display='none'">
-      </div>
-      <div class="celeb-info">
-        <div class="celeb-name">Style Icon</div>
-        <div class="celeb-event">Red Carpet</div>
-      </div>
-    </div>
-    <div class="celeb-item">
-      <div class="img-stub" style="height:500px">
-        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
-          src="https://www.vaishali-s.com/cdn/shop/files/Vaishali_X_Isvari06545.jpg?v=1756547409&width=2562"
-          alt="Celebrity in Vaishali S" loading="lazy"
-          onerror="this.style.display='none'">
-      </div>
-      <div class="celeb-info">
-        <div class="celeb-name">Isvari</div>
-        <div class="celeb-event">Campaign</div>
-      </div>
-    </div>
-    <div class="celeb-item">
-      <div class="img-stub" style="aspect-ratio:2/3">
-        <img style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0"
-          src="https://www.vaishali-s.com/cdn/shop/files/Snapinsta.app_350727302_1959962171017717_2673830937052789318_n_1080.jpg?v=1721308299&width=1080"
-          alt="Celebrity in Vaishali S" loading="lazy"
-          onerror="this.style.display='none'">
-      </div>
-      <div class="celeb-info">
-        <div class="celeb-name">Sanjana Sanghi</div>
-        <div class="celeb-event">Red Carpet</div>
-      </div>
-    </div>
+      <p class="celeb-name">Metallic Silk Purple Saree</p>
+      <p class="celeb-price"><span class="celeb-price-sym">Rs. </span>126,500.00</p>
+    </a>
   </div>
 </div>
 
