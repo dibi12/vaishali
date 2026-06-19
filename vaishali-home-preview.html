@@ -1146,14 +1146,16 @@
   .hero-reel{
     isolation:isolate;
   }
-  .hero-reel > img.hero-img,
   .hero-reel .hero-content{
     display:none;
+  }
+  .hero-reel > img.hero-img{
+    z-index:0;
   }
   .hero-reel-media{
     position:absolute;
     inset:0;
-    z-index:0;
+    z-index:1;
     overflow:hidden;
   }
   .hero-reel .hero-reel-img{
